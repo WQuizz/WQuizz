@@ -8,7 +8,7 @@ export default function DummyText(){
     
     useEffect(() => {
         fetch('http://localhost:5015/api/dummy')
-            .then(res => res.json())
+            .then(res => res.text())
             .then(r => setDummyText(r))
             .catch(err=>console.error(err))
     }, []);
