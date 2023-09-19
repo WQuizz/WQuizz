@@ -1,6 +1,7 @@
 import {React, useEffect} from 'react'
 import {useState} from "react";
-
+import ourLogo from '../Images/ourlogo.png';
+import '../Styles/homepage.css';
 
 
 export default function DummyText(){
@@ -15,9 +16,12 @@ export default function DummyText(){
 
     return(
         <>
-            <div>
-                {dummyText}
-            </div>
+        <div>
+            <img src={ourLogo}></img> 
+        </div>
+        <div className='dummy'>
+            {dummyText}
+        </div>
         </>
     )
 }
