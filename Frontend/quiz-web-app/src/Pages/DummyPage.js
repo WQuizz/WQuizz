@@ -1,10 +1,13 @@
 import DummyText from "../Components/DummyText"
+import "../Styles/homepage.css";
 
 export default function DummyPage(){
 
-    return(
-        <>
+return(
+       
+    <div className="Homepage">
         <DummyText/>
-        </>
+    </div>
+
     )
 }
