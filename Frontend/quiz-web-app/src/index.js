@@ -1,15 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import DummyPage from './Pages/DummyPage.js'
+import {BrowserRouter, createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
+import DummyPage from './Pages/DummyPage.jsx'
+import NavigationBar from './Components/NavigationBar';
+import Layout from './Pages/Layout';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <DummyPage/>
+    path: "/",
+    element: <Layout />,
+    errorElement: <Layout />,
+    
+    children: [
+      {
+        path: "/",
+        element: <DummyPage />,
+      }
+    ]
   }
-])
+]);
 
 
 
