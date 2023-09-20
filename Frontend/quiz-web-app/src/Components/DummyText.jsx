@@ -17,7 +17,7 @@ export default function DummyText(){
     return(
         <>
         <div>
-            <img src={ourLogo}></img> 
+            <img src={ourLogo} className='homeImage'></img> 
         </div>
         <div className='dummy'>
             {dummyText}
