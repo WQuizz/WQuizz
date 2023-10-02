@@ -23,9 +23,9 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t chris924/wquizz:latest .
-        working-directory: WQuizz
+        working-directory: Backend/QuizWebApp/QuizWebApp
 
       - name: Push Docker Image to DockerHub
         run: |
           docker push chris924/wquizz:latest
-        working-directory: WQuizz
+        working-directory: Backend/QuizWebApp/QuizWebApp
