@@ -1,3 +1,6 @@
+using QuizWebApp.DatabaseServices;
+using QuizWebApp.DatabaseServices.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
@@ -7,6 +10,10 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("*");
         });
 });
+builder.Services.AddDbContext<WQuizzDBContext>();
+builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
+builder.Services.AddTransient<IQuizRepository, QuizRepository>();
+builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
