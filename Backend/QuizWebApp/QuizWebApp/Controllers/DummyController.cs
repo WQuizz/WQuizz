@@ -54,12 +54,7 @@ public class DummyController : ControllerBase
         _quizRepository.Add(postQuiz);
         return Ok("Successfully Added new Quiz");
     }
-
-    private void UpdateQuiz(Quiz quiz)
-    {
-        _quizRepository.Update(quiz);
-    }
-
+    
     //Question related Http requests
     [HttpPost("AddQuestion")]
     public IActionResult AddQuestion(int quizId, string questionContent, int? timeLimit, string? questionImgUrl)
@@ -77,16 +72,10 @@ public class DummyController : ControllerBase
         _questionRepository.Add(postQuestion);
         //Updating quiz
         quiz.Questions.Add(postQuestion);
-        UpdateQuiz(quiz);
         return Ok("Successfully Added question");
     }
     
-    private void UpdateQuestion(Question question)
-    {
-        question.Quiz.Questions.Add(question);
-        _questionRepository.Update(question);
-        _quizRepository.Update(question.Quiz);
-    }
+
     
     //Answer related Http requests
     [HttpPost("AddAnswer")]
@@ -103,7 +92,6 @@ public class DummyController : ControllerBase
         _answerRepository.Add(postAnswer);
         //Updating question
         question.Answers.Add(postAnswer);
-        UpdateQuestion(question);
         return Ok("Successfully Added answer");
     }
 
@@ -124,7 +112,18 @@ public class DummyController : ControllerBase
             //Updating question
             question.Answers.Add(postAnswer);
         }
-        UpdateQuestion(question);
-        return Ok("Successfully Added answer");
+        return Ok("Successfully Added answers");
+    }
+
+    [HttpDelete("RemoveAnswerById")]
+    public IActionResult RemoveAnswerById(int id)
+    {
+        var answerToRemove = _answerRepository.GetById(id);
+        if (answerToRemove == null) return Ok("Answer by that id doesn't exist");
+        Console.WriteLine(answerToRemove.Question.Answers.Count);
+        //answerToRemove.Question.Answers.Remove(answerToRemove);
+        _answerRepository.Delete(answerToRemove);
+        Console.WriteLine(answerToRemove.Question.Answers.Count);
+        return Ok("Successfully removed answer");
     }
 }
