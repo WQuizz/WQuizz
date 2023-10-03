@@ -21,6 +21,12 @@ public class QuizRepository : IQuizRepository
         return _dbContext.Quizzes.Include(quiz => quiz.Questions).
             FirstOrDefault(quiz => quiz.QuizName == name);
     }
+    
+    public Quiz? GetById(int id)
+    {
+        return _dbContext.Quizzes.Include(quiz => quiz.Questions).
+            FirstOrDefault(quiz => quiz.Id == id);
+    }
 
     public void Add(Quiz quiz)
     {
