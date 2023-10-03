@@ -36,7 +36,7 @@ public class DummyController : ControllerBase
         var testGetByName = _quizRepository.GetByName(testQuiz.QuizName);
         return Ok(testGetByName.QuizName + " " + testGetByName.Id);
     }
-    
+    //Quiz related Http requests
     [HttpPost("AddQuiz")]
     public IActionResult AddQuiz(string quizName, string difficulty, string? thumbnailUrl)
     {
@@ -55,6 +55,12 @@ public class DummyController : ControllerBase
         return Ok("Successfully Added new Quiz");
     }
 
+    private void UpdateQuiz(Quiz quiz)
+    {
+        _quizRepository.Update(quiz);
+    }
+
+    //Question related Http requests
     [HttpPost("AddQuestion")]
     public IActionResult AddQuestion(int quizId, string questionContent, int? timeLimit, string? questionImgUrl)
     {
@@ -71,10 +77,18 @@ public class DummyController : ControllerBase
         _questionRepository.Add(postQuestion);
         //Updating quiz
         quiz.Questions.Add(postQuestion);
-        _quizRepository.Update(quiz);
+        UpdateQuiz(quiz);
         return Ok("Successfully Added question");
     }
     
+    private void UpdateQuestion(Question question)
+    {
+        question.Quiz.Questions.Add(question);
+        _questionRepository.Update(question);
+        _quizRepository.Update(question.Quiz);
+    }
+    
+    //Answer related Http requests
     [HttpPost("AddAnswer")]
     public IActionResult AddAnswer(int questionId, string answerContent, bool isCorrect)
     {
@@ -89,8 +103,28 @@ public class DummyController : ControllerBase
         _answerRepository.Add(postAnswer);
         //Updating question
         question.Answers.Add(postAnswer);
-        _questionRepository.Update(question);
+        UpdateQuestion(question);
         return Ok("Successfully Added answer");
     }
 
+    [HttpPost("AddMultipleAnswers")]
+    public IActionResult AddAnswers(int questionId, Tuple<string, bool>[] answers)
+    {
+        var question = _questionRepository.GetById(questionId);
+        if (question == null) return Ok("Question by that id doesn't exist");
+        foreach (var answer in answers)
+        {
+            var postAnswer = new Answer
+            {
+                Question = question,
+                AnswerContent = answer.Item1,
+                IsCorrect = answer.Item2
+            };
+            _answerRepository.Add(postAnswer);
+            //Updating question
+            question.Answers.Add(postAnswer);
+        }
+        UpdateQuestion(question);
+        return Ok("Successfully Added answer");
+    }
 }
