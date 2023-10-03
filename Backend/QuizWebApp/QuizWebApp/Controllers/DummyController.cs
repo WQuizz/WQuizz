@@ -36,6 +36,24 @@ public class DummyController : ControllerBase
         var testGetByName = _quizRepository.GetByName(testQuiz.QuizName);
         return Ok(testGetByName.QuizName + " " + testGetByName.Id);
     }
+    
+    [HttpPost("AddQuiz")]
+    public IActionResult AddQuiz(string quizName, string difficulty, string? thumbnailUrl)
+    {
+        
+        var difficultyEnum = Enum.TryParse(difficulty, true, out Difficulty parsed) ? parsed : Difficulty.Easy;
+        var postQuiz = new Quiz
+        {
+            QuizName = quizName,
+            Difficulty = difficultyEnum,
+            Popularity = 0,
+            Rating = 0,
+            IsApproved = false,
+            ThumbnailUrl = thumbnailUrl
+        };
+        _quizRepository.Add(postQuiz);
+        return Ok("Successfully Added new Quiz");
+    }
 
     [HttpPost("AddQuestion")]
     public IActionResult AddQuestion(int quizId, string questionContent, int? timeLimit, string? questionImgUrl)
