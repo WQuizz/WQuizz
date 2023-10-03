@@ -11,7 +11,15 @@ services:
   wquizz-db:
     image: mcr.microsoft.com/mssql/server
     environment:
-      SA_PASSWORD: "placeholder2023"
+      SA_PASSWORD: "P@ssword123"
       ACCEPT_EULA: Y
     ports:
       - "1433:1433"
+
+  wquizz-frontend:
+    image: dockerize-react:latest
+    build:
+      context: ../../../Frontend/quiz-web-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
