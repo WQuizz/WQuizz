@@ -75,6 +75,14 @@ public class DummyController : ControllerBase
         return Ok("Successfully Added question");
     }
     
+    [HttpDelete("RemoveQuestionById")]
+    public IActionResult RemoveQuestionById(int id)
+    {
+        var questionToRemove = _questionRepository.GetById(id);
+        if (questionToRemove == null) return Ok("Answer by that id doesn't exist");
+        _questionRepository.Delete(questionToRemove);
+        return Ok("Successfully removed question");
+    }
 
     
     //Answer related Http requests
@@ -120,10 +128,7 @@ public class DummyController : ControllerBase
     {
         var answerToRemove = _answerRepository.GetById(id);
         if (answerToRemove == null) return Ok("Answer by that id doesn't exist");
-        Console.WriteLine(answerToRemove.Question.Answers.Count);
-        //answerToRemove.Question.Answers.Remove(answerToRemove);
         _answerRepository.Delete(answerToRemove);
-        Console.WriteLine(answerToRemove.Question.Answers.Count);
         return Ok("Successfully removed answer");
     }
 }
