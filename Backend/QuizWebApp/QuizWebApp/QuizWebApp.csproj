@@ -18,8 +18,5 @@
 
 
 
-    <ItemGroup>
-      <Folder Include="DatabaseServices\Repositories\" />
-    </ItemGroup>
 
 </Project>
