@@ -1,12 +1,5 @@
 version: '3.8'
 services:
-  wquizz-app:
-    image: wquizz:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "9000:80"
 
   wquizz-db:
     image: mcr.microsoft.com/mssql/server
@@ -15,6 +8,18 @@ services:
       ACCEPT_EULA: Y
     ports:
       - "1433:1433"
+    
+  wquizz-app:
+    image: wquizz:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9000:80"
+    depends_on: 
+      - wquizz-db
+    environment:
+      ASPNETCORE_CONNECTIONSTRING: ${ASPNETCORE_CONNECTIONSTRING}
 
   wquizz-frontend:
     image: dockerize-react:latest
