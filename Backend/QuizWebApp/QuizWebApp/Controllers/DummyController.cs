@@ -55,6 +55,15 @@ public class DummyController : ControllerBase
         return Ok("Successfully Added new Quiz");
     }
     
+    [HttpDelete("RemoveQuizById")]
+    public IActionResult RemoveQuizById(int id)
+    {
+        var quizToRemove = _quizRepository.GetById(id);
+        if (quizToRemove == null) return Ok("Quiz by that id doesn't exist");
+        _quizRepository.Delete(quizToRemove);
+        return Ok("Successfully removed Quiz");
+    }
+    
     //Question related Http requests
     [HttpPost("AddQuestion")]
     public IActionResult AddQuestion(int quizId, string questionContent, int? timeLimit, string? questionImgUrl)
@@ -79,7 +88,7 @@ public class DummyController : ControllerBase
     public IActionResult RemoveQuestionById(int id)
     {
         var questionToRemove = _questionRepository.GetById(id);
-        if (questionToRemove == null) return Ok("Answer by that id doesn't exist");
+        if (questionToRemove == null) return Ok("Question by that id doesn't exist");
         _questionRepository.Delete(questionToRemove);
         return Ok("Successfully removed question");
     }
