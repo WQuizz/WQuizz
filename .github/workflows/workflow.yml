@@ -31,7 +31,8 @@ jobs:
 
       - name: Run Tests
         run: |
-          docker-compose exec wquizz-app-test dotnet test --verbosity detailed
+          docker-compose run wquizz-app-test dotnet test
+        working-directory: Backend/QuizWebApp/QuizWebApp
         env:
             ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
 
