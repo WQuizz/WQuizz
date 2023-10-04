@@ -40,4 +40,10 @@ public class QuizController : ControllerBase
         _quizRepository.Delete(quizToRemove);
         return Ok("Successfully removed Quiz");
     }
+
+    [HttpGet("GetQuizzesContaining")]
+    public ActionResult<IEnumerable<Quiz>?> GetQuizzesContaining([Required]string searchTerm)
+    {
+        return _quizRepository.GetAll().Where(quiz => quiz.QuizName.ToLower().Contains(searchTerm.ToLower())).ToList();
+    }
 }
