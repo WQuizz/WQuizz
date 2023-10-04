@@ -31,7 +31,6 @@ jobs:
             echo 'Waiting for the database to be ready...'
             sleep 5
           done
-        working-directory: Backend/QuizWebApp/QuizWebApp
 
       - name: Run Tests
         run: |
