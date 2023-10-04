@@ -1,5 +1,8 @@
 import { useState,useEffect } from "react";
 import PatchNotesElement from "./PatchNotesElement";
+import "../Styles/recommendationelement.css";
+
+
 export default function RecommendationElement(){
 
     const [recommendation, setRecommendation] = useState(null)
