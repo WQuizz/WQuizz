@@ -4,7 +4,7 @@
     color: #fff;
     height: 100vh;
     width: 250px;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     transition: width 0.3s;
     z-index: 1;
