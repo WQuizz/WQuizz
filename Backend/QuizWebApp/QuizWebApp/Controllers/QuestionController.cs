@@ -20,7 +20,7 @@ public class QuestionController : ControllerBase
     public IActionResult AddQuestion([Required]int quizId, [Required]string questionContent, int? timeLimit, string? questionImgUrl)
     {
         var quiz = _quizRepository.GetById(quizId);
-        if (quiz == null) return Ok("Quiz by that id doesn't exist");
+        if (quiz == null) return NotFound("Quiz by that id doesn't exist");
         var postQuestion = new Question
         {
             QuizId = quizId,
@@ -30,8 +30,6 @@ public class QuestionController : ControllerBase
             QuestionImgUrl = questionImgUrl
         };
         _questionRepository.Add(postQuestion);
-        //Updating quiz
-        quiz.Questions.Add(postQuestion);
         return Ok("Successfully Added question");
     }
     
@@ -39,7 +37,7 @@ public class QuestionController : ControllerBase
     public IActionResult RemoveQuestionById([Required]int id)
     {
         var questionToRemove = _questionRepository.GetById(id);
-        if (questionToRemove == null) return Ok("Question by that id doesn't exist");
+        if (questionToRemove == null) return NotFound("Question by that id doesn't exist");
         _questionRepository.Delete(questionToRemove);
         return Ok("Successfully removed question");
     }
