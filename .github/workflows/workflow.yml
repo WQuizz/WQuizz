@@ -31,14 +31,13 @@ jobs:
 
       - name: Run Tests
         run: |
-            docker-compose exec -T wquizz-app-test sh -c 'dotnet test' || true
-        working-directory: Backend/QuizWebApp/QuizWebAppTest
+          docker-compose exec wquizz-app-test dotnet test
         env:
             ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
 
       - name: Push Docker Compose Image to DockerHub
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker-compose push
         working-directory: Backend/QuizWebApp/QuizWebApp
         env:
