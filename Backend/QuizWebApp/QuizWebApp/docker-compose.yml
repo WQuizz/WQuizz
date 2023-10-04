@@ -28,3 +28,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+  
+  wquizz-app-test:
+    image: wquizz-test:latest
+    build:
+      context: ../QuizWebAppTest
+      dockerfile: Dockerfile
+    depends_on: 
+      - wquizz-app
+    environment:
+      ASPNETCORE_CONNECTIONSTRING: ${ASPNETCORE_CONNECTIONSTRING}
