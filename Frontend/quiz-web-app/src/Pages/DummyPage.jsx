@@ -4,6 +4,8 @@ import "../Styles/homepage.css";
 import NavigationBar from "../Components/NavigationBar.jsx"
 import Sidebar from "../Components/Sidebar";
 import RecommendationElement from "../Components/RecommendationElement";
+import PatchNotesElement from "../Components/PatchNotesElement";
+
 
 export default function DummyPage(){
 
@@ -14,6 +16,7 @@ return(
         <DummyText/>
         <SearchBar/>
         <Sidebar />
+        <PatchNotesElement/>
     </div>
 
     )
