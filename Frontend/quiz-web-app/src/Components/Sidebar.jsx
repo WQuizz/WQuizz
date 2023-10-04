@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import "../Styles/sidebar.css";
 import sidebarButton from '../Images/sidebar-button.png';
 import homeIcon from '../Images/home-icon.png';
 import categoriesIcon from '../Images/categories-icon.png';
 import leaderboardsIcon from '../Images/leaderboards-icon.png';
+import userIcon from '../Images/user-icon.png';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -29,8 +30,23 @@ function Sidebar() {
               <Nav.Link href="#">{isOpen ?'Leaderboards': <img src={leaderboardsIcon}></img>}</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#">Sign out</Nav.Link>
-            </Nav.Item>
+                <Nav.Link>
+            {
+            isOpen ? (
+              <NavDropdown
+                title="User Profile"
+                id="basic-nav-dropdown"
+                className="custom-dropdown"
+              >
+                <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="#">Settings</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#">Logout</NavDropdown.Item>
+              </NavDropdown>
+            ): <img className='user-icon' src={userIcon}></img>}
+            </Nav.Link>
+              </Nav.Item>
+           
           </Nav>
         </Navbar.Collapse>
       </Navbar>

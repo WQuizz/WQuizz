@@ -68,3 +68,10 @@
             padding: 30px;
         }
   }
+
+  .user-icon{
+    height: 32px;
+    width: 32px;
+    margin-left: auto;
+    margin-right: auto;
+  }
