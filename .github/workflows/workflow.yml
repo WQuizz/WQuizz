@@ -28,7 +28,6 @@ jobs:
       - name: Wait for Database to be Ready
         run: |
           sleep 30
-          done
 
       - name: Run Tests
         run: |
