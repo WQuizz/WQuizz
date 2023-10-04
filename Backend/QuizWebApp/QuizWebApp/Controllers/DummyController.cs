@@ -24,17 +24,22 @@ public class DummyController : ControllerBase
     [HttpGet]
     public IActionResult GetDummy()
     {
-        Quiz testQuiz = new Quiz
+        
+
+        Quiz? testGetByName = _quizRepository.GetById(1);
+        if (testGetByName == null)
         {
-            QuizName = "DATABASE TEST",
-            Difficulty = Difficulty.Hard,
-            IsApproved = true,
-            Popularity = 3489.123f,
-            Rating = 10f,
-            ThumbnailUrl = "kiskutya11.com/krisztian"
-        };
-        _quizRepository.Add(testQuiz);
-        var testGetByName = _quizRepository.GetByName(testQuiz.QuizName);
+            Quiz testQuiz = new Quiz
+            {
+                QuizName = "DATABASE TEST",
+                Difficulty = Difficulty.Hard,
+                IsApproved = true,
+                Popularity = 3489.123f,
+                Rating = 10f,
+                ThumbnailUrl = "kiskutya11.com/krisztian"
+            };
+            _quizRepository.Add(testQuiz);
+        }
         return Ok(testGetByName.QuizName + " " + testGetByName.Id);
     }
 }

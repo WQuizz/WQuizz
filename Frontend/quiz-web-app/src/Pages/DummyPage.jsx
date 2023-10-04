@@ -1,4 +1,5 @@
 import DummyText from "../Components/DummyText"
+import {SearchBar} from "../Components/SearchBar"
 import "../Styles/homepage.css";
 import NavigationBar from "../Components/NavigationBar.jsx"
 import Sidebar from "../Components/Sidebar";
@@ -11,8 +12,11 @@ return(
     <div className="Homepage">
         <RecommendationElement />
         <DummyText/>
+        <SearchBar/>
         <Sidebar />
     </div>
 
     )
 }
+
+
