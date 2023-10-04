@@ -7,13 +7,13 @@
   
 
 .Homepage{
-    background: rgb(34,193,195);
-    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(235,176,46,1) 100%);
+    background-image: url(../Images/homepage3.jpg);
     text-align: center;
     width: 100vw;
     height: 100vh;
     left:0%;
     top: 0%;
+    overflow-y: auto;
     position: absolute;
 }
 .dummy{
@@ -29,4 +29,20 @@
 .homeImage{
     -webkit-filter: drop-shadow(5px 5px 5px #222); 
     filter: drop-shadow(10px 5px 5px #222);
+ 
 }
+
+.recommendation-element{
+    position: absolute;
+    top:15%;
+    left: 87%;
+    max-width: 18rem;
+    max-height: 30rem;
+    z-index: 1;
+    box-shadow: 10px 10px 2px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.recommendation-element:hover {
+    transform: scale(1.1);
+  }
