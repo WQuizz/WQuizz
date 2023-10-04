@@ -4,6 +4,7 @@ import "../Styles/homepage.css";
 import NavigationBar from "../Components/NavigationBar.jsx"
 import Sidebar from "../Components/Sidebar";
 import RecommendationElement from "../Components/RecommendationElement";
+import { QuizSlider } from "../Components/QuizSlider";
 
 export default function DummyPage(){
 
@@ -13,6 +14,7 @@ return(
         <RecommendationElement />
         <DummyText/>
         <SearchBar/>
+        <QuizSlider/>
         <Sidebar />
     </div>
 
