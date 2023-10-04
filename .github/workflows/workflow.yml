@@ -27,9 +27,7 @@ jobs:
 
       - name: Wait for Database to be Ready
         run: |
-          until docker-compose exec -T wquizz-db sh -c 'nc -z wquizz-db 1433'; do
-            echo 'Waiting for the database to be ready...'
-            sleep 5
+          sleep 30
           done
 
       - name: Run Tests
