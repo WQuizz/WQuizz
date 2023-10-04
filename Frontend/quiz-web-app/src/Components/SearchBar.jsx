@@ -1,13 +1,15 @@
-import React, {useState, Component} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import {FaSearch} from "react-icons/fa";
-import  "../Styles/searchbar.css"
+import  "../Styles/searchbar.css";
+import {SearchResultsList} from "./SearchResultsList";
 
 export const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
     const [searchResult, setSearchResult] = useState("");
     
-    const fetchQuizzes = (value) => {
-        fetch(`http://localhost:5015/api/Quiz/GetQuizzesContaining?searchTerm=${value}`)
+    useEffect(()=>{
+        searchInput? 
+        fetch(`http://localhost:5015/api/Quiz/GetQuizzesContaining?searchTerm=${searchInput}`)
             .then((response)=> response.json())
             .then((json) => {
                 const results = json.map((quiz) => ({
@@ -17,19 +19,14 @@ export const SearchBar = () => {
                     popularity: quiz.popularity,
                     rating: quiz.rating,
                 }));
-                console.log(results); // This will log an array of objects with the desired properties
                 setSearchResult(results);
         })
         .catch((error) => {
             console.error("Error fetching data:", error);
-            });
-    }
+            })
+            : setSearchResult("");
+    }, [searchInput])
 
-    const handleChange = (value) => {
-        setSearchInput(value);
-        fetchQuizzes(value);
-    }
-    
 
     return (
         <div className='search-bar-container'>
@@ -39,10 +36,11 @@ export const SearchBar = () => {
                     type="text"
                     placeholder="Search here..."
                     value={searchInput}
-                    onChange={(e) => handleChange(e.target.value)}
+                    onChange={(e) => setSearchInput(e.target.value)}
                 />
             
             </div>
+            <SearchResultsList results = {searchResult} setInput = {setSearchInput} searchInput = {searchInput}/>
         </div>
     );
 }
