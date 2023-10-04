@@ -53,4 +53,10 @@ public class QuizController : ControllerBase
         var results = _quizRepository.GetAll().Where(quiz => quiz.IsApproved).ToList();
         return Ok(results[new Random().Next(0, results.Count)]);
     }
+
+    [HttpGet("GetQuizById")]
+    public IActionResult GetQuizById([Required] int id)
+    {
+        return Ok(_quizRepository.GetById(id));
+    }
 }
