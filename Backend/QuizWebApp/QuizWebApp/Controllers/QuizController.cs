@@ -36,7 +36,7 @@ public class QuizController : ControllerBase
     public IActionResult RemoveQuizById([Required]int id)
     {
         var quizToRemove = _quizRepository.GetById(id);
-        if (quizToRemove == null) return Ok("Quiz by that id doesn't exist");
+        if (quizToRemove == null) return NotFound("Quiz by that id doesn't exist");
         _quizRepository.Delete(quizToRemove);
         return Ok("Successfully removed Quiz");
     }
