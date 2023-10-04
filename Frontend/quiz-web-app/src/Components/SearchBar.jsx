@@ -9,7 +9,7 @@ export const SearchBar = () => {
     
     useEffect(()=>{
         searchInput? 
-        fetch(`http://localhost:5015/api/Quiz/GetQuizzesContaining?searchTerm=${searchInput}`)
+        fetch(`http://localhost:9000/api/Quiz/GetQuizzesContaining?searchTerm=${searchInput}`)
             .then((response)=> response.json())
             .then((json) => {
                 const results = json.map((quiz) => ({
