@@ -46,4 +46,11 @@ public class QuizController : ControllerBase
     {
         return _quizRepository.GetAll().Where(quiz => quiz.QuizName.ToLower().Contains(searchTerm.ToLower())).ToList();
     }
+
+    [HttpGet("GetRandomApprovedQuiz")]
+    public IActionResult GetRandomApprovedQuiz()
+    {
+        var results = _quizRepository.GetAll().Where(quiz => quiz.IsApproved).ToList();
+        return Ok(results[new Random().Next(0, results.Count)]);
+    }
 }
