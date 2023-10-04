@@ -1,0 +1,48 @@
+name: Docker Compose Workflow
+
+on:
+  push:
+    branches:
+      - workflow/test-workflows
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        run: docker-compose --version
+        continue-on-error: true
+
+      - name: Build and Start Docker Compose
+        run: |
+          docker-compose build
+          docker-compose up -d
+        working-directory: Backend/QuizWebApp/QuizWebApp
+        env:
+          ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
+
+      - name: Wait for Database to be Ready
+        run: |
+          until docker-compose exec -T wquizz-db sh -c 'nc -z wquizz-db 1433'; do
+            echo 'Waiting for the database to be ready...'
+            sleep 5
+          done
+        working-directory: Backend/QuizWebApp/QuizWebApp
+
+      - name: Run Tests
+        run: |
+          docker-compose exec -T wquizz-app sh -c 'dotnet test'
+        working-directory: Backend/QuizWebApp/QuizWebApp
+
+      - name: Push Docker Compose Image to DockerHub
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker-compose push
+        working-directory: Backend/QuizWebApp/QuizWebApp
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
