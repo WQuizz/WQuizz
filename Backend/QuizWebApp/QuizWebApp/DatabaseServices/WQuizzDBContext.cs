@@ -40,7 +40,7 @@ public class WQuizzDBContext : DbContext
             {
                 Id = 1,
                 QuizName = "Capital Cities around the World", IsApproved = true, Popularity = 0, Rating = 0,
-                Difficulty = Difficulty.Easy, ThumbnailUrl = "https://geology.com/world/world-map.gif"
+                Difficulty = Difficulty.Easy, ThumbnailUrl = "https://i.imgur.com/eJizpR2.png"
             },
             new Quiz
             {
