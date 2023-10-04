@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          docker-compose exec wquizz-app-test dotnet test
+          docker-compose exec wquizz-app-test dotnet test --verbosity detailed
         env:
             ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
 
