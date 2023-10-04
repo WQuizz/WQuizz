@@ -5,6 +5,18 @@ import  "../Styles/searchbar.css"
 export const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
     
+    const fetchQuizzes = (value) => {
+        fetch(`http://localhost:5015/api/Quiz/GetQuizzesContaining?searchTerm=${value}`)
+        .then((response)=> response.json())
+        .then((json) => {
+            console.log(json)
+        })
+    }
+
+    const handleChange = (value) => {
+        setSearchInput(value);
+        fetchQuizzes(value);
+    }
     
 
     return (
@@ -15,8 +27,7 @@ export const SearchBar = () => {
                     type="text"
                     placeholder="Search here..."
                     value={searchInput}
-                    
-                    onChange={(e) => setSearchInput(e.target.value)}
+                    onChange={(e) => handleChange(e.target.value)}
                 />
             
             </div>
