@@ -1,0 +1,70 @@
+/* Sidebar Styles */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    height: 100vh;
+    width: 250px;
+    position: absolute;
+    bottom: 0px;
+    transition: width 0.3s;
+    z-index: 1;
+    padding-top: 60px;
+  }
+  
+  .sidebar.closed {
+    width: 60px;
+  }
+  
+  /* Toggle Button Styles */
+  .toggle-button {
+    background-color: #444;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    position: absolute;
+    top: -2%;
+  }
+  
+  .toggle-button:hover {
+    background-color: #555;
+  }
+  
+  /* Navigation Link Styles */
+  .nav-link {
+    color: #fff !important;
+  }
+  
+  .nav-link:hover {
+    color: #aaa !important;
+  }
+  
+  /* Active Link Styles */
+  .nav-item.active {
+    background-color: #555;
+  }
+  
+  /* Logo Styles (if you have a logo) */
+  .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Adjustments for Small Screens */
+  @media (max-width: 767px) {
+    .sidebar {
+      width: 60px;
+    }
+    .sidebar.closed {
+      width: 0;
+    }
+  }
+
+  .sidebar-items{
+   padding-top: 30%;
+   margin-left: auto;
+   margin-right: auto;
+        .nav-link{
+            padding: 30px;
+        }
+  }
