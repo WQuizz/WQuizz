@@ -4,13 +4,25 @@ import  "../Styles/searchbar.css"
 
 export const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
+    const [searchResult, setSearchResult] = useState("");
     
     const fetchQuizzes = (value) => {
         fetch(`http://localhost:5015/api/Quiz/GetQuizzesContaining?searchTerm=${value}`)
-        .then((response)=> response.json())
-        .then((json) => {
-            console.log(json)
+            .then((response)=> response.json())
+            .then((json) => {
+                const results = json.map((quiz) => ({
+                    quizName: quiz.quizName,
+                    difficulty: quiz.difficulty,
+                    thumbnailUrl: quiz.thumbnailUrl,
+                    popularity: quiz.popularity,
+                    rating: quiz.rating,
+                }));
+                console.log(results); // This will log an array of objects with the desired properties
+                setSearchResult(results);
         })
+        .catch((error) => {
+            console.error("Error fetching data:", error);
+            });
     }
 
     const handleChange = (value) => {
