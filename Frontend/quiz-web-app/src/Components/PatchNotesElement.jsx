@@ -19,7 +19,6 @@ export default function PatchNotesElement(){
     }, [])
 
     useEffect(()=>{
-   console.log(patchNotes.sort((a,b) => new Date(b["closed_at"]) - new Date (a["closed_at"])).map(x => x));
     },[patchNotes])
 
     

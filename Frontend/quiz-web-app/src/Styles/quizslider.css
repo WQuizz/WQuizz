@@ -40,7 +40,12 @@
 .dotstyles{
     margin: 0 3px;
     cursor: pointer;
-    font-size: 250%;
+    font-size: 300%;
+    -webkit-text-stroke: 2px white;
+}
+
+.selecteddot{
+    -webkit-text-stroke: 2px red;
 }
 
 .slideeffectcontainer{
@@ -49,3 +54,8 @@
     transition-timing-function: ease-out;
     transition: 0.3s;
 }
+
+.quiztext{
+    -webkit-text-stroke: 1px white;
+}
+

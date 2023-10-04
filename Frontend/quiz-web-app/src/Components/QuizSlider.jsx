@@ -35,14 +35,14 @@ export const QuizSlider = () =>{
     const goToPrevious = () => {
         const isFirstSlide = currentIndex === 0;
         const newIndex = isFirstSlide ? quizArray.length -1 : currentIndex-1;
-        setCurrentIndex(newIndex);
+        goToIndex(newIndex);
     };
 
 
     const goToNext = () => {
         const isLastSlide = currentIndex === quizArray.length-1;
         const newIndex = isLastSlide ? 0 : currentIndex+1;
-        setCurrentIndex(newIndex);
+        goToIndex(newIndex);
     };
 
     const goToIndex = (index) => {
@@ -71,7 +71,6 @@ export const QuizSlider = () =>{
         const containerWidth = getSliderContainerWidth();
         setSliderContainerWidth(containerWidth); // Set the actual width
         getSlideContainerStylesWithWidth(containerWidth);
-        console.log('Slider container width:', containerWidth);
       }, [sliderContainerRef, currentIndex]);
 
 
@@ -97,8 +96,9 @@ export const QuizSlider = () =>{
             <div className='dotcontainer'>
                 {quizArray.map((quiz, quizIndex) => (
                     <div
+                    id = {`dot${quizIndex}`}
                     key = {quizIndex} 
-                    className='dotstyles'
+                    className= {quizIndex===currentIndex ? 'dotstyles selecteddot' : 'dotstyles'}
                     onClick = {() => goToIndex(quizIndex)}
                     >
                         •
@@ -107,7 +107,7 @@ export const QuizSlider = () =>{
                 ))}
             </div>
             {
-                quizArray.length!==0 ? (<div>Name: { quizArray[currentIndex].quizName} Popularity: {quizArray[currentIndex].popularity} Rating: {quizArray[currentIndex].rating} </div>) : <></>
+                quizArray.length!==0 ? (<div className='quiztext'>Name: { quizArray[currentIndex].quizName} Popularity: {quizArray[currentIndex].popularity} Rating: {quizArray[currentIndex].rating} </div>) : <></>
             }
             </div>
     )
