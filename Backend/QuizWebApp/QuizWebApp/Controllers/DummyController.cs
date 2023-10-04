@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using QuizWebApp.DatabaseServices.Repositories;
@@ -10,10 +11,16 @@ namespace QuizWebApp.Controllers;
 public class DummyController : ControllerBase
 {
     private readonly IQuizRepository _quizRepository;
-    public DummyController(IQuizRepository quizRepository)
+    private readonly IQuestionRepository _questionRepository;
+    private readonly IAnswerRepository _answerRepository;
+
+    public DummyController(IQuizRepository quizRepository, IQuestionRepository questionRepository, IAnswerRepository answerRepository)
     {
         _quizRepository = quizRepository;
+        _questionRepository = questionRepository;
+        _answerRepository = answerRepository;
     }
+
     [HttpGet]
     public IActionResult GetDummy()
     {
@@ -27,6 +34,7 @@ public class DummyController : ControllerBase
             ThumbnailUrl = "kiskutya11.com/krisztian"
         };
         _quizRepository.Add(testQuiz);
-        return Ok(_quizRepository.GetByName(testQuiz.QuizName).QuizName);
+        var testGetByName = _quizRepository.GetByName(testQuiz.QuizName);
+        return Ok(testGetByName.QuizName + " " + testGetByName.Id);
     }
 }

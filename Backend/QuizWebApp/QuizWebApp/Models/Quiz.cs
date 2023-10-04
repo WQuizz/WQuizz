@@ -13,6 +13,6 @@ public class Quiz
     public float Popularity { get; set; }
     public float Rating { get; set; }
     public bool IsApproved { get; set; }
-    public string ThumbnailUrl { get; set; }
+    public string? ThumbnailUrl { get; set; }
     public ICollection<Question> Questions { get; set; } = new List<Question>();
 }
