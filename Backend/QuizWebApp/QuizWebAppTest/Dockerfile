@@ -3,3 +3,4 @@ WORKDIR /app
 COPY *.csproj ./
 RUN dotnet restore
 RUN dotnet build
+ENTRYPOINT ["dotnet", "QuizWebAppTest.dll"]
