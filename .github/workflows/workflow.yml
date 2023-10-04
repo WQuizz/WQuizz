@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          docker-compose exec -T wquizz-app sh -c 'dotnet test QuizWebApp.sln --no-restore --verbosity normal'
+          dotnet test QuizWebApp.sln --no-restore --verbosity normal
         working-directory: Backend/QuizWebApp/QuizWebApp
 
       - name: Push Docker Compose Image to DockerHub
