@@ -7,7 +7,7 @@ export default function RecommendationElement(){
     const searchValues=["Capital Cities around the world", "Chemical Symbols"]
 
     useEffect(() => {
-        fetch(`http://localhost:5015/api/Quiz/GetQuizzesContaining?searchTerm=${searchValues[Math.random()*searchValues.length]}`)
+        fetch(`http://localhost:9000/api/Quiz/GetRandomApprovedQuiz`)
         .then(res => res.text())
         .then(text => setRecommendation(text))
         .catch((err)=> console.log(err))
