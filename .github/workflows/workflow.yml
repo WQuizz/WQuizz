@@ -31,8 +31,8 @@ jobs:
 
       - name: Run Tests
         run: |
-          dotnet restore QuizWebApp.sln
-          dotnet test QuizWebApp.sln --no-restore --verbosity normal
+          docker-compose exec -T wquizz-app sh -c 'dotnet restore QuizWebApp.sln'
+          docker-compose exec -T wquizz-app sh -c 'dotnet test QuizWebApp.sln --no-restore --verbosity normal'
         working-directory: Backend/QuizWebApp
         env:
             ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}

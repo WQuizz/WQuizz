@@ -19,9 +19,9 @@ public class Tests
     }
 
     [Test]
-    public void Test1()
+    public void QuizzesInsertIntoDatabaseOnStartUp()
     {
-        var result = _quizController.GetRandomApprovedQuiz();
-        Assert.That(result, !Is.Null);
+        var result = _quizRepository.GetAll();
+        Assert.That(result.Count(), Is.EqualTo(2));
     }
 }
