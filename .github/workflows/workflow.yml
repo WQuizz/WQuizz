@@ -31,6 +31,7 @@ jobs:
 
       - name: Run Tests
         run: |
+          dotnet restore SolarWatch/SolarWatch.sln
           dotnet test QuizWebApp.sln --no-restore --verbosity normal
         working-directory: Backend/QuizWebApp
         env:
