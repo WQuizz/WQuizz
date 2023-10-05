@@ -1,23 +1,23 @@
 const categoryObjects = [
     {
         name: 'cities',
-        url: 'https://imgur.com/SneFD0k'
+        url: 'https://i.imgur.com/SneFD0k.jpg'
     },
     {
         name: 'food',
-        url: 'https://imgur.com/ImjCBiB'
+        url: 'https://i.imgur.com/ImjCBiB.jpg'
     },
     {
         name: 'animals',
-        url: 'https://imgur.com/dFG1sOJ'
+        url: 'https://i.imgur.com/dFG1sOJ.jpg'
     },
     {
         name: 'geography',
-        url: 'https://imgur.com/Xoy1sPx'
+        url: 'https://i.imgur.com/Xoy1sPx.jpg'
     },
     {
         name: 'chemistry',
-        url: 'https://imgur.com/pJRsSq7'
+        url: 'https://i.imgur.com/pJRsSq7.jpg'
     }
 ]
 

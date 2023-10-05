@@ -1,4 +1,12 @@
 
+
+@font-face {
+    font-family: 'myFirstFont'; 
+    src: url('../Fonts/Simple\ Story.ttf') format('ttf'),
+        
+}
+
+
 .Homepage{
     background-image: url(../Images/homepage3.jpg);
     background-repeat: no-repeat;

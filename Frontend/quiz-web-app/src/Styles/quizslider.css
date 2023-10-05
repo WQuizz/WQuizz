@@ -45,13 +45,12 @@
 
 .quiztextcontainer{
     position: absolute;
-    top: 5%;
     width: 100%;
     justify-content: center;
 }
 
 .quiztext{
-    font-size: 40px;
+    font-size: 1.8vw;
     margin: auto;
     background-color: rgba(24, 22, 22, 0.79);
     font-family: myFirstFont;

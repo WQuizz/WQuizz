@@ -7,6 +7,7 @@ import { ReactDOM } from "react";
 import NavItem from "react-bootstrap/NavItem";
 import NavLink from "react-bootstrap/NavLink";
 import {Link} from 'react-router-dom';
+import '../Styles/navbar.css';
 
 function NavigationBar() {
   return (
@@ -14,7 +15,7 @@ function NavigationBar() {
       bg="dark"
       variant="dark"
       expand="lg"
-      className="me-auto my-2 my-lg-0"
+      className="me-auto my-2 my-lg-0 nav-bar"
       style={{
         width: "100vw",
         position: "absolute",
