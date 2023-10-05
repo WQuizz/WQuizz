@@ -25,8 +25,10 @@ jobs:
         env:
           ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-  
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER.PASSWORD}}
       - name: Push Docker Compose Image to DockerHub
         run: docker-compose push
         working-directory: Backend/QuizWebApp/QuizWebApp
