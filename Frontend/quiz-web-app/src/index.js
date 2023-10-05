@@ -4,6 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
 import DummyPage from './Pages/DummyPage.jsx'
 import NavigationBar from './Components/NavigationBar';
+import CategoriesPage from './Pages/CategoriesPage';
 import Layout from './Pages/Layout';
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <DummyPage />,
+      },
+      {
+        path: "/categories",
+        element: <CategoriesPage />
       }
     ]
   }

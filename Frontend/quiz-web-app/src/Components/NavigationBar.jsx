@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import { ReactDOM } from "react";
 import NavItem from "react-bootstrap/NavItem";
 import NavLink from "react-bootstrap/NavLink";
+import {Link} from 'react-router-dom';
+
 function NavigationBar() {
   return (
     <Navbar
@@ -20,12 +22,12 @@ function NavigationBar() {
       }}
     >
       <Container style={{ float: "right" }} fluid>
-        <Navbar.Brand>W Quizz</Navbar.Brand>
+        <Navbar.Brand><Link to="/">W Quizz</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
         <Nav>
-          <NavLink>Global Leaderboard</NavLink>
-          <NavLink>User Auth</NavLink>
+          <NavLink><Link to="/leaderboard">Global Leaderboard</Link></NavLink>
+          <NavLink> <Link to="/auth">User Auth</Link></NavLink>
         </Nav>
       </Container>
     </Navbar>

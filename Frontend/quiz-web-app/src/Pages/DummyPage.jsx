@@ -17,7 +17,6 @@ return(
         <DummyText/>
         <SearchBar/>
         <QuizSlider/>
-        <Sidebar />
         <PatchNotesElement/>
     </div>
 
