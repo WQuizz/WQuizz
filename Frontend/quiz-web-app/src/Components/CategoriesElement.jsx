@@ -6,7 +6,7 @@ export default function CategoriesElement() {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:5015/api/Category")
+        fetch("http://localhost:9000/api/Category")
             .then(res => res.json())
             .then(category => setCategories(category))
             .catch(error => console.log(error))
