@@ -26,7 +26,7 @@ jobs:
           ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
       - name: Push Docker Compose Image to DockerHub
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
           docker-compose push
         working-directory: Backend/QuizWebApp/QuizWebApp
         env:
