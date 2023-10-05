@@ -5,8 +5,11 @@ export const QuizSlider = () =>{
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [quizArray, setQuizArray] = useState([]);
-    const [idToFetch, setIdToFetch] = useState([1,2]);
+    const [idToFetch, setIdToFetch] = useState([1,2,3,4]);
 
+    //autoslide usestates
+    const timeRef = useRef(null);
+    
     const sliderContainerRef = useRef(null); // Create a ref for slidercontainer
     const [sliderContainerWidth, setSliderContainerWidth] = useState(0);
 
@@ -27,10 +30,21 @@ export const QuizSlider = () =>{
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
-                })
+            })
         });
     },[idToFetch])
-    
+
+    //Autoslide useeffect
+    useEffect(()=>{
+        if (timeRef.current) {
+            clearTimeout(timeRef.current)
+        }
+        timeRef.current = setTimeout(()=>{
+            goToNext();
+        },4000)
+
+        return () => clearTimeout(timeRef.current);
+    }, [currentIndex, quizArray.length])
 
     const goToPrevious = () => {
         const isFirstSlide = currentIndex === 0;
@@ -39,11 +53,11 @@ export const QuizSlider = () =>{
     };
 
 
-    const goToNext = () => {
+    const goToNext = useCallback(() => {
         const isLastSlide = currentIndex === quizArray.length-1;
         const newIndex = isLastSlide ? 0 : currentIndex+1;
         goToIndex(newIndex);
-    };
+    }, [currentIndex, quizArray]);
 
     const goToIndex = (index) => {
         setCurrentIndex(index);
