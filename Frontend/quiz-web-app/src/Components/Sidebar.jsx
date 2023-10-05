@@ -6,6 +6,7 @@ import homeIcon from '../Images/home-icon.png';
 import categoriesIcon from '../Images/categories-icon.png';
 import leaderboardsIcon from '../Images/leaderboards-icon.png';
 import userIcon from '../Images/user-icon.png';
+import {Link} from 'react-router-dom';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -21,10 +22,10 @@ function Sidebar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-column sidebar-items">
             <Nav.Item>
-              <Nav.Link href="#">{isOpen ?'Home': <img src={homeIcon}></img>}</Nav.Link>
+              <Nav.Link><Link to="/">{isOpen ?'Home': <img src={homeIcon}></img>}</Link></Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#">{isOpen ?'Categories': <img src={categoriesIcon}></img>}</Nav.Link>
+              <Nav.Link><Link to="/categories">{isOpen ?'Categories': <img src={categoriesIcon}></img>}</Link></Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="#">{isOpen ?'Leaderboards': <img src={leaderboardsIcon}></img>}</Nav.Link>
