@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "categoryfont";
+  src: url("../Fonts/madfool.ttf");
+}
+/* categorypage.css */
+.category-page {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1700px; /* Set a maximum width for the container */
+  }
+  
+  .category-content-wrapper {
+    flex-basis: calc(50% - 20px); /* Set the width to 50% minus the gap (20px) */
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 20px; /* Add some space between rows */
+  }
+  
+  .category-content-wrapper:hover {
+    transform: scale(1.1);
+  }
+  
+  .category-images {
+    width: 800px;
+    height: 500px;
+  
+  }
+  
+  .category-image {
+    position: relative;
+  }
+  
+  .text-section {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 80px;
+    font-family: categoryfont;
+    letter-spacing: 3px;
+    
+  }
+
+
+
+  .category-title
+  {
+   text-align: center;
+    font-size: 200px;
+    font-family: categoryfont;
+    letter-spacing: 3px;
+    z-index: 1;
+    color: white;
+    margin-top: 100px;
+  }
+
+body {
+  background-image: url(../Images/categorypage.jpg);
+  flex-wrap: wrap;
+
+}
