@@ -10,7 +10,7 @@ services:
       - "1433:1433"
     
   wquizz-app:
-    image: wquizz:latest
+    image: mcgerasz/wquizz-app:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -22,7 +22,7 @@ services:
       ASPNETCORE_CONNECTIONSTRING: ${ASPNETCORE_CONNECTIONSTRING}
 
   wquizz-frontend:
-    image: dockerize-react:latest
+    image: mcgerasz/wquizz-frontend:latest
     build:
       context: ../../../Frontend/quiz-web-app
       dockerfile: Dockerfile

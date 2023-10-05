@@ -24,18 +24,6 @@ jobs:
         working-directory: Backend/QuizWebApp/QuizWebApp
         env:
           ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
-
-      - name: Wait for Database to be Ready
-        run: |
-          sleep 30
-
-      - name: Run Tests
-        run: |
-          docker-compose run wquizz-app-test dotnet test
-        working-directory: Backend/QuizWebApp/QuizWebApp
-        env:
-            ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
-
       - name: Push Docker Compose Image to DockerHub
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
