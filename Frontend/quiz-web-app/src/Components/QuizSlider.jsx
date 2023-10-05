@@ -109,7 +109,7 @@ export const QuizSlider = () =>{
                 ))}
             </div>
             {
-                quizArray.length!==0 ? (<div className='quiztext'>Name: { quizArray[currentIndex].quizName} Popularity: {quizArray[currentIndex].popularity} Rating: {quizArray[currentIndex].rating} </div>) : <></>
+                quizArray.length!==0 ? (<div className='quiztextcontainer'><div className='quiztext'>Name: { quizArray[currentIndex].quizName} Popularity: {quizArray[currentIndex].popularity} Rating: {quizArray[currentIndex].rating} </div></div>) : <></>
             }
             </div>
     )

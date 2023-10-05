@@ -59,12 +59,24 @@
     transition: 0.3s;
 }
 
-.quiztext{
-    -webkit-text-stroke: 1px white;
+.quiztextcontainer{
     position: absolute;
     top: 5%;
     width: 100%;
     justify-content: center;
+}
+
+.quiztext{
+    font-size: 40px;
+    margin: auto;
+    background-color: rgba(24, 22, 22, 0.79);
+    font-family: myFirstFont;
+    border-radius: 5px;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    color: white;
 }
 
 .goleftblock{
