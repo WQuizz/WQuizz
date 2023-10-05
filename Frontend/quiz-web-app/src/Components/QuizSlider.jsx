@@ -91,8 +91,10 @@ export const QuizSlider = () =>{
                     <div key = {quizIndex} style={getSlideStylesWithBackground(quizIndex)} ></div>
                 ))}
             </div>
-            <div className='leftarrow' onClick={goToPrevious}>🢀</div>
-            <div className='rightarrow' onClick={goToNext}>🢂</div>
+            {/* <div className='leftarrow' onClick={goToPrevious}>🢀</div>
+            <div className='rightarrow' onClick={goToNext}>🢂</div> */}
+            <div className='goleftblock' onClick={goToPrevious}></div>
+            <div className='gorightblock' onClick={goToNext}></div>
             <div className='dotcontainer'>
                 {quizArray.map((quiz, quizIndex) => (
                     <div
