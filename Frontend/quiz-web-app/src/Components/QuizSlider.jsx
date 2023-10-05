@@ -76,11 +76,6 @@ export const QuizSlider = () =>{
 
     const testImageUrl = 'https://img.freepik.com/free-vector/404-error-with-landscape-concept-illustration_114360-7898.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1696291200&semt=ais';
     const slideStyles = {
-        height: '100%',
-        width: '100%',
-        borderRadius: '20px',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
         backgroundImage: `url(${quizArray.length!==0 ? quizArray[currentIndex].thumbnailUrl: testImageUrl})`,
     }
     
@@ -88,11 +83,10 @@ export const QuizSlider = () =>{
         <div className='slidercontainer' ref={sliderContainerRef}> 
             <div className='slideeffectcontainer' style={getSlideContainerStylesWithWidth()}>
                 {quizArray.map((_, quizIndex) =>(
-                    <div key = {quizIndex} style={getSlideStylesWithBackground(quizIndex)} ></div>
+                    <div key = {quizIndex} style={getSlideStylesWithBackground(quizIndex)} className='slidestyles' />
                 ))}
             </div>
-            {/* <div className='leftarrow' onClick={goToPrevious}>🢀</div>
-            <div className='rightarrow' onClick={goToNext}>🢂</div> */}
+
             <div className='goleftblock' onClick={goToPrevious}></div>
             <div className='gorightblock' onClick={goToNext}></div>
             <div className='dotcontainer'>
