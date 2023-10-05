@@ -28,7 +28,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{secrets.DOCKER_USERNAME}}
-          password: ${{secrets.DOCKER.PASSWORD}}
+          password: ${{secrets.DOCKER_PASSWORD}}
       - name: Push Docker Compose Image to DockerHub
         run: docker-compose push
         working-directory: Backend/QuizWebApp/QuizWebApp
