@@ -40,13 +40,27 @@ public class WQuizzDBContext : DbContext
             {
                 Id = 1,
                 QuizName = "Capital Cities around the World", IsApproved = true, Popularity = 0, Rating = 0,
-                Difficulty = Difficulty.Easy, ThumbnailUrl = "https://i.imgur.com/eJizpR2.png"
+                Difficulty = Difficulty.Easy, ThumbnailUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/1920px-Prague_%286365119737%29.jpg"
             },
             new Quiz
             {
                 Id = 2,
                 QuizName = "Chemical Symbols", IsApproved = true, Popularity = 0, Rating = 0,
-                Difficulty = Difficulty.Medium,  ThumbnailUrl = "https://upload.wikimedia.org/wikipedia/commons/8/89/Colour_18-col_PT_with_labels.png"
+                Difficulty = Difficulty.Medium,  ThumbnailUrl = "https://i.pinimg.com/originals/de/54/d3/de54d3e8700cbb87d534844531ae5b71.png"
+            },
+            new Quiz
+            {
+                Id = 3,
+                QuizName = "Retro Gaming", IsApproved = true, Popularity = 0, Rating = 0,
+                ThumbnailUrl = "https://as2.ftcdn.net/v2/jpg/05/59/01/05/1000_F_559010542_cXULDCcdcVwWCcf0DcE7V3QhCQO44Ryh.jpg",
+                Difficulty = Difficulty.Hard,
+            },
+            new Quiz
+            {
+                Id = 4,
+                QuizName = "Bionicle Lore", IsApproved = true, Popularity = 0, Rating = 0,
+                ThumbnailUrl = "https://biosector01.com/w/images/bs01/0/0e/Toa_Mata_Sets.jpg",
+                Difficulty = Difficulty.Hard,
             }
         );
         builder.Entity<Question>().HasData(

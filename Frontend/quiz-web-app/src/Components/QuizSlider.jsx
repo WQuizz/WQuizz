@@ -5,7 +5,7 @@ export const QuizSlider = () =>{
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [quizArray, setQuizArray] = useState([]);
-    const [idToFetch, setIdToFetch] = useState([1,2]);
+    const [idToFetch, setIdToFetch] = useState([1,2,3,4]);
 
     const sliderContainerRef = useRef(null); // Create a ref for slidercontainer
     const [sliderContainerWidth, setSliderContainerWidth] = useState(0);
