@@ -3,7 +3,8 @@ name: Docker Compose Workflow
 on:
   push:
     branches:
-      - workflow/test-workflows
+      - main
+      - workflow/implement-docker-push-workflow
 
 jobs:
   build-and-test:
