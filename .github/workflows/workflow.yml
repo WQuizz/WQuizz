@@ -19,7 +19,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore Backend/QuizWebApp/QuizWebApp.sln
       - name: Build
-        run: dotnet build Backend/QuizWebApp/QuizWebApp/QuizWebapp.csproj --no-restore
+        run: dotnet build Backend/QuizWebApp/QuizWebApp/QuizWebApp.csproj --no-restore
       - name: Test
         run: dotnet test Backend/QuizWebApp/QuizWebApp.sln --no-build --verbosity normal
 
