@@ -6,11 +6,12 @@ import homeIcon from '../Images/home-icon.png';
 import categoriesIcon from '../Images/categories-icon.png';
 import leaderboardsIcon from '../Images/leaderboards-icon.png';
 import userIcon from '../Images/user-icon.png';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
 
+  const [loggedIn, setLoggedIn] = useState(false);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -22,10 +23,10 @@ function Sidebar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-column sidebar-items">
             <Nav.Item>
-              <Nav.Link><Link to="/">{isOpen ?'Home': <img src={homeIcon}></img>}</Link></Nav.Link>
+              <Nav.Link><NavLink to="/">{isOpen ?'Home': <img src={homeIcon}></img>}</NavLink></Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link><Link to="/categories">{isOpen ?'Categories': <img src={categoriesIcon}></img>}</Link></Nav.Link>
+              <Nav.Link><NavLink to="/categories">{isOpen ?'Categories': <img src={categoriesIcon}></img>}</NavLink></Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="#">{isOpen ?'Leaderboards': <img src={leaderboardsIcon}></img>}</Nav.Link>
@@ -39,10 +40,22 @@ function Sidebar() {
                 id="basic-nav-dropdown"
                 className="custom-dropdown"
               >
-                <NavDropdown.Item href="#">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="#">Settings</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#">Logout</NavDropdown.Item>
+                {
+                  loggedIn ? (
+                    <>
+                      <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="#">Settings</NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item href="#">Logout</NavDropdown.Item>
+                    </>
+                  ) :
+                  (
+                    <>
+                      <NavDropdown.Item><NavLink to="login">Login</NavLink></NavDropdown.Item>
+                      <NavDropdown.Item><NavLink to="registration">Register</NavLink></NavDropdown.Item>
+                    </>
+                  )
+                }
               </NavDropdown>
             ): <img className='user-icon' src={userIcon}></img>}
             </Nav.Link>

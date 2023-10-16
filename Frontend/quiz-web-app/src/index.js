@@ -6,6 +6,7 @@ import DummyPage from './Pages/DummyPage.jsx'
 import NavigationBar from './Components/NavigationBar';
 import CategoriesPage from './Pages/CategoriesPage';
 import Layout from './Pages/Layout';
+import RegisterPage from './Pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: <CategoriesPage />
+      },
+      {
+        path:"/registration",
+        element: <RegisterPage/>
       }
     ]
   }
