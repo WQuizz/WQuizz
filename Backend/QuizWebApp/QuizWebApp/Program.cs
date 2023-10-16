@@ -1,10 +1,12 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using QuizWebApp.Data;
 using QuizWebApp.DatabaseServices;
 using QuizWebApp.DatabaseServices.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
@@ -13,7 +15,10 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("*");
         });
 });
+
 builder.Services.AddDbContext<WQuizzDBContext>();
+builder.Services.AddDbContext<UsersContext>();
+
 builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
 builder.Services.AddTransient<IQuizRepository, QuizRepository>();
 builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
@@ -25,7 +30,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 app.UseCors();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
