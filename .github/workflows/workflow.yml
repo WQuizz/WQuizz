@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: dotnet build Backend/QuizWebApp/QuizWebApp/QuizWebApp.csproj --no-restore
       - name: Test
-        run: dotnet test Backend/QuizWebApp/QuizWebApp.sln --no-build --verbosity normal
+        run: dotnet test Backend/QuizWebApp/QuizWebApp.sln --no-restore --verbosity normal
 
   build-and-push:
     needs: test
