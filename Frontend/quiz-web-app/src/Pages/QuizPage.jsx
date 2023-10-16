@@ -1,9 +1,9 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import QuizElement from '../Components/QuizElement';
+import { useEffect } from 'react';
 export default function QuizPage(){
 
-    const location = useLocation();
-    const quizName = location.state.quizName;
+   const {quizName} = useParams();
   
     return (
       <div>
