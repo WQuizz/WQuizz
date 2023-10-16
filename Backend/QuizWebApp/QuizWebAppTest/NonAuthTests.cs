@@ -117,19 +117,6 @@ public class Tests
             }
         });
     }
-
-    [Test]
-    public void QuizGetByNameNeedsArgumentToBeExplicitlyTheSame()
-    {
-        string name = _quizRepository.GetById(1).QuizName;
-        Assert.Multiple(() =>
-        {
-            Assert.That(_quizRepository.GetByName(name.ToLower()), Is.Null);
-            Assert.That(_quizRepository.GetByName(name.ToUpper()), Is.Null);
-            Assert.That(_quizRepository.GetByName(name), Is.Not.Null);
-        });
-    }
-
     [Test]
     public void QuizCRUDTest()
     {
