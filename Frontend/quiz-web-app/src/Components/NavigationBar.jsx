@@ -5,8 +5,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
 import { ReactDOM } from "react";
 import NavItem from "react-bootstrap/NavItem";
-import NavLink from "react-bootstrap/NavLink";
-import {Link} from 'react-router-dom';
+// import NavLink from "react-bootstrap/NavLink";
+import {Link, NavLink} from 'react-router-dom';
 import '../Styles/navbar.css';
 
 function NavigationBar() {
@@ -23,12 +23,12 @@ function NavigationBar() {
       }}
     >
       <Container style={{ float: "right" }} fluid>
-        <Navbar.Brand><Link to="/">W Quizz</Link></Navbar.Brand>
+        <Navbar.Brand><NavLink to="/" className="custom-nav-link">W Quizz</NavLink></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
         <Nav>
-          <NavLink><Link to="/leaderboard">Global Leaderboard</Link></NavLink>
-          <NavLink> <Link to="/auth">User Auth</Link></NavLink>
+          <NavLink to="/leaderboard" className="custom-nav-link">Global Leaderboard</NavLink>
+          <NavLink to="/auth" className="custom-nav-link">User Auth</NavLink>
         </Nav>
       </Container>
     </Navbar>

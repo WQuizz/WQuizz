@@ -6,6 +6,8 @@ import DummyPage from './Pages/DummyPage.jsx'
 import NavigationBar from './Components/NavigationBar';
 import CategoriesPage from './Pages/CategoriesPage';
 import Layout from './Pages/Layout';
+import RegisterPage from './Pages/RegisterPage';
+import LoginPage from './Pages/LoginPage';
 import QuizPage from './Pages/QuizPage';
 
 const router = createBrowserRouter([
@@ -21,7 +23,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/categories",
-        element: <CategoriesPage />,
+        element: <CategoriesPage />
+      },
+      {
+        path:"/registration",
+        element: <RegisterPage/>
+      },
+      {
+        path:"/login",
+        element:<LoginPage/>
       },
       {
         path: "/playQuiz",
