@@ -84,12 +84,26 @@ public class Tests
     [TestCase(1)]
     [TestCase(8)]
     [TestCase(11)]
-    public void RelatedQuizIncludesAnswerInAnswersProperty(int answerId)
+    public void RelatedQuestionIncludesAnswerInAnswersProperty(int answerId)
     {
         var answer = _answerRepository.GetById(answerId);
         Assert.That(answer.Question.Answers, Does.Contain(answer));
     }
     #endregion
+
+    [Test]
+    [TestCase(1)]
+    public void AllAnswersAreRelatedToTheGivenQuiz(int quizId)
+    {
+        var quiz = _quizRepository.GetById(quizId);
+        Assert.Multiple(() =>
+        {
+            foreach (var question in quiz.Questions)
+            {
+                Assert.That(question.Answers.All(ans => ans.Question.Quiz == quiz), Is.True);
+            }
+        });
+    }
 
     [Test]
     public void AllQuestionsHaveAtLeastOneCorrectAnswers()
@@ -101,6 +115,18 @@ public class Tests
             {
                 Assert.That(question.Answers.Any(ans => ans.IsCorrect), Is.True);
             }
+        });
+    }
+
+    [Test]
+    [TestCase("Capital Cities around the World")]
+    public void QuizGetByNameNeedsArgumentToBeExplicitlyTheSame(string name)
+    {
+        Assert.Multiple(() =>
+        {
+            Assert.That(_quizRepository.GetByName(name.ToLower()), Is.Null);
+            Assert.That(_quizRepository.GetByName(name.ToUpper()), Is.Null);
+            Assert.That(_quizRepository.GetByName(name), Is.Not.Null);
         });
     }
 }
