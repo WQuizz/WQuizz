@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react"
 import categoryObjects from "../Files/CategoryObjects.js"
 import "../Styles/categorypage.css";
+import { useNavigate } from "react-router-dom"; 
 
 export default function CategoriesElement() {
+
+    const navigate = useNavigate();
+
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
@@ -30,6 +34,7 @@ export default function CategoriesElement() {
                                         className="category-images"
                                         src={matchingCategory.url}
                                         alt={c}
+                                        onClick={navigate(`/${c}`)}
                                     ></img><div className="text-section">{c}</div>
                                     </div>
                                     
