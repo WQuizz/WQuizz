@@ -119,9 +119,9 @@ public class Tests
     }
 
     [Test]
-    [TestCase("Capital Cities around the World")]
-    public void QuizGetByNameNeedsArgumentToBeExplicitlyTheSame(string name)
+    public void QuizGetByNameNeedsArgumentToBeExplicitlyTheSame()
     {
+        string name = _quizRepository.GetById(1).QuizName;
         Assert.Multiple(() =>
         {
             Assert.That(_quizRepository.GetByName(name.ToLower()), Is.Null);
