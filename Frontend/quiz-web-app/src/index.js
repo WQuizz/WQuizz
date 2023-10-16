@@ -8,6 +8,7 @@ import CategoriesPage from './Pages/CategoriesPage';
 import Layout from './Pages/Layout';
 import RegisterPage from './Pages/RegisterPage';
 import LoginPage from './Pages/LoginPage';
+import QuizPage from './Pages/QuizPage';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path:"/login",
         element:<LoginPage/>
+      },
+      {
+        path: "/playQuiz",
+        element: <QuizPage />
       }
     ]
   }
