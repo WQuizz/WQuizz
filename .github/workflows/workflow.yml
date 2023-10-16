@@ -4,20 +4,36 @@ on:
   push:
     branches:
       - main
-      - workflow/implement-docker-push-workflow
+      - backend/unit-test/non-auth
 
 jobs:
-  build-and-test:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Restore dependencies
+        run: dotnet restore Backend/QuizWebApp/QuizWebApp.sln
+      - name: Build
+        run: dotnet build Backend/QuizWebApp/QuizWebApp/QuizWebApp.csproj --no-restore
+      - name: Test
+        run: dotnet test Backend/QuizWebApp/QuizWebApp.sln --no-restore --verbosity normal
+
+  build-and-push:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
       - name: Set up Docker Compose
         run: docker-compose --version
         continue-on-error: true
-
       - name: Build and Start Docker Compose
         run: |
           docker-compose build
