@@ -7,15 +7,18 @@ WORKDIR /app
 # Copy package.json and package-lock.json first for caching
 COPY package*.json ./
 
+COPY . .
 # Install npm dependencies
 RUN npm install
+# Copy the entire application code to the container
 
-# Copy the rest of the project files
-COPY public/ ./public/
-COPY src/ ./src/
+# Build React project
+RUN npm run build
 
-# Expose the port of your application to bind with the host port
+# Install serve node package
+RUN npm install -g serve
+
+# Expose to port
 EXPOSE 3000
 
-# Start your app
-CMD ["npm", "start"]
+CMD ["serve","-p","3000","build/"]
