@@ -13,16 +13,18 @@ public class AuthService : IAuthService
         _tokenService = tokenService;
     }
 
-    public async Task<AuthResult> RegisterAsync(string email, string username, string password)
+    public async Task<AuthResult> RegisterAsync(string email, string username, string password, string role)
     {
-        var result = await _userManager.CreateAsync(
-            new IdentityUser { UserName = username, Email = email }, password);
+        var user = new IdentityUser { UserName = username, Email = email };
+        var result = await _userManager.CreateAsync(user, password);
 
         if (!result.Succeeded)
             return FailedRegistration(result, email, username);
-        
+
+        await _userManager.AddToRoleAsync(user, role);
         return new AuthResult(true, email, username, "");
     }
+
 
     private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
     {
@@ -41,20 +43,19 @@ public class AuthService : IAuthService
         var managedUser = await _userManager.FindByEmailAsync(email);
 
         if (managedUser == null)
-        {
             return InvalidEmail(email);
-        }
 
         var isPasswordValid = await _userManager.CheckPasswordAsync(managedUser, password);
+        
         if (!isPasswordValid)
-        {
             return InvalidPassword(email, managedUser.UserName);
-        }
 
-        var accessToken = _tokenService.CreateToken(managedUser);
+        var roles = await _userManager.GetRolesAsync(managedUser);
+        var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
 
         return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
     }
+
 
     private static AuthResult InvalidEmail(string email)
     {

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using QuizWebApp.DatabaseServices.Repositories;
@@ -21,7 +22,7 @@ public class DummyController : ControllerBase
         _answerRepository = answerRepository;
     }
 
-    [HttpGet]
+    [HttpGet, Authorize(Roles = "User, Admin")]
     public IActionResult GetDummy()
     {
         

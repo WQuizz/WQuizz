@@ -36,6 +36,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+AddRoles();
+
 app.Run();
 
 
@@ -52,8 +54,8 @@ void AddAuthentication()
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = builder.Configuration["Jwt:WQUIZZ_JWT_VALID_AUDIENCE"],
-                ValidAudience = builder.Configuration["Jwt:WQUIZZ_JWT_VALID_AUDIENCE"],
+                ValidIssuer = Environment.GetEnvironmentVariable("WQUIZZ_JWT_VALID_ISSUER"),
+                ValidAudience = Environment.GetEnvironmentVariable("WQUIZZ_JWT_VALID_AUDIENCE"),
                 IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("WQUIZZ_JWT_ISSUER_SIGNING_KEY"))
                 )
@@ -74,7 +76,7 @@ void AddIdentity()
             options.Password.RequireUppercase = false;
             options.Password.RequireLowercase = false;
         })
-        //.AddRoles<IdentityRole>()
+        .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<UsersContext>();
 }
 
@@ -137,4 +139,26 @@ void ConfigureSwagger()
             }
         });
     });
+}
+
+void AddRoles()
+{
+    using var scope = app.Services.CreateScope();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var tAdmin = CreateAdminRole(roleManager);
+    tAdmin.Wait();
+
+    var tUser = CreateUserRole(roleManager);
+    tUser.Wait();
+}
+
+async Task CreateAdminRole(RoleManager<IdentityRole> roleManager)
+{
+    await roleManager.CreateAsync(new IdentityRole(builder.Configuration["Roles:Admin"]));
+}
+
+async Task CreateUserRole(RoleManager<IdentityRole> roleManager)
+{
+    await roleManager.CreateAsync(new IdentityRole(builder.Configuration["Roles:User"]));
 }
