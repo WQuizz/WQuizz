@@ -153,4 +153,25 @@ public class Tests
         _quizRepository.Delete(_quizRepository.GetByName(newName.ToLower()));
         Assert.That(_quizRepository.GetByName(newName.ToLower()), Is.Null);
     }
+
+    [Test]
+    public void QuestionCRUDTest()
+    {
+        string newContent = "NEW CONTENT";
+        var question = _questionRepository.GetById(1);
+        question.QuestionContent = newContent;
+        _questionRepository.Update(question);
+        Assert.That(_questionRepository.GetById(1).QuestionContent, Is.EqualTo(newContent));
+        string newQuestionContent = "THIS QUESTION WAS NEWLY CREATED";
+        var newQuestion = new Question
+        {
+            QuestionContent = newQuestionContent,
+            QuizId = question.QuizId
+        };
+        _questionRepository.Add(newQuestion);
+        Assert.That(_questionRepository.GetAll().Last().QuestionContent, Is.EqualTo(newQuestionContent));
+        _questionRepository.Delete(newQuestion);
+        Assert.That(_questionRepository.GetAll().Last().QuestionContent, Is.Not.EqualTo(newQuestionContent));
+    }
+    
 }
