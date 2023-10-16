@@ -32,12 +32,6 @@ export default function RegisterElement(){
 
     return(
         <div className='register-form'>
-            {showSuccessMessage && (
-                <>
-                    {/* <SuccessfullElement message={"Successfully registered"}/> */}
-                    <div className="register-successoverlay" />
-                </>
-            )}
             <div>
                 <form>
                     <h2 className="register-text">Register</h2>
