@@ -4,8 +4,8 @@ namespace QuizWebApp.Services.Authentication;
 
 public class AuthService : IAuthService
 {
-    private readonly UserManager<IdentityUser> _userManager;
     private readonly ITokenService _tokenService;
+    private readonly UserManager<IdentityUser> _userManager;
 
     public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService)
     {
@@ -25,19 +25,6 @@ public class AuthService : IAuthService
         return new AuthResult(true, email, username, "");
     }
 
-
-    private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
-    {
-        var authResult = new AuthResult(false, email, username, "");
-
-        foreach (var error in result.Errors)
-        {
-            authResult.ErrorMessages.Add(error.Code, error.Description);
-        }
-
-        return authResult;
-    }
-    
     public async Task<AuthResult> LoginAsync(string email, string password)
     {
         var managedUser = await _userManager.FindByEmailAsync(email);
@@ -46,7 +33,7 @@ public class AuthService : IAuthService
             return InvalidEmail(email);
 
         var isPasswordValid = await _userManager.CheckPasswordAsync(managedUser, password);
-        
+
         if (!isPasswordValid)
             return InvalidPassword(email, managedUser.UserName);
 
@@ -54,6 +41,16 @@ public class AuthService : IAuthService
         var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
 
         return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
+    }
+
+
+    private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
+    {
+        var authResult = new AuthResult(false, email, username, "");
+
+        foreach (var error in result.Errors) authResult.ErrorMessages.Add(error.Code, error.Description);
+
+        return authResult;
     }
 
 
@@ -70,5 +67,4 @@ public class AuthService : IAuthService
         result.ErrorMessages.Add("Bad credentials", "Invalid password");
         return result;
     }
-
 }

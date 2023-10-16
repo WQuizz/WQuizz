@@ -12,10 +12,7 @@ public class UsersContext : IdentityDbContext<IdentityUser, IdentityRole, string
     }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        // It would be a good idea to move the connection string to user secrets
-        
         options.UseSqlServer(Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
-
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

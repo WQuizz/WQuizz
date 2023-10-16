@@ -11,12 +11,10 @@ using QuizWebApp.Services.Authentication;
 var builder = WebApplication.CreateBuilder(args);
 
 AddCors();
-
 AddDbContext();
 AddServices();
 AddAuthentication();
 AddIdentity();
-
 ConfigureSwagger();
 
 var app = builder.Build();
@@ -37,9 +35,40 @@ app.UseAuthorization();
 app.MapControllers();
 
 AddRoles();
+AddAdmin();
 
 app.Run();
 
+
+void AddCors()
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(
+            policy =>
+            {
+                policy.WithOrigins("*");
+            });
+    });
+}
+
+void AddDbContext()
+{
+    builder.Services.AddDbContext<WQuizzDBContext>();
+    builder.Services.AddDbContext<UsersContext>();
+}
+
+void AddServices()
+{
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    
+    builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
+    builder.Services.AddTransient<IQuizRepository, QuizRepository>();
+    builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
+    builder.Services.AddScoped<IAuthService, AuthService>();
+    builder.Services.AddScoped<ITokenService, TokenService>();
+}
 
 void AddAuthentication()
 {
@@ -78,36 +107,6 @@ void AddIdentity()
         })
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<UsersContext>();
-}
-
-void AddDbContext()
-{
-    builder.Services.AddDbContext<WQuizzDBContext>();
-    builder.Services.AddDbContext<UsersContext>();
-}
-
-void AddServices()
-{
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    
-    builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
-    builder.Services.AddTransient<IQuizRepository, QuizRepository>();
-    builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
-    builder.Services.AddScoped<IAuthService, AuthService>();
-    builder.Services.AddScoped<ITokenService, TokenService>();
-}
-
-void AddCors()
-{
-    builder.Services.AddCors(options =>
-    {
-        options.AddDefaultPolicy(
-            policy =>
-            {
-                policy.WithOrigins("*");
-            });
-    });
 }
 
 void ConfigureSwagger()
@@ -161,4 +160,27 @@ async Task CreateAdminRole(RoleManager<IdentityRole> roleManager)
 async Task CreateUserRole(RoleManager<IdentityRole> roleManager)
 {
     await roleManager.CreateAsync(new IdentityRole(builder.Configuration["Roles:User"]));
+}
+
+void AddAdmin()
+{
+    var tAdmin = CreateAdminIfNotExists();
+    tAdmin.Wait();
+}
+
+async Task CreateAdminIfNotExists()
+{
+    using var scope = app.Services.CreateScope();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var adminInDb = await userManager.FindByEmailAsync("admin@admin.com");
+    if (adminInDb == null)
+    {
+        var admin = new IdentityUser { UserName = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_USERNAME"), Email = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_EMAIL") };
+        var adminCreated = await userManager.CreateAsync(admin, Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_PASSWORD"));
+
+        if (adminCreated.Succeeded)
+        {
+            await userManager.AddToRoleAsync(admin, "Admin");
+        }
+    }
 }
