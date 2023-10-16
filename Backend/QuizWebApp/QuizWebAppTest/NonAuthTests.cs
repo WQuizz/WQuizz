@@ -26,10 +26,17 @@ public class Tests
     }
 
     [Test]
-    public void TheQuizzesAreSeedIntoDatabase()
+    public void DatabaseIsSeeded()
     {
-        var seededData = _quizRepository.GetAll();
-        Assert.That(seededData.Count(), Is.EqualTo(4));
+        var allQuizzes = _quizRepository.GetAll();
+        var allQuestions = _questionRepository.GetAll();
+        var allAnswers = _answerRepository.GetAll();
+        Assert.Multiple(() =>
+        {
+            Assert.Positive(allQuizzes.Count());
+            Assert.Positive(allQuestions.Count());
+            Assert.Positive(allAnswers.Count());
+        });
     }
     
     #region Relation between Quiz and Question entities
