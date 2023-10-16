@@ -35,6 +35,11 @@
     color: #fff !important;
   }
   
+  .custom-nav-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit the parent's color, or you can specify your custom color */
+  }
+
   .nav-link:hover {
     color: #aaa !important;
   }

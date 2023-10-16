@@ -23,13 +23,13 @@ function Sidebar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-column sidebar-items">
             <Nav.Item>
-              <Nav.Link><NavLink to="/">{isOpen ?'Home': <img src={homeIcon}></img>}</NavLink></Nav.Link>
+              <Nav.Link><NavLink className="custom-nav-link" to="/">{isOpen ?'Home': <img src={homeIcon}></img>}</NavLink></Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link><NavLink to="/categories">{isOpen ?'Categories': <img src={categoriesIcon}></img>}</NavLink></Nav.Link>
+              <Nav.Link><NavLink className="custom-nav-link" to="/categories">{isOpen ?'Categories': <img src={categoriesIcon}></img>}</NavLink></Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#">{isOpen ?'Leaderboards': <img src={leaderboardsIcon}></img>}</Nav.Link>
+              <Nav.Link className="custom-nav-link" href="#">{isOpen ?'Leaderboards': <img src={leaderboardsIcon}></img>}</Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link>
@@ -51,8 +51,8 @@ function Sidebar() {
                   ) :
                   (
                     <>
-                      <NavDropdown.Item><NavLink to="login">Login</NavLink></NavDropdown.Item>
-                      <NavDropdown.Item><NavLink to="registration">Register</NavLink></NavDropdown.Item>
+                      <NavDropdown.Item><NavLink to="login" className="custom-nav-link">Login</NavLink></NavDropdown.Item>
+                      <NavDropdown.Item><NavLink to="registration" className="custom-nav-link">Register</NavLink></NavDropdown.Item>
                     </>
                   )
                 }
