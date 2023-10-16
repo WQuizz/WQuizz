@@ -59,4 +59,10 @@ public class QuizController : ControllerBase
     {
         return Ok(_quizRepository.GetById(id));
     }
+
+    [HttpGet("GetQuizByName")]
+    public IActionResult GetQuizByName([Required] string name)
+    {
+        return Ok(_quizRepository.GetByName(name));
+    }
 }
