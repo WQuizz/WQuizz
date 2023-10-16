@@ -9,7 +9,6 @@ namespace QuizWebAppTest;
 
 public class Tests
 {
-    private static DbContextOptions<WQuizzDBContext> _dbContextOptions;
     private TestWQuizzDBContext _testDbContext;
     private IQuizRepository _quizRepository;
     private IQuestionRepository _questionRepository;
@@ -17,8 +16,6 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-        _dbContextOptions = new DbContextOptionsBuilder<WQuizzDBContext>().UseInMemoryDatabase(databaseName: "WQuizzDB")
-            .Options;
         _testDbContext = new TestWQuizzDBContext();
         _quizRepository = new QuizRepository(_testDbContext);
         _questionRepository = new QuestionRepository(_testDbContext);
@@ -93,4 +90,17 @@ public class Tests
         Assert.That(answer.Question.Answers, Does.Contain(answer));
     }
     #endregion
+
+    [Test]
+    public void AllQuestionsHaveAtLeastOneCorrectAnswers()
+    {
+        var allQuestions = _questionRepository.GetAll();
+        Assert.Multiple(() =>
+        {
+            foreach (var question in allQuestions)
+            {
+                Assert.That(question.Answers.Any(ans => ans.IsCorrect), Is.True);
+            }
+        });
+    }
 }
