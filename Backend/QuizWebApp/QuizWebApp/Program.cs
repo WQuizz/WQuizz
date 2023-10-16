@@ -1,29 +1,20 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using QuizWebApp.Data;
 using QuizWebApp.DatabaseServices;
 using QuizWebApp.DatabaseServices.Repositories;
+using QuizWebApp.Services.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.WithOrigins("*");
-        });
-});
+AddCors();
 
-builder.Services.AddDbContext<WQuizzDBContext>();
-builder.Services.AddDbContext<UsersContext>();
-
-builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
-builder.Services.AddTransient<IQuizRepository, QuizRepository>();
-builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
-
+AddDbContext();
+AddServices();
 AddAuthentication();
+AddIdentity();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -69,4 +60,47 @@ void AddAuthentication()
                 )
             };
         });
+}
+
+void AddIdentity()
+{
+    builder.Services
+        .AddIdentityCore<IdentityUser>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false;
+            options.User.RequireUniqueEmail = true;
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireLowercase = false;
+        })
+        //.AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<UsersContext>();
+}
+
+void AddDbContext()
+{
+    builder.Services.AddDbContext<WQuizzDBContext>();
+    builder.Services.AddDbContext<UsersContext>();
+}
+
+void AddServices()
+{
+    builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
+    builder.Services.AddTransient<IQuizRepository, QuizRepository>();
+    builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
+    builder.Services.AddScoped<IAuthService, AuthService>();
+}
+
+void AddCors()
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(
+            policy =>
+            {
+                policy.WithOrigins("*");
+            });
+    });
 }
