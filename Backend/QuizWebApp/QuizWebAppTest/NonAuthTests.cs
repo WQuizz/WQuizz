@@ -129,4 +129,28 @@ public class Tests
             Assert.That(_quizRepository.GetByName(name), Is.Not.Null);
         });
     }
+
+    [Test]
+    public void QuizCRUDTest()
+    {
+        string newName = "NEW NAME";
+        var quiz = _quizRepository.GetById(1);
+        quiz.QuizName = newName;
+        _quizRepository.Update(quiz);
+        var updatedQuiz = _quizRepository.GetById(1);
+        Assert.That(updatedQuiz.QuizName, Is.EqualTo(newName));
+        var newQuiz = new Quiz
+        {
+            QuizName = updatedQuiz.QuizName.ToLower(),
+            Difficulty = updatedQuiz.Difficulty,
+            IsApproved = updatedQuiz.IsApproved,
+            Popularity = updatedQuiz.Popularity,
+            Rating = updatedQuiz.Rating,
+            ThumbnailUrl = updatedQuiz.ThumbnailUrl
+        };
+        _quizRepository.Add(newQuiz);
+        Assert.That(_quizRepository.GetByName(newName.ToLower()), Is.Not.Null);
+        _quizRepository.Delete(_quizRepository.GetByName(newName.ToLower()));
+        Assert.That(_quizRepository.GetByName(newName.ToLower()), Is.Null);
+    }
 }
