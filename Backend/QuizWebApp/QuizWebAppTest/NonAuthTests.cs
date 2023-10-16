@@ -173,5 +173,24 @@ public class Tests
         _questionRepository.Delete(newQuestion);
         Assert.That(_questionRepository.GetAll().Last().QuestionContent, Is.Not.EqualTo(newQuestionContent));
     }
-    
+    [Test]
+    public void AnswerCRUDTest()
+    {
+        string newContent = "NEW CONTENT";
+        var answer = _answerRepository.GetById(1);
+        answer.AnswerContent = newContent;
+        _answerRepository.Update(answer);
+        Assert.That(_answerRepository.GetById(1).AnswerContent, Is.EqualTo(newContent));
+        string newAnswerContent = "THIS ANSWER WAS NEWLY CREATED";
+        var newAnswer = new Answer
+        {
+            AnswerContent = newAnswerContent,
+            IsCorrect = false,
+            QuestionId = answer.QuestionId
+        };
+        _answerRepository.Add(newAnswer);
+        Assert.That(_answerRepository.GetAll().Last().AnswerContent, Is.EqualTo(newAnswerContent));
+        _answerRepository.Delete(newAnswer);
+        Assert.That(_answerRepository.GetAll().Last().AnswerContent, Is.Not.EqualTo(newAnswerContent));
+    }
 }
