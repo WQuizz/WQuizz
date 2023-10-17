@@ -97,6 +97,13 @@
 .login p a:hover{
     text-decoration: underline;
 }
+.invalid-register-message{
+    margin: 15px 0 -15px;
+    font-size: 1.2em;
+    color: #ff4343;
+    display: flex;
+    justify-content: center;
+}
 
 .register-successoverlay {
     position: absolute;
@@ -107,4 +114,5 @@
     background: rgba(0, 0, 0, 0.2);
     z-index: 999; /* Ensure it's above other content */
     pointer-events: auto; /* Prevent interactions with content underneath */
+    overflow: hidden;
 }
