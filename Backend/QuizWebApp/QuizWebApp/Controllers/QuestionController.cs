@@ -41,4 +41,13 @@ public class QuestionController : ControllerBase
         _questionRepository.Delete(questionToRemove);
         return Ok("Successfully removed question");
     }
+
+    [HttpGet("GetByQuizId/{quizId}")]
+    public IActionResult GetByQuizId([Required] int quizId)
+    {
+        var quiz = _quizRepository.GetById(quizId);
+        if (quiz is null) return NotFound();
+        return Ok(quiz.Questions);
+    }
+    
 }
