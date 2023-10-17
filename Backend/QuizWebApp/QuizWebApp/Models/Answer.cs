@@ -8,12 +8,11 @@ public class Answer
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [JsonIgnore]
     public int Id { get; init; }
-    [JsonIgnore]
     public int QuestionId { get; init; }
     [JsonIgnore]
     public Question Question { get; init; }
     public string AnswerContent { get; set; }
+    [JsonIgnore]
     public bool IsCorrect { get; set; }
 }
