@@ -9,7 +9,7 @@ import userIcon from '../Images/user-icon.png';
 import {Link, NavLink} from 'react-router-dom';
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [loggedIn, setLoggedIn] = useState(false);
   const toggleSidebar = () => {
