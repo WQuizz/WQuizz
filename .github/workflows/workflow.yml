@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - backend/unit-test/non-auth
 
 jobs:
   test:
@@ -41,6 +40,12 @@ jobs:
         working-directory: Backend/QuizWebApp/QuizWebApp
         env:
           ASPNETCORE_CONNECTIONSTRING: ${{secrets.CONNECTIONSTRING}}
+          WQUIZZ_ADMINUSER_EMAIL: ${{secrets.WQUIZZ_ADMINUSER_EMAIL}}
+          WQUIZZ_ADMINUSER_PASSWORD: ${{secrets.WQUIZZ_ADMINUSER_PASSWORD}}
+          WQUIZZ_ADMINUSER_USERNAME: ${{secrets.WQUIZZ_ADMINUSER_USERNAME}}
+          WQUIZZ_JWT_ISSUER_SIGNING_KEY: ${{secrets.WQUIZZ_JWT_ISSUER_SIGNING_KEY}}
+          WQUIZZ_JWT_VALID_AUDIENCE: ${{secrets.WQUIZZ_JWT_VALID_AUDIENCE}}
+          WQUIZZ_JWT_VALID_ISSUER: ${{secrets.WQUIZZ_JWT_VALID_ISSUER}}
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
