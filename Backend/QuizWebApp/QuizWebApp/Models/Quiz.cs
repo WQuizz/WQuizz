@@ -8,7 +8,6 @@ public class Quiz
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [JsonIgnore]
     public int Id { get; init; }
     public string QuizName { get; set; }
     public Difficulty Difficulty { get; set; }
