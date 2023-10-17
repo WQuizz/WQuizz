@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using QuizWebApp.Data;
 using QuizWebApp.DatabaseServices;
 using QuizWebApp.DatabaseServices.Repositories;
 using QuizWebApp.Services.Authentication;
@@ -55,7 +54,6 @@ void AddCors()
 void AddDbContext()
 {
     builder.Services.AddDbContext<WQuizzDBContext>();
-    builder.Services.AddDbContext<UsersContext>();
 }
 
 void AddServices()
@@ -106,7 +104,7 @@ void AddIdentity()
             options.Password.RequireLowercase = false;
         })
         .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<UsersContext>();
+        .AddEntityFrameworkStores<WQuizzDBContext>();
 }
 
 void ConfigureSwagger()

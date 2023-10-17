@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -5,7 +7,7 @@ using QuizWebApp.Models;
 
 namespace QuizWebApp.DatabaseServices;
 
-public class WQuizzDBContext : DbContext
+public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {
     public DbSet<Quiz> Quizzes { get; set; }
     public DbSet<Question> Questions { get; set; }
@@ -13,12 +15,7 @@ public class WQuizzDBContext : DbContext
 
     public WQuizzDBContext()
     {
-        var databaseCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
-        if (databaseCreator != null)
-        {
-            if(!databaseCreator.CanConnect()) databaseCreator.Create();
-            if(!databaseCreator.HasTables()) databaseCreator.CreateTables();
-        }
+        Database.Migrate();
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -27,6 +24,8 @@ public class WQuizzDBContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+        
         builder.Entity<Quiz>().HasMany(e => e.Questions)
             .WithOne(e => e.Quiz)
             .HasForeignKey(e => e.QuizId)
