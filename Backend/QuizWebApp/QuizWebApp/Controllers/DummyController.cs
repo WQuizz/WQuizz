@@ -22,7 +22,7 @@ public class DummyController : ControllerBase
         _answerRepository = answerRepository;
     }
 
-    [HttpGet, Authorize(Roles = "User, Admin")]
+    [HttpGet]
     public IActionResult GetDummy()
     {
         
