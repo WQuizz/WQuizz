@@ -3,11 +3,11 @@ import NavigationBar from "../Components/NavigationBar"; // Import your Navbar c
 import { Outlet, Link } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 
-const Layout = () => {
+const Layout = ({loggedIn, logOut}) => {
   return (
     <div className="Layout">
       <NavigationBar />
-      <Sidebar/>
+      <Sidebar loggedIn={loggedIn} logOut={logOut}/>
       <Outlet />
     </div>
   );
