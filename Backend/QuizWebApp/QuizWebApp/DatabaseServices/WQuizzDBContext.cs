@@ -193,7 +193,7 @@ public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, str
             new Answer
             {
                 Id = 11,
-                AnswerContent = "Okinawa", QuestionId = 3, IsCorrect = true
+                AnswerContent = "Okinawa", QuestionId = 3, IsCorrect = false
             },
             new Answer
             {
