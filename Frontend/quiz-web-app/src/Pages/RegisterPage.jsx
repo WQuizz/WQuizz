@@ -36,7 +36,7 @@ export default function RegisterPage(){
 
     useEffect(()=>{
         console.log(response);
-        if (response && 'DuplicateEmail'|| response && 'DuplicateUserName' in response) {
+        if ((response && 'DuplicateEmail' in response)|| (response && 'DuplicateUserName' in response)) {
             //We can rewrite this later to specify email or username if we want
             setErrorMessage('Username or e-mail is already in use'); 
         }
@@ -47,7 +47,7 @@ export default function RegisterPage(){
                 navigate("/");
             }, 3000);
         }
-    },[response])
+    },[response, navigate])
 
     return(
             <div className="register-page-element-container">
