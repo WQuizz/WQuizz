@@ -36,7 +36,7 @@ export default function RegisterPage(){
 
     useEffect(()=>{
         console.log(response);
-        if (response && 'DuplicateEmail'||'DuplicateUserName' in response) {
+        if (response && 'DuplicateEmail'|| response && 'DuplicateUserName' in response) {
             //We can rewrite this later to specify email or username if we want
             setErrorMessage('Username or e-mail is already in use'); 
         }
