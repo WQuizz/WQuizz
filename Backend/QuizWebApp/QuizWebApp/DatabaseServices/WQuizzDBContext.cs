@@ -7,11 +7,12 @@ using QuizWebApp.Models;
 
 namespace QuizWebApp.DatabaseServices;
 
-public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     public DbSet<Quiz> Quizzes { get; set; }
     public DbSet<Question> Questions { get; set; }
     public DbSet<Answer> Answers { get; set; }
+    public DbSet<UserProfile> UserProfiles { get; set; }
 
     public WQuizzDBContext()
     {
@@ -20,7 +21,7 @@ public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, str
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
+        Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -34,6 +35,12 @@ public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, str
             .WithOne(e => e.Question)
             .HasForeignKey(e => e.QuestionId)
             .HasPrincipalKey(e => e.Id);
+        
+        builder.Entity<UserProfile>()
+            .HasOne(userProfile => userProfile.User)
+            .WithOne(user => user.UserProfile)
+            .HasForeignKey<UserProfile>(userProfile => userProfile.UserId);
+        
         builder.Entity<Quiz>().HasData(
             new Quiz
             {

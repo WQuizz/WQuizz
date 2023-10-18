@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using QuizWebApp.Models;
 
 namespace QuizWebApp.Services.Authentication;
 
@@ -11,7 +12,7 @@ public class TokenService : ITokenService
 {
     private const int ExpirationMinutes = 30; //TODO more?
 
-    public string CreateToken(IdentityUser user, string role)
+    public string CreateToken(ApplicationUser user, string role)
     {
         var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
         var token = CreateJwtToken(

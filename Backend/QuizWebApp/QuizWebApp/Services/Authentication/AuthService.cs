@@ -1,28 +1,48 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using QuizWebApp.DatabaseServices;
+using QuizWebApp.Models;
 
 namespace QuizWebApp.Services.Authentication;
 
 public class AuthService : IAuthService
 {
     private readonly ITokenService _tokenService;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly WQuizzDBContext _dbContext;
 
-    public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService)
+    public AuthService(UserManager<ApplicationUser> userManager, ITokenService tokenService, WQuizzDBContext dbContext)
     {
         _userManager = userManager;
         _tokenService = tokenService;
+        _dbContext = dbContext;
     }
 
     public async Task<AuthResult> RegisterAsync(string email, string username, string password, string role)
     {
-        var user = new IdentityUser { UserName = username, Email = email };
+        var user = new ApplicationUser { UserName = username, Email = email };
         var result = await _userManager.CreateAsync(user, password);
 
         if (!result.Succeeded)
             return FailedRegistration(result, email, username);
+        
+        var userProfile = new UserProfile
+        {
+            UserId = user.Id,
+            DisplayName = username,
+            ProfilePicture = null
+            // You can set ProfilePicture to null or a default value if needed
+        };
+        
+        _dbContext.UserProfiles.Add(userProfile);
+        await _dbContext.SaveChangesAsync();
 
+        user.UserProfile = userProfile;
+        user.ProfileId = userProfile.Id;
+        
         await _userManager.AddToRoleAsync(user, role);
         return new AuthResult(true, email, username, "");
+
     }
 
     public async Task<AuthResult> LoginAsync(string email, string password)
