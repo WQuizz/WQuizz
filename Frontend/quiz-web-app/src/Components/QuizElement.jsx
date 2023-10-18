@@ -12,19 +12,26 @@ export default function QuizElement(props) {
 
   const [currentQuestion, setCurrentQuestion] = useState("");
 
-  const [questionNumberTracker, setQuestionNumberTracker] = useState(1);
+  const [questionNumberTracker, setQuestionNumberTracker] = useState(0);
 
   const [endofQuiz, setEndOfQuiz] = useState(false);
+
+  const [correctAnswers, setCorrectAnswers] = useState([]);
+
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+
+  const [points, setPoints] = useState(0);
+
 
   async function FetchAnswers()
   {
     try{
-      const response = await fetch(`http://localhost:9000/api/Answer/GetByQuestionId/${quizQuestions[0].id}`);
+      const response = await fetch(`http://localhost:9000/api/Answer/GetByQuestionId/${quizQuestions[questionNumberTracker].id}`);
       const data = await response.json();
       if(response.ok)
       {
         setQuizAnswers(data);
-        console.log(data);
+        setCurrentQuestion(quizQuestions[questionNumberTracker].questionContent);
       }
      
 
@@ -44,8 +51,7 @@ async function FetchQuestions()
     if(response.ok)
     {
       setQuizQuestions(data);
-      setCurrentQuestion(data[0].questionContent)
-      console.log(data);
+      setCurrentQuestion(data[questionNumberTracker].questionContent)
     }
    
 
@@ -58,16 +64,13 @@ async function FetchQuestions()
 
   async function FetchSearchInput() {
     try {
-      console.log(props.quizName);
       const response = await fetch(
         `http://localhost:9000/api/Quiz/GetQuizByName?name=${props.quizName}`
       );
       const data = await response.json();
       if(response.ok)
       {
-        console.log(data);
         setQuizResult(data);
-        console.log(quizResult);
       }
       
     } catch (err) {
@@ -76,6 +79,25 @@ async function FetchQuestions()
   }
 
 
+  async function FetchCorrectAnswers(){
+    try {
+      const response = await fetch(`http://localhost:9000/api/Answer/IsCorrect/${quizQuestions[questionNumberTracker].id}`);
+      const data = await response.json();
+
+      if(response.ok){
+        setCorrectAnswers(data);
+        console.log("CORRECT ANSWERS",data);
+      } 
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(()=>{
+    FetchCorrectAnswers();
+  },[])
+  
   useEffect(() => {
     FetchSearchInput();
   }, []);
@@ -84,30 +106,55 @@ async function FetchQuestions()
     FetchQuestions();
   }, [quizResult])
 
-  useEffect(() =>{
+  useEffect(() => {
     FetchAnswers();
-  }, [quizQuestions])
+  }, [quizQuestions, questionNumberTracker]);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+
+  
+  
+
+    console.log(quizAnswers.find(answer => answer.answerContent == e.target.textContent).id == correctAnswers[0]);
+
+   quizAnswers.find(answer =>{ 
+    if(correctAnswers && answer.answerContent == e.target.textContent.id == correctAnswers[0])
+    { 
+      console.log("xd")
+    }
+    })
+   
+    // console.log("CORRECT ANSWER");
+    // setPoints((prev) => {
+    //   return prev + 1;
+    // })
+   
 
 
-    if(quizQuestions.length == questionNumberTracker)
+
+    if(quizQuestions.length - 1 == questionNumberTracker)
     {
       setEndOfQuiz(true);
-      console.log("END OF QUIZ");
     }
     else{
-
-      setQuestionNumberTracker((prevState) => {
-        return prevState + 1;
-      });
-  
-      setCurrentQuestion(quizQuestions[questionNumberTracker].questionContent)
+      setQuestionNumberTracker((prev) => {
+        return prev + 1;
+      })
     }
 
-   
+    
   }
 
+ 
+useEffect(() => {
+console.log("QUIZ QUESTIONS:" , quizQuestions);
+console.log("ANSWERS FOR QUESTION:", quizAnswers)
+console.log("CLICK NUMBER TRACKER:", questionNumberTracker);
+console.log("CORRECT ASNWER FOR THE QUESTION:", correctAnswers);
+console.log("POINTS", points);
+console.log("CORRECT ANSWER!!!!!!!!!!!!!!!!!!! ", correctAnswers[0]);
+
+}, [quizAnswers, quizQuestions, questionNumberTracker, correctAnswers, points])
 
 
 
@@ -121,12 +168,12 @@ async function FetchQuestions()
           <div className="quiz-question">{currentQuestion}</div>
           <div className="quiz-answers">
             <div className="answer-row first-row"> 
-            <button className="answer" onClick={(e) => handleClick()}>{quizAnswers[0].answerContent}</button>
-            <button className="answer" onClick={(e) => handleClick()}>{quizAnswers[1].answerContent}</button>
+            <button className="answer" onClick={(e) => handleClick(e)}>{quizAnswers[0].answerContent}</button>
+            <button className="answer" onClick={(e) => handleClick(e)}>{quizAnswers[1].answerContent}</button>
             </div>
           <div className="answer-row second-row"> 
-          <button className="answer" onClick={(e) => handleClick()}>{quizAnswers[2].answerContent}</button>
-            <button className="answer" onClick={(e) => handleClick()}>{quizAnswers[3].answerContent}</button>
+          <button className="answer" onClick={(e) => handleClick(e)}>{quizAnswers[2].answerContent}</button>
+            <button className="answer" onClick={(e) => handleClick(e)}>{quizAnswers[3].answerContent}</button>
           </div>
           </div>
           </div>
