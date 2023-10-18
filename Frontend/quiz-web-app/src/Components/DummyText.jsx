@@ -20,7 +20,7 @@ export default function DummyText(){
             <img src={ourLogo} className='homeImage'></img> 
         </div>
         <div className='dummy'>
-            {dummyText}
+           
         </div>
         </>
     )

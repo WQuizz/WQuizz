@@ -4,6 +4,7 @@ import "../Styles/quizelement.css";
 import "../Styles/animated-background.css";
 import quizImage from "../Images/quiz-time.png";
 import EndQuizElement from "./EndQuizElement";
+import CountdownTimer from "./CountdownTimer.jsx";
 
 export default function QuizElement(props) {
   const [quizResult, setQuizResult] = useState([]);
@@ -25,6 +26,9 @@ export default function QuizElement(props) {
 
   const [points, setPoints] = useState(0);
 
+  const [timeLimit, setTimeLimit] = useState(null);
+
+  const [key, setKey] = useState(0);
 
   async function FetchAnswers()
   {
@@ -114,6 +118,20 @@ async function FetchQuestions()
     FetchCorrectAnswers();
   }, [quizQuestions, questionNumberTracker]);
 
+  useEffect(() => {
+    if(timeLimit == 0)
+    {
+      for(let x = questionNumberTracker; x < quizQuestions.length; x++)
+      {
+          setWrongAnswers((prev) => [...prev, quizQuestions[x].questionContent + " TIME OVER"])
+      }
+
+      setEndOfQuiz(true);
+    }
+    
+
+  }, [timeLimit])
+
   const handleClick = (e) => {
     
    
@@ -130,10 +148,10 @@ async function FetchQuestions()
     if (isCorrect) {
     
       setPoints((prevPoints) => prevPoints + 1);
-      setCorrectAnswers((prev) => [...prev, e.target.textContent]);
+      setCorrectAnswers((prev) => [...prev, quizQuestions[questionNumberTracker].questionContent + " " + e.target.textContent]);
     }
     else{
-      setWrongAnswers((prev) => [...prev, e.target.textContent]);
+      setWrongAnswers((prev) => [...prev, quizQuestions[questionNumberTracker].questionContent + " " + e.target.textContent]);
     }
   
    
@@ -141,6 +159,7 @@ async function FetchQuestions()
       setEndOfQuiz(true);
     } else {
       setQuestionNumberTracker((prev) => prev + 1);
+      setKey(key + 1);
     }
   };
 
@@ -150,6 +169,7 @@ console.log("QUIZ QUESTIONS:" , quizQuestions);
 console.log("ANSWERS FOR QUESTION:", quizAnswers)
 console.log("CLICK NUMBER TRACKER:", questionNumberTracker);
 console.log("CORRECT ASNWER FOR THE QUESTION:", correctAnswers);
+console.log("SELECTED ANSWERS:", selectedAnswers);
 console.log("POINTS", points);
 console.log("CORRECT ANSWER!!!!!!!!!!!!!!!!!!! ", correctAnswers[0]);
 
@@ -159,12 +179,16 @@ console.log("CORRECT ANSWER!!!!!!!!!!!!!!!!!!! ", correctAnswers[0]);
 
   return (
     <>
+    
       {quizQuestions && quizResult && quizAnswers && quizQuestions.length > 0 && quizAnswers.length > 0 && endofQuiz == false ? (
         <div className="maincontainer animated-background">
           <div className="quiz-time-image-container"><img className="quiz-time-image" src={quizImage}></img></div>
+          <div className="">
+          <CountdownTimer setTimeLimit={setTimeLimit}/>
+          </div>
           <div className="quiz-container">
           <div className="quiz-title">{quizResult.quizName}</div>
-          <div className="quiz-question">{currentQuestion}</div>
+          <div key={key} className="quiz-question">{currentQuestion}</div>
           <div className="quiz-answers">
             <div className="answer-row first-row"> 
             <button className="answer" onClick={(e) => handleClick(e)}>{quizAnswers[0].answerContent}</button>
@@ -176,8 +200,11 @@ console.log("CORRECT ANSWER!!!!!!!!!!!!!!!!!!! ", correctAnswers[0]);
           </div>
           </div>
           </div>
+          
           </div>
+
       ) : (<EndQuizElement selectedAnswers = {selectedAnswers} wrongAnswers = {wrongAnswers} correctAnswers={correctAnswers}/>)}
+
     </>
   );
 }
