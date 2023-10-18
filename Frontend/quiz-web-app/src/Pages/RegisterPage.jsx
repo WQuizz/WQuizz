@@ -4,7 +4,7 @@ import SuccessfullElement from "../Components/SuccessfullElement";
 import { useNavigate } from 'react-router-dom';
 import "../Styles/register.css";
 
-export default function RegisterPage(){
+export default function RegisterPage({loggedIn}){
     const [email, setEmail] = useState(null);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -49,6 +49,12 @@ export default function RegisterPage(){
             }, 3000);
         }
     },[response, navigate])
+
+    useEffect(() => {
+        if (loggedIn) {
+          navigate('/');
+        }
+      }, [loggedIn, navigate]);
 
     return(
             <div className="register-page-element-container">
