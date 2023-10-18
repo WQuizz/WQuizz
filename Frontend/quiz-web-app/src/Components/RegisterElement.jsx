@@ -1,39 +1,10 @@
-import { useState, useEffect } from "react"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "../Styles/register.css";
-export default function RegisterElement(){
-
-    const [email, setEmail] = useState(null);
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [response, setResponse] = useState(null);
-
-    const handleSubmit = () => {
-        const data = {
-            email: email,
-            username: username,
-            password: password,
-            role: "User"
-        }
-
-        fetch('link here', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(r => {setResponse(r)})
-            .catch(err=>console.error(err))
-    };
-
+export default function RegisterElement({setEmail, setUsername, setPassword, handleSubmit, errorMessage}){
     return(
         <div className='register-form'>
             <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h2 className="register-text">Register</h2>
                     <div className="inputboxholder">
                         <div className='register-inputbox'>
@@ -49,7 +20,8 @@ export default function RegisterElement(){
                             <label for="">Password</label>
                         </div>
                     </div>
-                    <button type="form" className="register-button" onClick={handleSubmit}>Register</button>
+                    <button type="form" className="register-button">Register</button>
+                    <div className="invalid-register-message">{errorMessage}</div>
                     <div className="login">
                         <p>
                             Already have an account? 

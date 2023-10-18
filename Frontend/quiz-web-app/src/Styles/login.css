@@ -119,3 +119,31 @@
 .register p a:hover{
     text-decoration: underline;
 }
+
+
+.invalid-login-message{
+    margin: 15px 0 -15px;
+    font-size: 1.2em;
+    color: #ff4343;
+    display: flex;
+    justify-content: center;
+}
+.forget a{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.login-successoverlay {
+    position: absolute;
+    margin-top: 0;
+    margin-left: 0;
+    width: 101vw;
+    height: 101vh;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 999; /* Ensure it's above other content */
+    pointer-events: auto; /* Prevent interactions with content underneath */
+    overflow: hidden;
+}

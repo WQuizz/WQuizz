@@ -15,7 +15,7 @@ public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, str
 
     public WQuizzDBContext()
     {
-        Database.Migrate();
+        if(Database.IsRelational()) Database.Migrate();
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
