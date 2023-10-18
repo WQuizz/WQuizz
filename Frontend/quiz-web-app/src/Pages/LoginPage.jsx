@@ -15,7 +15,8 @@ export default function LoginPage({setLoggedIn}){
     
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         const data = {
             Email: email,
             Password: password,

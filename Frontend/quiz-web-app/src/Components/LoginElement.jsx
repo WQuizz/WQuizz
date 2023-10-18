@@ -6,7 +6,7 @@ export default function LoginElement({setEmail, setPassword, handleSubmit, error
     return(
         <div className='login-form'>
             <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h2 className="login-text">Login</h2>
                     <div className="login-inputboxholder">
                         <div className="login-inputbox">
@@ -21,7 +21,8 @@ export default function LoginElement({setEmail, setPassword, handleSubmit, error
                     <div className="forget">
                             <a href="#"> Forgot Password?</a>
                     </div>
-                    <button type="button" className="login-button" onClick={handleSubmit}>Login</button>
+                    <button type="submit" className="login-button">Login</button>
+                    {/* <button type="button" className="login-button" onClick={handleSubmit}>Login</button> */}
                     {errorMessage && <div className="invalid-login-message">{errorMessage}</div>}
                     <div className="register">
                         <p>

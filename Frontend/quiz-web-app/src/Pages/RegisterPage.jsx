@@ -14,7 +14,8 @@ export default function RegisterPage(){
 
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         const data = {
             email: email,
             username: username,
