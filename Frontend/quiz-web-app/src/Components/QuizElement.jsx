@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import "../Styles/quizelement.css";
 import "../Styles/animated-background.css";
 import quizImage from "../Images/quiz-time.png";
-
+import EndQuizElement from "./EndQuizElement";
 
 export default function QuizElement(props) {
   const [quizResult, setQuizResult] = useState([]);
@@ -16,9 +16,12 @@ export default function QuizElement(props) {
 
   const [endofQuiz, setEndOfQuiz] = useState(false);
 
-  const [correctAnswers, setCorrectAnswers] = useState([]);
 
   const [selectedAnswers, setSelectedAnswers] = useState([]);
+
+  const [correctAnswerIds, setCorrectAnswerIds] = useState([]);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
+  const [wrongAnswers, setWrongAnswers] = useState([]);
 
   const [points, setPoints] = useState(0);
 
@@ -85,7 +88,7 @@ async function FetchQuestions()
       const data = await response.json();
 
       if(response.ok){
-        setCorrectAnswers(data);
+        setCorrectAnswerIds(data);
         console.log("CORRECT ANSWERS",data);
       } 
       
@@ -108,42 +111,38 @@ async function FetchQuestions()
 
   useEffect(() => {
     FetchAnswers();
+    FetchCorrectAnswers();
   }, [quizQuestions, questionNumberTracker]);
 
   const handleClick = (e) => {
-
-  
-  
-
-    console.log(quizAnswers.find(answer => answer.answerContent == e.target.textContent).id == correctAnswers[0]);
-
-   quizAnswers.find(answer =>{ 
-    if(correctAnswers && answer.answerContent == e.target.textContent.id == correctAnswers[0])
-    { 
-      console.log("xd")
-    }
-    })
+    
    
-    // console.log("CORRECT ANSWER");
-    // setPoints((prev) => {
-    //   return prev + 1;
-    // })
+    setSelectedAnswers((prev)=> [...prev, e.target.textContent])
+
+    const selectedAnswerText = e.target.textContent;
+  
+    
+    const selectedAnswer = quizAnswers.find((answer) => answer.answerContent === selectedAnswerText);
+  
    
-
-
-
-    if(quizQuestions.length - 1 == questionNumberTracker)
-    {
-      setEndOfQuiz(true);
+    const isCorrect = correctAnswerIds.includes(selectedAnswer.id);
+  
+    if (isCorrect) {
+    
+      setPoints((prevPoints) => prevPoints + 1);
+      setCorrectAnswers((prev) => [...prev, e.target.textContent]);
     }
     else{
-      setQuestionNumberTracker((prev) => {
-        return prev + 1;
-      })
+      setWrongAnswers((prev) => [...prev, e.target.textContent]);
     }
-
-    
-  }
+  
+   
+    if (quizQuestions.length - 1 === questionNumberTracker) {
+      setEndOfQuiz(true);
+    } else {
+      setQuestionNumberTracker((prev) => prev + 1);
+    }
+  };
 
  
 useEffect(() => {
@@ -178,7 +177,7 @@ console.log("CORRECT ANSWER!!!!!!!!!!!!!!!!!!! ", correctAnswers[0]);
           </div>
           </div>
           </div>
-      ) : (<div>END OF QUIZ</div>)}
+      ) : (<EndQuizElement selectedAnswers = {selectedAnswers} wrongAnswers = {wrongAnswers} correctAnswers={correctAnswers}/>)}
     </>
   );
 }
