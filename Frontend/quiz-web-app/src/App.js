@@ -5,12 +5,13 @@ import {BrowserRouter, createBrowserRouter, RouterProvider, Route} from 'react-r
 import DummyPage from './Pages/DummyPage.jsx'
 import NavigationBar from './Components/NavigationBar';
 import CategoriesPage from './Pages/CategoriesPage';
+import CategoryPage from './Pages/CategoryPage';
 import Layout from './Pages/Layout';
 import RegisterPage from './Pages/RegisterPage';
 import LoginPage from './Pages/LoginPage';
 import QuizPage from './Pages/QuizPage';
 import Cookies from 'universal-cookie';
-import CategoryPage from './Pages/CategoryPage'
+
 
 
 function App() {
