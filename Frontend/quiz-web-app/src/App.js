@@ -46,11 +46,11 @@ function App() {
         },
         {
           path: "/registration",
-          element: <RegisterPage />
+          element: <RegisterPage loggedIn={loggedIn}/>
         },
         {
           path: "/login",
-          element: <LoginPage setLoggedIn={setLoggedIn}/>
+          element: <LoginPage setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
         },
         {
           path: "/playQuiz/:quizName",
