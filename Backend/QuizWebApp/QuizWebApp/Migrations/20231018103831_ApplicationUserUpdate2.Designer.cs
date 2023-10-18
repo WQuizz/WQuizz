@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizWebApp.DatabaseServices;
 
@@ -11,9 +12,11 @@ using QuizWebApp.DatabaseServices;
 namespace QuizWebApp.Migrations
 {
     [DbContext(typeof(WQuizzDBContext))]
-    partial class WQuizzDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231018103831_ApplicationUserUpdate2")]
+    partial class ApplicationUserUpdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -476,9 +479,6 @@ namespace QuizWebApp.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -489,6 +489,9 @@ namespace QuizWebApp.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("UserProfileId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -498,6 +501,8 @@ namespace QuizWebApp.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -686,12 +691,9 @@ namespace QuizWebApp.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("UserProfiles");
                 });
@@ -758,6 +760,15 @@ namespace QuizWebApp.Migrations
                     b.Navigation("Question");
                 });
 
+            modelBuilder.Entity("QuizWebApp.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("QuizWebApp.Models.UserProfile", "UserProfile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId");
+
+                    b.Navigation("UserProfile");
+                });
+
             modelBuilder.Entity("QuizWebApp.Models.Question", b =>
                 {
                     b.HasOne("QuizWebApp.Models.Quiz", "Quiz")
@@ -767,22 +778,6 @@ namespace QuizWebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Quiz");
-                });
-
-            modelBuilder.Entity("QuizWebApp.Models.UserProfile", b =>
-                {
-                    b.HasOne("QuizWebApp.Models.ApplicationUser", "User")
-                        .WithOne("UserProfile")
-                        .HasForeignKey("QuizWebApp.Models.UserProfile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("QuizWebApp.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("QuizWebApp.Models.Question", b =>
