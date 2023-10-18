@@ -6,5 +6,6 @@ public enum Category
    Chemistry,
    Cities,
    Food,
-   Geography
+   Geography,
+   Entertainment
 }
