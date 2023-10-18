@@ -11,6 +11,7 @@ public class Quiz
     [JsonIgnore]
     public int Id { get; init; }
     public string QuizName { get; set; }
+    public Category CategoryType { get; set; }
     public Difficulty Difficulty { get; set; }
     public float Popularity { get; set; }
     public float Rating { get; set; }
