@@ -1,38 +1,45 @@
 import { useState, useEffect } from "react"
 import { uploadProfilePicture } from "../Services/userServices";
+import "../Styles/profilepage.css";
 
-export default function UploadProfilePictureElement({userName}) {
-    const [file, setFile] = useState(null);
-
-    const handleFileChange = (e) => {
+export default function UploadProfilePictureElement({setProfilePictureFile, setProfilePicture}) {
+ 
+    const handleFileChange = async (e) => {
+        //const dataUrl = `data:image/jpeg;base64,${profilePicture}`;
         const selectedFile = e.target.files[0];
-        setFile(selectedFile);
-    };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-
-        if (!file) {
+        if (!selectedFile) {
             console.log('No file selected');
             return;
           }
-          await uploadProfilePicture(userName, file);
+        setProfilePictureFile(selectedFile);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const base64String = event.target.result.split(',')[1];
+            console.log(base64String);
+            setProfilePicture(base64String);
+        };
+
+        reader.readAsDataURL(selectedFile);
+        // await uploadProfilePicture(user.userName, selectedFile);
     };
-    const centeredElementStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-    };
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+
+    //     if (!file) {
+    //         console.log('No file selected');
+    //         return;
+    //       }
+    //     await uploadProfilePicture(userName, file);
+    // };
+
 
     return (
-        <div style={centeredElementStyle}>
-            <input type="file" accept="image/*" onChange={handleFileChange} style={{ marginBottom: '10px' }}/>
-            <button onClick={handleSubmit} style={{ backgroundColor: 'blue', color: 'white', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer' }}>
-                Upload Profile Picture
-            </button>
-
-            
+        <div className="upload-picture-container">
+            <input type="file" accept="image/*" onChange={handleFileChange}/>
+            {/* <button onClick={handleSubmit}>
+                Upload Picture
+            </button> */}
         </div>
     );
 }

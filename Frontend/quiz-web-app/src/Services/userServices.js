@@ -1,7 +1,9 @@
 import jwtDecode from "jwt-decode";
 
-export function logOut(cookies, setLoggedIn) {
+export function logOut(cookies, setLoggedIn, navigate) {
+    
     return () => {
+        navigate("/");
       cookies.remove("jwt_authorization");
       console.log("logout");
       setLoggedIn(false);
@@ -38,7 +40,6 @@ export function logOut(cookies, setLoggedIn) {
   
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         if (data?.userName) {
             
           return data;

@@ -1,5 +1,3 @@
-import UploadProfilePictureElement from "../Components/UploadProfilePicElement";
-import DisplayProfileImageElement from "../Components/DisplayProfileImageElement";
 import ProfileElement from "../Components/ProfileElement";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";

@@ -1,4 +1,5 @@
 import DisplayProfileImageElement from "./DisplayProfileImageElement"
+import { NavLink } from "react-router-dom";
 export default function ProfileElement({user, canEdit}) {
 
     return (
@@ -6,7 +7,11 @@ export default function ProfileElement({user, canEdit}) {
              <DisplayProfileImageElement profilePicture={user.profilePicture} />
              <div className="user-info"><p>Username: {user.userName}</p></div>
              <div className="user-info"><p>Display name: {user.displayName}</p></div>
-             {canEdit&& <button className="edit-profile-button">Edit your profile</button>}
+             {canEdit && (
+                <NavLink to={`/profile/edit/${user.userName}`} className="edit-profile-navlink">
+                    Edit your profile
+                </NavLink>
+            )}
         </div>
     );
 }

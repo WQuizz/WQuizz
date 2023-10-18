@@ -14,6 +14,7 @@ import RegisterPage from './Pages/RegisterPage';
 import LoginPage from './Pages/LoginPage';
 import QuizPage from './Pages/QuizPage';
 import ProfilePage from './Pages/ProfilePage';
+import EditProfilePage from './Pages/EditProfilePage';
 
 
 function App() {
@@ -77,6 +78,10 @@ function App() {
         {
           path: "/category/:categoryName",
           element: <CategoryPage />
+        },
+        {
+          path: "/profile/edit/:userName",
+          element: <EditProfilePage user={user} />
         },
         {
           path: "/profile/:userName",
