@@ -4,7 +4,7 @@ export default function RegisterElement({setEmail, setUsername, setPassword, han
     return(
         <div className='register-form'>
             <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h2 className="register-text">Register</h2>
                     <div className="inputboxholder">
                         <div className='register-inputbox'>
@@ -20,7 +20,7 @@ export default function RegisterElement({setEmail, setUsername, setPassword, han
                             <label for="">Password</label>
                         </div>
                     </div>
-                    <button type="button" className="register-button" onClick={handleSubmit}>Register</button>
+                    <button type="form" className="register-button">Register</button>
                     <div className="invalid-register-message">{errorMessage}</div>
                     <div className="login">
                         <p>
