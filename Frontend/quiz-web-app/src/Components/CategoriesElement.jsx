@@ -34,7 +34,7 @@ export default function CategoriesElement() {
                                         className="category-images"
                                         src={matchingCategory.url}
                                         alt={c}
-                                        onClick={navigate(`/${c}`)}
+                                        onClick={() => {navigate(`/category/${c}`)}}
                                     ></img><div className="text-section">{c}</div>
                                     </div>
                                     
