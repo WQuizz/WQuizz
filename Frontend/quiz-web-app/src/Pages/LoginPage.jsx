@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import SuccessfullElement from "../Components/SuccessfullElement";
 import { useNavigate } from 'react-router-dom';
 
-export default function LoginPage(){
+export default function LoginPage({setLoggedIn}){
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [response, setResponse] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-    const cookies = new Cookies();
+    
     const navigate = useNavigate();
 
     const handleSubmit = () => {
@@ -38,24 +38,26 @@ export default function LoginPage(){
     };
 
     useEffect(()=>{
+        const cookies = new Cookies();
         if (response && 'Bad credentials' in response) {
             setErrorMessage('Invalid email or password');
         }
         if (response && 'token' in response) {
             cookies.set("jwt_authorization", response.token);
+            setLoggedIn(true);
             setShowSuccessMessage(true);
             setTimeout(() => {
                 setShowSuccessMessage(false);
                 navigate("/");
             }, 3000);
         }
-    },[response])
+    },[response, navigate])
 
     return(
             <div className="login-page-element-container">
                 {showSuccessMessage && (
                 <>
-                    <SuccessfullElement message={"Successfully registered"}/>
+                    <SuccessfullElement message={"Successfully logged in!"}/>
                     <div className="login-successoverlay" />
                 </>
                 )}
