@@ -39,27 +39,27 @@ public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, str
             {
                 Id = 1,
                 QuizName = "Capital Cities around the World", IsApproved = true, Popularity = 100, Rating = 100,
-                Difficulty = Difficulty.Easy, Category = Category.Cities, ThumbnailUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/1920px-Prague_%286365119737%29.jpg"
+                Difficulty = Difficulty.Easy, CategoryType = Category.Cities, ThumbnailUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/1920px-Prague_%286365119737%29.jpg"
             },
             new Quiz
             {
                 Id = 2,
                 QuizName = "Chemical Symbols", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
-                Difficulty = Difficulty.Medium, Category = Category.Chemistry, ThumbnailUrl = "https://i.pinimg.com/originals/de/54/d3/de54d3e8700cbb87d534844531ae5b71.png"
+                Difficulty = Difficulty.Medium, CategoryType = Category.Chemistry, ThumbnailUrl = "https://i.pinimg.com/originals/de/54/d3/de54d3e8700cbb87d534844531ae5b71.png"
             },
             new Quiz
             {
                 Id = 3,
                 QuizName = "Retro Gaming", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
                 ThumbnailUrl = "https://as2.ftcdn.net/v2/jpg/05/59/01/05/1000_F_559010542_cXULDCcdcVwWCcf0DcE7V3QhCQO44Ryh.jpg",
-                Difficulty = Difficulty.Hard, Category = Category.Entertainment
+                Difficulty = Difficulty.Hard, CategoryType = Category.Entertainment
             },
             new Quiz
             {
                 Id = 4,
                 QuizName = "Bionicle Lore", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
                 ThumbnailUrl = "https://biosector01.com/w/images/bs01/0/0e/Toa_Mata_Sets.jpg",
-                Difficulty = Difficulty.Hard, Category = Category.Entertainment
+                Difficulty = Difficulty.Hard, CategoryType = Category.Entertainment
             }
         );
         builder.Entity<Question>().HasData(
