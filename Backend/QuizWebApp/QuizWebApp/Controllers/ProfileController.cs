@@ -94,4 +94,29 @@ public class ProfileController : ControllerBase
 
         return Ok(userProfile);
     }
+    
+    [HttpGet("GetProfilePicture")]
+    public async Task<ActionResult<byte[]>> GetProfilePicture([Required] string userName)
+    {
+        Console.WriteLine("GetProfile");
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var user = await _userManager.FindByNameAsync(userName);
+        if (user == null)
+        {
+            return BadRequest("User not found.");
+        }
+        var userProfile = await _dbContext.UserProfiles.FindAsync(user.ProfileId);
+        if (userProfile == null)
+        {
+            return BadRequest("User profile not found.");
+        }
+
+        var userProfilePicture = userProfile.ProfilePicture;
+
+        return userProfilePicture;
+    }
 }

@@ -3,14 +3,14 @@ import NavigationBar from "../Components/NavigationBar"; // Import your Navbar c
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 
-const Layout = ({loggedIn, logOut, cookies, setLoggedIn, userName}) => {
+const Layout = ({loggedIn, logOut, cookies, setLoggedIn, userName, setUserName}) => {
   const navigate = useNavigate();
   return (
     <div className="Layout">
       <NavigationBar />
       <Sidebar 
         loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn}
-        userName={userName} navigate={navigate}
+        userName={userName} navigate={navigate} setUserName={setUserName}
       />
       <Outlet />
     </div>

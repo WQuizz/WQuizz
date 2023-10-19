@@ -21,6 +21,7 @@ export default function ProfileEditorElement({user}) {
             // You can also update the profilePicture in the state if needed
             // setProfilePicture(newProfilePicture);
             alert("Changes submitted successfully!");
+            window.location.href="/";
           } catch (error) {
             console.error("Error submitting changes:", error);
           }
@@ -39,7 +40,9 @@ export default function ProfileEditorElement({user}) {
 
     return (
         <form className="profile-container">
-             <DisplayProfileImageElement profilePicture={profilePicture} />
+            <div className="profilepic-container-container">
+                <DisplayProfileImageElement profilePicture={profilePicture} />
+             </div>
              <UploadProfilePictureElement setProfilePictureFile={setProfilePictureFile} setProfilePicture={setProfilePicture}/>
              <div className="user-info"><p>Username: {user?.userName}</p></div>
              <div className="user-info"> 

@@ -3,15 +3,15 @@ import { useParams } from 'react-router-dom';
 import { fetchUserProfile } from "../Services/userServices";
 import { useEffect, useState } from "react";
 
-export default function EditProfilePage() {
+export default function EditProfilePage({userName}) {
     const [validateProfile, setValidateProfile] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
-    const { userName } = useParams();
+    const { profileName } = useParams();
     async function getUserProfile() {
-        const newUser = await fetchUserProfile(userName);
-        if (userName === newUser?.userName) {
+        
+        if (profileName === userName) {
+            const newUser = await fetchUserProfile(profileName);
             setValidateProfile(true);
-            
             console.log(newUser);
             setUserProfile(newUser);
         }
@@ -19,7 +19,7 @@ export default function EditProfilePage() {
     useEffect(() => {
       
         getUserProfile();
-    }, [userName]);
+    }, [profileName]);
 
 
 

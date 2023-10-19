@@ -28,7 +28,7 @@ function App() {
       if (jwtToken) {
         // If the cookie exists, consider the user as logged in
         setLoggedIn(true);
-        fetchUserProfile(jwtToken);
+        fetchUserProfile(jwtToken, setUserName);
         setUserName(jwtDecode(jwtToken)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"])
       }
     }
@@ -49,8 +49,8 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName}/>,
-      errorElement: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName}/>,
+      element: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName} setUserName={setUserName}/>,
+      errorElement: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName} setUserName={setUserName}/>,
       children: [
         {
           path: "/",
@@ -77,12 +77,12 @@ function App() {
           element: <CategoryPage />
         },
         {
-          path: "/profile/edit/:userName",
-          element: <EditProfilePage/>
+          path: "/profile/edit/:profileName",
+          element: <EditProfilePage userName={userName}/>
         },
         {
-          path: "/profile/:userName",
-          element: <ProfilePage />
+          path: "/profile/:profileName",
+          element: <ProfilePage userName={userName}/>
         },
       ]
     }
