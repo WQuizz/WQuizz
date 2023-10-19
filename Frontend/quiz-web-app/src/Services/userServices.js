@@ -50,13 +50,14 @@ export function logOut(cookies, setLoggedIn, navigate) {
     }
   }
 
-  export async function uploadProfilePicture(userName, file) {
+  export async function updateProfile(userName, file, displayName) {
     try {
       const formData = new FormData();
       formData.append('userName', userName);
       formData.append('file', file);
+      formData.append('displayName', displayName);
   
-      const response = await fetch('http://localhost:9000/Profile/UploadProfilePicture', {
+      const response = await fetch('http://localhost:9000/Profile/UpdateProfile', {
         method: 'POST',
         body: formData,
       });
