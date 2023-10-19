@@ -2,40 +2,58 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
-import DummyPage from './Pages/DummyPage.jsx'
+import Cookies from 'universal-cookie';
+import { logOut, fetchLoggedInUserProfile as fetchUserProfile } from './Services/userServices';
+
 import NavigationBar from './Components/NavigationBar';
+import DummyPage from './Pages/DummyPage.jsx'
 import CategoriesPage from './Pages/CategoriesPage';
+import CategoryPage from './Pages/CategoryPage';
 import Layout from './Pages/Layout';
 import RegisterPage from './Pages/RegisterPage';
 import LoginPage from './Pages/LoginPage';
 import QuizPage from './Pages/QuizPage';
 import Cookies from 'universal-cookie';
 import AboutUsPage from './Pages/AboutUsPage';
+import ProfilePage from './Pages/ProfilePage';
+import EditProfilePage from './Pages/EditProfilePage';
+import jwtDecode from 'jwt-decode';
+
 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userName, setUserName] = useState(null);
   const cookies = new Cookies();
-  const logOut = () => {
-      cookies.remove("jwt_authorization");
-      console.log("logout");
-      setLoggedIn(false);
-    }
 
-    useEffect(() => {
-      // Check if the jwt_authentication cookie exists
+    const setLoggedInOnLoad = () =>{
       const jwtToken = cookies.get("jwt_authorization");
       if (jwtToken) {
         // If the cookie exists, consider the user as logged in
         setLoggedIn(true);
+        fetchUserProfile(jwtToken, setUserName);
+        setUserName(jwtDecode(jwtToken)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"])
       }
+    }
+
+    useEffect(() => {
+      // Check if the jwt_authentication cookie exists
+      setLoggedInOnLoad();
     }, []);
+
+    useEffect(()=>{
+        //Using this function on log in to fetch the user without reloading
+        if (loggedIn) {
+          setLoggedInOnLoad();
+        }
+
+    },[loggedIn, cookies])
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout loggedIn={loggedIn} logOut={logOut}/>,
-      errorElement: <Layout loggedIn={loggedIn} logOut={logOut}/>,
+      element: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName} setUserName={setUserName}/>,
+      errorElement: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName} setUserName={setUserName}/>,
       children: [
         {
           path: "/",
@@ -60,7 +78,19 @@ function App() {
         {
           path: "/about-us",
           element: <AboutUsPage/>
-        }
+        },
+        {
+          path: "/category/:categoryName",
+          element: <CategoryPage />
+        },
+        {
+          path: "/profile/edit/:profileName",
+          element: <EditProfilePage userName={userName}/>
+        },
+        {
+          path: "/profile/:profileName",
+          element: <ProfilePage userName={userName}/>
+        },
       ]
     }
   ]);

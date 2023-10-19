@@ -1,15 +1,18 @@
 import React from "react";
 import NavigationBar from "../Components/NavigationBar"; // Import your Navbar component
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import Footer from "./Footer";
 
-const Layout = ({loggedIn, logOut}) => {
+const Layout = ({loggedIn, logOut, cookies, setLoggedIn, userName, setUserName}) => {
+  const navigate = useNavigate();
   return (
     <div className="Layout">
       <NavigationBar />
-      <Sidebar loggedIn={loggedIn} logOut={logOut}/>
-    
+      <Sidebar 
+        loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn}
+        userName={userName} navigate={navigate} setUserName={setUserName}
+      />
       <Outlet />
       
     </div>

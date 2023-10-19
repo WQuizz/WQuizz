@@ -7,11 +7,12 @@ using QuizWebApp.Models;
 
 namespace QuizWebApp.DatabaseServices;
 
-public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     public DbSet<Quiz> Quizzes { get; set; }
     public DbSet<Question> Questions { get; set; }
     public DbSet<Answer> Answers { get; set; }
+    public DbSet<UserProfile> UserProfiles { get; set; }
 
     public WQuizzDBContext()
     {
@@ -20,7 +21,7 @@ public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, str
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
+        Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -34,32 +35,38 @@ public class WQuizzDBContext : IdentityDbContext<IdentityUser, IdentityRole, str
             .WithOne(e => e.Question)
             .HasForeignKey(e => e.QuestionId)
             .HasPrincipalKey(e => e.Id);
+        
+        builder.Entity<UserProfile>()
+            .HasOne(userProfile => userProfile.User)
+            .WithOne(user => user.UserProfile)
+            .HasForeignKey<UserProfile>(userProfile => userProfile.UserId);
+        
         builder.Entity<Quiz>().HasData(
             new Quiz
             {
                 Id = 1,
-                QuizName = "Capital Cities around the World", IsApproved = true, Popularity = 0, Rating = 0,
-                Difficulty = Difficulty.Easy, ThumbnailUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/1920px-Prague_%286365119737%29.jpg"
+                QuizName = "Capital Cities around the World", IsApproved = true, Popularity = 100, Rating = 100,
+                Difficulty = Difficulty.Easy, CategoryType = Category.Cities, ThumbnailUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/1920px-Prague_%286365119737%29.jpg"
             },
             new Quiz
             {
                 Id = 2,
-                QuizName = "Chemical Symbols", IsApproved = true, Popularity = 0, Rating = 0,
-                Difficulty = Difficulty.Medium,  ThumbnailUrl = "https://i.pinimg.com/originals/de/54/d3/de54d3e8700cbb87d534844531ae5b71.png"
+                QuizName = "Chemical Symbols", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
+                Difficulty = Difficulty.Medium, CategoryType = Category.Chemistry, ThumbnailUrl = "https://i.pinimg.com/originals/de/54/d3/de54d3e8700cbb87d534844531ae5b71.png"
             },
             new Quiz
             {
                 Id = 3,
-                QuizName = "Retro Gaming", IsApproved = true, Popularity = 0, Rating = 0,
+                QuizName = "Retro Gaming", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
                 ThumbnailUrl = "https://as2.ftcdn.net/v2/jpg/05/59/01/05/1000_F_559010542_cXULDCcdcVwWCcf0DcE7V3QhCQO44Ryh.jpg",
-                Difficulty = Difficulty.Hard,
+                Difficulty = Difficulty.Hard, CategoryType = Category.Entertainment
             },
             new Quiz
             {
                 Id = 4,
-                QuizName = "Bionicle Lore", IsApproved = true, Popularity = 0, Rating = 0,
+                QuizName = "Bionicle Lore", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
                 ThumbnailUrl = "https://biosector01.com/w/images/bs01/0/0e/Toa_Mata_Sets.jpg",
-                Difficulty = Difficulty.Hard,
+                Difficulty = Difficulty.Hard, CategoryType = Category.Entertainment
             }
         );
         builder.Entity<Question>().HasData(

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuizWebApp.DatabaseServices.Repositories;
 using QuizWebApp.Models;
 
 namespace QuizWebApp.Controllers;
@@ -7,6 +8,11 @@ namespace QuizWebApp.Controllers;
 [Route("/api/[controller]")]
 public class CategoryController: ControllerBase
 {
+    private readonly IQuizRepository _quizRepository;
+    public CategoryController(IQuizRepository quizRepositry)
+    {
+        _quizRepository = quizRepositry;
+    }
 
     [HttpGet]
     public IActionResult GetCategories()
@@ -18,5 +24,11 @@ public class CategoryController: ControllerBase
             valueStrings.Add(Enum.GetName(typeof(Category),value));
         }
         return Ok(valueStrings);
+    }
+
+    [HttpGet("byName/{categoryName}")]
+    public IActionResult GetQuizByCategoryName(string categoryName)
+    {
+        return Ok(_quizRepository.GetAll().Where(quiz => quiz.CategoryType.ToString() == categoryName));
     }
 }

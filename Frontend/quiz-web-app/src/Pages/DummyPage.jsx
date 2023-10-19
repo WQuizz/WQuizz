@@ -6,6 +6,7 @@ import Sidebar from "../Components/Sidebar";
 import RecommendationElement from "../Components/RecommendationElement";
 import { QuizSlider } from "../Components/QuizSlider";
 import PatchNotesElement from "../Components/PatchNotesElement";
+import UploadProfilePictureElement from "../Components/UploadProfilePicElement";
 
 
 export default function DummyPage(){

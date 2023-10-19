@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizWebApp.DatabaseServices;
 
@@ -11,9 +12,11 @@ using QuizWebApp.DatabaseServices;
 namespace QuizWebApp.Migrations
 {
     [DbContext(typeof(WQuizzDBContext))]
-    partial class WQuizzDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231018111431_ApplicationUserUpdate3")]
+    partial class ApplicationUserUpdate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -476,9 +479,6 @@ namespace QuizWebApp.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -603,9 +603,6 @@ namespace QuizWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryType")
-                        .HasColumnType("int");
-
                     b.Property<int>("Difficulty")
                         .HasColumnType("int");
 
@@ -633,45 +630,41 @@ namespace QuizWebApp.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryType = 2,
                             Difficulty = 0,
                             IsApproved = true,
-                            Popularity = 100f,
+                            Popularity = 0f,
                             QuizName = "Capital Cities around the World",
-                            Rating = 100f,
+                            Rating = 0f,
                             ThumbnailUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/1920px-Prague_%286365119737%29.jpg"
                         },
                         new
                         {
                             Id = 2,
-                            CategoryType = 1,
                             Difficulty = 1,
                             IsApproved = true,
-                            Popularity = 62f,
+                            Popularity = 0f,
                             QuizName = "Chemical Symbols",
-                            Rating = 82f,
+                            Rating = 0f,
                             ThumbnailUrl = "https://i.pinimg.com/originals/de/54/d3/de54d3e8700cbb87d534844531ae5b71.png"
                         },
                         new
                         {
                             Id = 3,
-                            CategoryType = 5,
                             Difficulty = 2,
                             IsApproved = true,
-                            Popularity = 92f,
+                            Popularity = 0f,
                             QuizName = "Retro Gaming",
-                            Rating = 91f,
+                            Rating = 0f,
                             ThumbnailUrl = "https://as2.ftcdn.net/v2/jpg/05/59/01/05/1000_F_559010542_cXULDCcdcVwWCcf0DcE7V3QhCQO44Ryh.jpg"
                         },
                         new
                         {
                             Id = 4,
-                            CategoryType = 5,
                             Difficulty = 2,
                             IsApproved = true,
-                            Popularity = 97f,
+                            Popularity = 0f,
                             QuizName = "Bionicle Lore",
-                            Rating = 77f,
+                            Rating = 0f,
                             ThumbnailUrl = "https://biosector01.com/w/images/bs01/0/0e/Toa_Mata_Sets.jpg"
                         });
                 });
@@ -694,10 +687,6 @@ namespace QuizWebApp.Migrations
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

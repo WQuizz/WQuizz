@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import "../Styles/sidebar.css";
 import sidebarButton from '../Images/sidebar-button.png';
@@ -7,14 +7,42 @@ import categoriesIcon from '../Images/categories-icon.png';
 import leaderboardsIcon from '../Images/leaderboards-icon.png';
 import userIcon from '../Images/user-icon.png';
 import {Link, NavLink} from 'react-router-dom';
+import { fetchUserProfile } from "../Services/userServices";
+import DisplayProfileImageElement from './DisplayProfileImageElement';
 
-function Sidebar({loggedIn, logOut}) {
-  const [isOpen, setIsOpen] = useState(false);
 
+function Sidebar({loggedIn, logOut, userName, cookies, setLoggedIn, navigate, setUserName}) {
+
+  const [isOpen, setIsOpen] = useState(true);
+  const [userProfileTitle, setUserProfileTitle] = useState("User Profile");
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+  async function getUserProfilePic() {
+      try {
+        const user = await fetchUserProfile(userName);
+        setUserProfileTitle(user.displayName);
+        setProfilePicture(user.profilePicture);
+      } catch (error) {
+        // Handle any errors here, e.g., set a default picture
+        console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if (userName !== null) {
+      
+      getUserProfilePic();
+      
+    }
+    else{
+      setUserProfileTitle("User Profile");
+      setProfilePicture(null);
+    }
+  }, [userName]);
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
@@ -35,18 +63,24 @@ function Sidebar({loggedIn, logOut}) {
                 <Nav.Link>
             {
             isOpen ? (
+            <>
+              {userName&&
+                <div className='avatar-container'>
+                  <DisplayProfileImageElement profilePicture={profilePicture}/>
+                </div> 
+              }
               <NavDropdown
-                title="User Profile"
+                title={userProfileTitle}
                 id="basic-nav-dropdown"
                 className="custom-dropdown"
               >
                 {
                   loggedIn ? (
                     <>
-                      <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="#"><NavLink to={`profile/${userName}`} className="custom-nav-link">Profile</NavLink></NavDropdown.Item>
                       <NavDropdown.Item href="#">Settings</NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>
+                      <NavDropdown.Item onClick={logOut(cookies, setLoggedIn, navigate, setUserName)}>Logout</NavDropdown.Item>
                     </>
                   ) :
                   (
@@ -57,6 +91,7 @@ function Sidebar({loggedIn, logOut}) {
                   )
                 }
               </NavDropdown>
+              </>
             ): <img className='user-icon' src={userIcon}></img>}
             </Nav.Link>
               </Nav.Item>

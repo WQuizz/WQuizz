@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using QuizWebApp.DatabaseServices;
 using QuizWebApp.DatabaseServices.Repositories;
+using QuizWebApp.Models;
 using QuizWebApp.Services.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowLocalhost");
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -104,7 +106,7 @@ void AddAuthentication()
 void AddIdentity()
 {
     builder.Services
-        .AddIdentityCore<IdentityUser>(options =>
+        .AddIdentityCore<ApplicationUser>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = true;
@@ -180,15 +182,37 @@ void AddAdmin()
 async Task CreateAdminIfNotExists()
 {
     using var scope = app.Services.CreateScope();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<WQuizzDBContext>();
     var adminInDb = await userManager.FindByEmailAsync("admin@admin.com");
     if (adminInDb == null)
     {
-        var admin = new IdentityUser { UserName = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_USERNAME"), Email = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_EMAIL") };
+        
+        var adminName = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_USERNAME");
+        var admin = new ApplicationUser
+        {
+            UserName = adminName,
+            Email = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_EMAIL"),
+            UserProfile = null
+        };
+        
         var adminCreated = await userManager.CreateAsync(admin, Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_PASSWORD"));
 
         if (adminCreated.Succeeded)
         {
+            var userProfile = new UserProfile
+            {
+                UserId = admin.Id,
+                DisplayName = adminName,
+                ProfilePicture = null,
+                UserName = adminName
+                // You can set ProfilePicture to null or a default value if needed
+            };
+            
+            dbContext.UserProfiles.Add(userProfile);
+            await dbContext.SaveChangesAsync(); // Save the UserProfile to generate an Id
+            admin.UserProfile = userProfile;
+            admin.ProfileId = userProfile.Id;
             await userManager.AddToRoleAsync(admin, "Admin");
         }
     }
