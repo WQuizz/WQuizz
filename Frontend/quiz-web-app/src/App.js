@@ -77,12 +77,12 @@ function App() {
           element: <CategoryPage />
         },
         {
-          path: "/profile/edit/:userName",
-          element: <EditProfilePage/>
+          path: "/profile/edit/:profileName",
+          element: <EditProfilePage userName={userName}/>
         },
         {
-          path: "/profile/:userName",
-          element: <ProfilePage />
+          path: "/profile/:profileName",
+          element: <ProfilePage userName={userName}/>
         },
       ]
     }
