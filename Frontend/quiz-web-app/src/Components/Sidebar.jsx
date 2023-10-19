@@ -8,10 +8,9 @@ import leaderboardsIcon from '../Images/leaderboards-icon.png';
 import userIcon from '../Images/user-icon.png';
 import {Link, NavLink} from 'react-router-dom';
 
-function Sidebar({loggedIn, logOut}) {
-  const [isOpen, setIsOpen] = useState(true);
+function Sidebar({loggedIn, logOut, userName, cookies, setLoggedIn, navigate}) {
 
-  
+  const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -43,10 +42,10 @@ function Sidebar({loggedIn, logOut}) {
                 {
                   loggedIn ? (
                     <>
-                      <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="#"><NavLink to={`profile/${userName}`} className="custom-nav-link">Profile</NavLink></NavDropdown.Item>
                       <NavDropdown.Item href="#">Settings</NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>
+                      <NavDropdown.Item onClick={logOut(cookies, setLoggedIn, navigate)}>Logout</NavDropdown.Item>
                     </>
                   ) :
                   (

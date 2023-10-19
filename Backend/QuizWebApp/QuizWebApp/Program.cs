@@ -188,10 +188,10 @@ async Task CreateAdminIfNotExists()
     if (adminInDb == null)
     {
         
-
+        var adminName = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_USERNAME");
         var admin = new ApplicationUser
         {
-            UserName = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_USERNAME"),
+            UserName = adminName,
             Email = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_EMAIL"),
             UserProfile = null
         };
@@ -203,8 +203,9 @@ async Task CreateAdminIfNotExists()
             var userProfile = new UserProfile
             {
                 UserId = admin.Id,
-                DisplayName = Environment.GetEnvironmentVariable("WQUIZZ_ADMINUSER_USERNAME"),
-                ProfilePicture = null
+                DisplayName = adminName,
+                ProfilePicture = null,
+                UserName = adminName
                 // You can set ProfilePicture to null or a default value if needed
             };
             

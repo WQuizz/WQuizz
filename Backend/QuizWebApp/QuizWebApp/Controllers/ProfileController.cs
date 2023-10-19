@@ -19,10 +19,11 @@ public class ProfileController : ControllerBase
         _dbContext = dbContext;
     }
 
-    [HttpPost("UploadProfilePicture")]
-    public async Task<ActionResult>  UploadProfilePicture()
+    [HttpPost("UpdateProfile")]
+    public async Task<ActionResult>  UpdateProfile()
     {
         var userName = Request.Form["userName"];
+        string newDisplayName = Request.Form["displayName"];
         var file = Request.Form.Files["file"];
     
         if (string.IsNullOrWhiteSpace(userName) || file == null)
@@ -38,11 +39,6 @@ public class ProfileController : ControllerBase
             return BadRequest("User not found.");
         }
         
-        if (file == null || file.Length == 0)
-        {
-            return BadRequest("Invalid file or empty file.");
-        }
-        
         var userProfile = await _dbContext.UserProfiles.FindAsync(user.ProfileId);
 
         if (userProfile == null)
@@ -50,18 +46,26 @@ public class ProfileController : ControllerBase
             return BadRequest("User profile not found.");
         }
         
-        byte[] profilePictureBytes;
-        using (var memoryStream = new MemoryStream())
+        if (file.Length != 0)
         {
-            await file.CopyToAsync(memoryStream);
-            profilePictureBytes = memoryStream.ToArray();
+            byte[] profilePictureBytes;
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                profilePictureBytes = memoryStream.ToArray();
+            }
+            if (profilePictureBytes.Length == 0)
+            {
+                return BadRequest("Couldn't upload picture.");
+            }
+            userProfile.ProfilePicture = profilePictureBytes;
         }
-        if (profilePictureBytes.Length == 0)
+
+        if (newDisplayName != null && newDisplayName.Length>3)
         {
-            return BadRequest("Couldn't upload picture.");
+            userProfile.DisplayName = newDisplayName;
         }
         
-        userProfile.ProfilePicture = profilePictureBytes;
         _dbContext.UserProfiles.Update(userProfile);
         await _dbContext.SaveChangesAsync();
         

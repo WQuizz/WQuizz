@@ -30,7 +30,8 @@ public class AuthService : IAuthService
         {
             UserId = user.Id,
             DisplayName = username,
-            ProfilePicture = null
+            ProfilePicture = null,
+            UserName = username
             // You can set ProfilePicture to null or a default value if needed
         };
         
