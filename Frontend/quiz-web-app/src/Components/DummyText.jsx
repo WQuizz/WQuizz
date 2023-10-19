@@ -21,6 +21,7 @@ export default function DummyText(){
         </div>
         <div className='dummy'>
         </div>
+        
         </>
     )
 }

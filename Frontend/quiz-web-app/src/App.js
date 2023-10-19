@@ -13,9 +13,12 @@ import Layout from './Pages/Layout';
 import RegisterPage from './Pages/RegisterPage';
 import LoginPage from './Pages/LoginPage';
 import QuizPage from './Pages/QuizPage';
+import Cookies from 'universal-cookie';
+import AboutUsPage from './Pages/AboutUsPage';
 import ProfilePage from './Pages/ProfilePage';
 import EditProfilePage from './Pages/EditProfilePage';
 import jwtDecode from 'jwt-decode';
+
 
 
 function App() {
@@ -71,6 +74,10 @@ function App() {
         {
           path: "/playQuiz/:quizName",
           element: <QuizPage />
+        },
+        {
+          path: "/about-us",
+          element: <AboutUsPage/>
         },
         {
           path: "/category/:categoryName",

@@ -8,9 +8,7 @@ public class Question
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [JsonIgnore]
     public int Id { get; init; }
-    [JsonIgnore]
     public int QuizId { get; init; }
     [JsonIgnore]
     public Quiz Quiz { get; init; }

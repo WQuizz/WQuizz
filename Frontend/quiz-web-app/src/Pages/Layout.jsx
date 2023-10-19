@@ -2,6 +2,7 @@ import React from "react";
 import NavigationBar from "../Components/NavigationBar"; // Import your Navbar component
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
+import Footer from "./Footer";
 
 const Layout = ({loggedIn, logOut, cookies, setLoggedIn, userName, setUserName}) => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Layout = ({loggedIn, logOut, cookies, setLoggedIn, userName, setUserName})
         userName={userName} navigate={navigate} setUserName={setUserName}
       />
       <Outlet />
+      
     </div>
   );
 };

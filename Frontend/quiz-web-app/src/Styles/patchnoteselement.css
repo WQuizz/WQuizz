@@ -10,8 +10,8 @@
 .patch-notes{
     position: relative;
     z-index: 1;
-    top:-30%;
-    left: 84%;
+    bottom: 60vh;
+    margin-left: 81.25vw;
     max-width: 18rem;
     max-height: 30rem;
     box-shadow: 10px 10px 2px rgba(0, 0, 0, 0.3);

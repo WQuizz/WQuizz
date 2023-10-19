@@ -10,11 +10,13 @@ import {Link, NavLink} from 'react-router-dom';
 import { fetchUserProfile } from "../Services/userServices";
 import DisplayProfileImageElement from './DisplayProfileImageElement';
 
+
 function Sidebar({loggedIn, logOut, userName, cookies, setLoggedIn, navigate, setUserName}) {
 
   const [isOpen, setIsOpen] = useState(true);
   const [userProfileTitle, setUserProfileTitle] = useState("User Profile");
   const [profilePicture, setProfilePicture] = useState(null);
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
