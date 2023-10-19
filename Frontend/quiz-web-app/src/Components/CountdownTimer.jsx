@@ -25,7 +25,7 @@ function CountdownTimer(props) {
       
       <div className="progress">
         <div
-          className="progress-bar bg-dark"
+          className={`progress-bar ${time === 0 ? 'animated' : ''}`}
           role="progressbar"
           style={{ width: `${progress}%`}}
           aria-valuenow={progress}

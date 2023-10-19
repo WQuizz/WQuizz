@@ -10,6 +10,7 @@ import RegisterPage from './Pages/RegisterPage';
 import LoginPage from './Pages/LoginPage';
 import QuizPage from './Pages/QuizPage';
 import Cookies from 'universal-cookie';
+import AboutUsPage from './Pages/AboutUsPage';
 
 
 function App() {
@@ -55,6 +56,10 @@ function App() {
         {
           path: "/playQuiz/:quizName",
           element: <QuizPage />
+        },
+        {
+          path: "/about-us",
+          element: <AboutUsPage/>
         }
       ]
     }

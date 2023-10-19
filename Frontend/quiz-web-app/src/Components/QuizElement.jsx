@@ -30,6 +30,7 @@ export default function QuizElement(props) {
 
   const [key, setKey] = useState(0);
 
+
   async function FetchAnswers()
   {
     try{
@@ -48,7 +49,7 @@ export default function QuizElement(props) {
     }
   }
 
-
+  
 async function FetchQuestions()
 {
   try{
@@ -203,7 +204,9 @@ console.log("CORRECT ANSWER!!!!!!!!!!!!!!!!!!! ", correctAnswers[0]);
           
           </div>
 
-      ) : (<EndQuizElement selectedAnswers = {selectedAnswers} wrongAnswers = {wrongAnswers} correctAnswers={correctAnswers}/>)}
+      ) : (
+      !props.loader && endofQuiz && <EndQuizElement selectedAnswers = {selectedAnswers} wrongAnswers = {wrongAnswers} correctAnswers={correctAnswers}/>
+      )}
 
     </>
   );

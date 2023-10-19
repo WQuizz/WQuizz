@@ -16,18 +16,18 @@ export default function EndQuizElement(props)
 
     const correctLength = props.correctAnswers.length;
     const wrongLength = props.wrongAnswers.length
-    const selectedLength = props.selectedAnswers.length
+    const totalLength = props.correctAnswers.length + props.wrongAnswers.length;
 
     return (
         <>
        <div className="end-quiz-container animated-background">
         <div className="result-container">
         <div className="progress">
-        <div className="progress-bar bg-success"  role="progressbar" style={{width: `${correctLength/selectedLength*100}%`}} aria-valuenow={(correctLength/selectedLength*100).toString()} aria-valuemin="0" aria-valuemax="100">
-            Correct: {correctLength / selectedLength *100} %
+        <div className="progress-bar bg-success" role="progressbar" style={{ width: `${(correctLength / totalLength) * 100}%` }} aria-valuenow={(correctLength / totalLength * 100).toString()} aria-valuemin="0" aria-valuemax="100">
+        Correct: {(correctLength / totalLength * 100)}%
         </div>
-        <div className="progress-bar bg-danger" role="progressbar" style={{width: `${wrongLength/selectedLength*100}%`}} aria-valuenow={(props.wrongAnswers.length/props.selectedAnswers.length*100).toString()} aria-valuemin="0" aria-valuemax="100">
-            Incorrect: {wrongLength / selectedLength *100} %
+        <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${(wrongLength / totalLength) * 100}%` }} aria-valuenow={(wrongLength / totalLength * 100).toString()} aria-valuemin="0" aria-valuemax="100">
+         Incorrect: {(wrongLength / totalLength * 100)}%
         </div>
         </div>
 
@@ -47,7 +47,7 @@ export default function EndQuizElement(props)
               )}
                     <p className="card-text">
                         Incorrect Answers: <span className="badge badge-danger">{wrongLength}</span>
-                        <button className="btn btn-link" onClick={() => setShowIncorrectAnswers(!showIncorrectAnswers)}>Show Incorrect Answers</button>
+                        <button className="btn btn-link" onClick={() => setShowIncorrectAnswers(!showIncorrectAnswers)}>Show Incorrect Answers 🦧</button>
                     </p>
                     {showIncorrectAnswers && (
                         <ul>

@@ -1,19 +1,22 @@
 /* AnimatedBackground.css */
 .animated-background {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: -1;
-    background: linear-gradient(45deg, #f06, #9f6, #f06);
-    background-size: 400% 400%;
-    animation: circleAnimation 20s linear infinite;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+  background: linear-gradient(20deg, black, rgb(68, 162, 142), #9f6, #f06);
+  background-size: 400% 400%;
+  animation: slideBackground 10s linear infinite;
+}
+
+@keyframes slideBackground {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  @keyframes circleAnimation {
-    0%, 100% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
+  50%{
+    background-position: 50% 100%;
   }
+  100% {
+    background-position: 100% 50% ;
+  }
+}

@@ -1,4 +1,6 @@
-.nav-bar{
-    position: absolute;
-    top:0%;
+.navbar-container{
+    width: fit-content;
+    height: fit-content;
+
+
 }
