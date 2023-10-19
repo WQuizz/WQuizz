@@ -53,6 +53,9 @@ export function logOut(cookies, setLoggedIn, navigate, setUserName) {
 
   export async function updateProfile(userName, file, displayName) {
     try {
+      console.log(userName);
+      console.log(file);
+      console.log(displayName);
       const formData = new FormData();
       formData.append('userName', userName);
       formData.append('file', file);

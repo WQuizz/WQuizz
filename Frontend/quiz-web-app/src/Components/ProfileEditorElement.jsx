@@ -17,6 +17,7 @@ export default function ProfileEditorElement({user}) {
         e.preventDefault();
         if (profilePictureFile || displayName!==user.displayName) {
           try {
+            console.log(displayName);
             await updateProfile(user.userName, profilePictureFile, displayName);
             // You can also update the profilePicture in the state if needed
             // setProfilePicture(newProfilePicture);
@@ -30,10 +31,26 @@ export default function ProfileEditorElement({user}) {
         }
       };
 
+      //This converts the original pfp base64 data to jpeg because the updateProfile needs
+      //an image or the backend needs it, this is a bandaid fix, will need to figure out a better solution
+      function base64ToFile(base64Data, fileName, mimeType) {
+        const byteCharacters = atob(base64Data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: mimeType });
+        return new File([blob], fileName, { type: mimeType });
+      }
+
       useEffect(()=>{
         if (user?.displayName) {
           setProfilePicture(user.profilePicture);
-          setProfilePictureFile(user.profilePicture?user.profilePicture:null);
+          if (user.profilePicture) {
+            const file = base64ToFile(user.profilePicture, 'profile.jpg', 'image/jpeg');
+            setProfilePictureFile(file);
+          }
           setDisplayName(user.displayName);
         }
       },[user])
