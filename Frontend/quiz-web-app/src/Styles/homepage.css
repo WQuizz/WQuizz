@@ -39,7 +39,7 @@
 .recommendation-element{
     position: relative;
     top:15%;
-    left: 87%;
+    margin-left: -2vw;
     max-width: 18rem;
     max-height: 30rem;
     z-index: 1;
