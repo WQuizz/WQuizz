@@ -3,10 +3,10 @@ import jwtDecode from "jwt-decode";
 export function logOut(cookies, setLoggedIn, navigate) {
     
     return () => {
-        navigate("/");
       cookies.remove("jwt_authorization");
       console.log("logout");
       setLoggedIn(false);
+      navigate("/");
     };
   }
 
@@ -14,13 +14,10 @@ export function logOut(cookies, setLoggedIn, navigate) {
     const decodedCookie = jwtDecode(token);
     const userName = decodedCookie["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
     const url = `http://localhost:9000/Profile/GetProfile?userName=${userName}`;
-  
     try {
       const response = await fetch(url);
-  
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
         if (data?.userName) { 
           setUser(data);
         }
