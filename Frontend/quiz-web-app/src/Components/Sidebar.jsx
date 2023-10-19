@@ -7,7 +7,7 @@ import categoriesIcon from '../Images/categories-icon.png';
 import leaderboardsIcon from '../Images/leaderboards-icon.png';
 import userIcon from '../Images/user-icon.png';
 import {Link, NavLink} from 'react-router-dom';
-import { fetchUserProfilePicture } from "../Services/userServices";
+import { fetchUserProfile } from "../Services/userServices";
 import DisplayProfileImageElement from './DisplayProfileImageElement';
 
 function Sidebar({loggedIn, logOut, userName, cookies, setLoggedIn, navigate, setUserName}) {
@@ -21,8 +21,9 @@ function Sidebar({loggedIn, logOut, userName, cookies, setLoggedIn, navigate, se
 
   async function getUserProfilePic() {
       try {
-        const picture = await fetchUserProfilePicture(userName);
-        setProfilePicture(picture);
+        const user = await fetchUserProfile(userName);
+        setUserProfileTitle(user.displayName);
+        setProfilePicture(user.profilePicture);
       } catch (error) {
         // Handle any errors here, e.g., set a default picture
         console.error(error);
@@ -31,7 +32,7 @@ function Sidebar({loggedIn, logOut, userName, cookies, setLoggedIn, navigate, se
 
   useEffect(() => {
     if (userName !== null) {
-      setUserProfileTitle(userName);
+      
       getUserProfilePic();
       
     }
