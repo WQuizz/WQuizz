@@ -24,13 +24,10 @@ function App() {
 
     const setLoggedInOnLoad = () =>{
       const jwtToken = cookies.get("jwt_authorization");
-      console.log("Getting the token from cookies")
       if (jwtToken) {
         // If the cookie exists, consider the user as logged in
-        console.log("cookie found, logging you in");
         setLoggedIn(true);
         if (user===null) {
-          console.log("User is null, fetching user");
           fetchUserProfile(jwtToken, setUser);
         }
       }
@@ -38,26 +35,20 @@ function App() {
 
     useEffect(() => {
       // Check if the jwt_authentication cookie exists
-      console.log("Loading page")
       setLoggedInOnLoad();
     }, []);
 
     useEffect(()=>{
         //Using this function on log in to fetch the user without reloading
         if (!loggedIn) {
-          console.log("Logged out, setting user to null");
           setUser(null);
         }
         else{
-          console.log("Logged in, fetching user");
           setLoggedInOnLoad();
         }
-        console.log("LoggedIn and/or cookies changed");
     },[loggedIn, cookies])
 
     useEffect(()=>{
-      console.log("Something changed about the user");
-      console.log(user);
     },[user])
 
   const router = createBrowserRouter([
