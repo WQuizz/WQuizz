@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchUserProfile } from "../Services/userServices";
 import "../Styles/profilepage.css";
 
-export default function ProfilePage({ user }) {
+export default function ProfilePage() {
     const { userName } = useParams();
     const [userProfile, setUserProfile] = useState(null);
     const [isYourProfile, setIsYourProfile] = useState(false);
@@ -13,7 +13,7 @@ export default function ProfilePage({ user }) {
         // You can access the userName from the URL here
         async function getUserProfile() {
             const newUser = await fetchUserProfile(userName);
-            setIsYourProfile(userName === user?.userName);
+            setIsYourProfile(userName === newUser?.userName);
             if (isYourProfile) {
                 setUserProfile(newUser);
             } else {
@@ -27,9 +27,9 @@ export default function ProfilePage({ user }) {
         }
 
         getUserProfile();
-    }, [userName, user]);
+    }, [userName]);
 
-    useEffect(() => { }, [user, userProfile]);
+    useEffect(() => { }, [userProfile]);
 
     return (
         <div className="profilepage">

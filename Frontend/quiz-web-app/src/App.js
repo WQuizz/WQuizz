@@ -15,11 +15,12 @@ import LoginPage from './Pages/LoginPage';
 import QuizPage from './Pages/QuizPage';
 import ProfilePage from './Pages/ProfilePage';
 import EditProfilePage from './Pages/EditProfilePage';
+import jwtDecode from 'jwt-decode';
 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState(null);
   const cookies = new Cookies();
 
     const setLoggedInOnLoad = () =>{
@@ -27,9 +28,8 @@ function App() {
       if (jwtToken) {
         // If the cookie exists, consider the user as logged in
         setLoggedIn(true);
-        if (user===null) {
-          fetchUserProfile(jwtToken, setUser);
-        }
+        fetchUserProfile(jwtToken);
+        setUserName(jwtDecode(jwtToken)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"])
       }
     }
 
@@ -40,22 +40,17 @@ function App() {
 
     useEffect(()=>{
         //Using this function on log in to fetch the user without reloading
-        if (!loggedIn) {
-          setUser(null);
-        }
-        else{
+        if (loggedIn) {
           setLoggedInOnLoad();
         }
-    },[loggedIn, cookies])
 
-    useEffect(()=>{
-    },[user])
+    },[loggedIn, cookies])
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={user?.userName}/>,
-      errorElement: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={user?.userName}/>,
+      element: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName}/>,
+      errorElement: <Layout loggedIn={loggedIn} logOut={logOut} cookies={cookies} setLoggedIn={setLoggedIn} userName={userName}/>,
       children: [
         {
           path: "/",
@@ -83,11 +78,11 @@ function App() {
         },
         {
           path: "/profile/edit/:userName",
-          element: <EditProfilePage user={user} />
+          element: <EditProfilePage/>
         },
         {
           path: "/profile/:userName",
-          element: <ProfilePage user={user} />
+          element: <ProfilePage />
         },
       ]
     }
