@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuizWebApp.DatabaseServices.Repositories;
 using QuizWebApp.Models;
@@ -16,7 +17,7 @@ public class QuestionController : ControllerBase
         _questionRepository = questionRepository;
         _quizRepository = quizRepository;
     }
-    [HttpPost("AddQuestion")]
+    [HttpPost("AddQuestion"), Authorize(Roles="Admin")]
     public IActionResult AddQuestion([Required]int quizId, [Required]string questionContent, int? timeLimit, string? questionImgUrl)
     {
         var quiz = _quizRepository.GetById(quizId);
