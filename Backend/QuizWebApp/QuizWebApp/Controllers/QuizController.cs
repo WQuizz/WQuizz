@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuizWebApp.DatabaseServices.Repositories;
 using QuizWebApp.Models;
@@ -15,15 +16,17 @@ public class QuizController : ControllerBase
     {
         _quizRepository = quizRepository;
     }
-    [HttpPost("AddQuiz")]
-    public IActionResult AddQuiz([Required]string quizName, [Required]string difficulty, string? thumbnailUrl)
+    [HttpPost("AddQuiz"), Authorize(Roles="Admin")]
+    public IActionResult AddQuiz([Required]string quizName, [Required]string difficulty,[Required]string category, string? thumbnailUrl)
     {
         
         var difficultyEnum = Enum.TryParse(difficulty, true, out Difficulty parsed) ? parsed : Difficulty.Easy;
+        var categoryEnum = Enum.TryParse(category, true, out Category parsed2) ? parsed2 : Category.Entertainment;
         var postQuiz = new Quiz
         {
             QuizName = quizName,
             Difficulty = difficultyEnum,
+            CategoryType = categoryEnum,
             Popularity = 0,
             Rating = 0,
             IsApproved = false,
@@ -32,7 +35,7 @@ public class QuizController : ControllerBase
         _quizRepository.Add(postQuiz);
         return Ok("Successfully Added new Quiz");
     }
-    [HttpDelete("RemoveQuizById")]
+    [HttpDelete("RemoveQuizById"), Authorize(Roles="Admin")]
     public IActionResult RemoveQuizById([Required]int id)
     {
         var quizToRemove = _quizRepository.GetById(id);
