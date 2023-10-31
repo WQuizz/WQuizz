@@ -1,3 +1,4 @@
+using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using QuizWebApp.Models;
@@ -37,5 +38,18 @@ public class QuizControllerTests
         string responseString = await response.Content.ReadAsStringAsync();
         var quiz = JsonConvert.DeserializeObject<Quiz>(responseString);
         Assert.That(quiz.IsApproved, Is.True);
+    }
+
+    [Test]
+    public async Task RemoveEndpointTest()
+    {
+        Assert.Multiple(async () =>
+        {
+            var preDeleteGetResponse = await _client.GetAsync("api/Quiz/GetQuizById?id=1");
+            Assert.That(preDeleteGetResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            var delResponse = await _client.DeleteAsync("api/Quiz/RemoveQuizById/1");
+            var getResponse = await _client.GetAsync("api/Quiz/GetQuizById?id=1");
+            Assert.That(getResponse.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+        });
     }
 }

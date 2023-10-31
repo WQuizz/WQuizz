@@ -35,7 +35,7 @@ public class QuizController : ControllerBase
         _quizRepository.Add(postQuiz);
         return Ok("Successfully Added new Quiz");
     }
-    [HttpDelete("RemoveQuizById"), Authorize(Roles="Admin")]
+    [HttpDelete("RemoveQuizById/{id}"), Authorize(Roles="Admin")]
     public IActionResult RemoveQuizById([Required]int id)
     {
         var quizToRemove = _quizRepository.GetById(id);
