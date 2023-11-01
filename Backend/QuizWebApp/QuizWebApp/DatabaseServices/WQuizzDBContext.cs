@@ -20,8 +20,6 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // optionsBuilder.UseSqlServer(
-        // Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
         var connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING");
         optionsBuilder.UseNpgsql(connectionString);
     }
