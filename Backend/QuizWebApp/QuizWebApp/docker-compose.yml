@@ -6,6 +6,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "Password123"
+      POSTGRES_DB: "WQuizzDB"
     ports:
       - "1433:5432"
     
