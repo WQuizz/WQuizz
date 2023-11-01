@@ -1,8 +1,9 @@
 import React, {useState, useEffect, useRef, Component, useCallback} from 'react';
+import { useNavigate } from 'react-router';
 import  "../Styles/quizslider.css";
 
 export const QuizSlider = () =>{
-
+    const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [quizArray, setQuizArray] = useState([]);
     const [idToFetch, setIdToFetch] = useState([1,2,3,4]);
@@ -96,8 +97,8 @@ export const QuizSlider = () =>{
     return (
         <div className='slidercontainer' ref={sliderContainerRef}> 
             <div className='slideeffectcontainer' style={getSlideContainerStylesWithWidth()}>
-                {quizArray.map((_, quizIndex) =>(
-                    <div key = {quizIndex} style={getSlideStylesWithBackground(quizIndex)} className='slidestyles' />
+                {quizArray.map((quiz, quizIndex) =>(
+                    <div key = {quizIndex} style={getSlideStylesWithBackground(quizIndex)} className='slidestyles' onClick={()=> navigate(`/playQuiz/${quiz.quizName}`)}/>
                 ))}
             </div>
 
@@ -117,7 +118,7 @@ export const QuizSlider = () =>{
                 ))}
             </div>
             {
-                quizArray.length!==0 ? (<div className='quiztextcontainer'><div className='quiztext'>Name: { quizArray[currentIndex].quizName} Popularity: {quizArray[currentIndex].popularity} Rating: {quizArray[currentIndex].rating} </div></div>) : <></>
+                quizArray.length!==0 ? (<div className='quiztextcontainer'><div className='quiztext'>Name: { quizArray[currentIndex].quizName}{<br/>} Popularity: {quizArray[currentIndex].popularity}{<br/>} Rating: {quizArray[currentIndex].rating} </div></div>) : <></>
             }
             </div>
     )
