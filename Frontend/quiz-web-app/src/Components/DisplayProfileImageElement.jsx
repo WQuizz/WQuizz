@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import "../Styles/profilepage.css";
 
 function DisplayProfileImageElement({profilePicture}) {
-  const dataUrl = `data:image/jpeg;base64,${profilePicture}`;
+    const dataUrl = `data:image/jpeg;base64,${profilePicture}`;
     
     useEffect(()=>{},[profilePicture])
 

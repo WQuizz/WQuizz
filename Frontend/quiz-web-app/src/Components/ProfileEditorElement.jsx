@@ -10,17 +10,14 @@ export default function ProfileEditorElement({user}) {
     const[displayName, setDisplayName] = useState(null);
 
     const handleDisplayNameChange = (event) => {
-      setDisplayName(event.target.value); // Update the state when the input changes
+      setDisplayName(event.target.value);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (profilePictureFile || displayName!==user.displayName) {
           try {
-            console.log(displayName);
             await updateProfile(user.userName, profilePictureFile, displayName);
-            // You can also update the profilePicture in the state if needed
-            // setProfilePicture(newProfilePicture);
             alert("Changes submitted successfully!");
             window.location.href="/";
           } catch (error) {

@@ -3,6 +3,7 @@ import RegisterElement from "../Components/RegisterElement";
 import SuccessfullElement from "../Components/SuccessfullElement";
 import { useNavigate } from 'react-router-dom';
 import "../Styles/register.css";
+import { AuthUrl } from "../Files/APIUrl";
 
 export default function RegisterPage({loggedIn}){
     const [email, setEmail] = useState(null);
@@ -22,7 +23,7 @@ export default function RegisterPage({loggedIn}){
             password: password,
         }
 
-        fetch('http://localhost:9000/Auth/Register', {
+        fetch(AuthUrl + 'Register', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -38,7 +39,6 @@ export default function RegisterPage({loggedIn}){
     useEffect(()=>{
         console.log(response);
         if ((response && 'DuplicateEmail' in response)|| (response && 'DuplicateUserName' in response)) {
-            //We can rewrite this later to specify email or username if we want
             setErrorMessage('Username or e-mail is already in use'); 
         }
         if(response && 'email' in response){

@@ -1,5 +1,5 @@
-import "../Styles/aboutus.css"
-
+import "../Styles/aboutus.css";
+import video from "../Images/quizvideo.mp4";
 
 export default function AboutUsElement()
 {
@@ -8,6 +8,8 @@ export default function AboutUsElement()
     return (
         <>
           <div className="about-us-main-container">
+          <div className="video-background">
+            <div className="content">
             <h2 className="about-us-heading">About W Quizz</h2>
             <p className="about-us-paragraph">
               Welcome to W Quizz, your premier destination for a world of quizzes! Dive
@@ -58,6 +60,12 @@ export default function AboutUsElement()
               blast - it's a win-win!
             </p>
             <h2 className="about-us-"></h2>
+            </div>
+            <video autoPlay loop muted className="video">
+            <source src={video} type="video/mp4" />
+            </video>
+          </div>
+            
           </div>
         </>
       );

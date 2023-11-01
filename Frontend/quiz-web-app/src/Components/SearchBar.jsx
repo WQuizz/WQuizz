@@ -2,14 +2,16 @@ import React, {useState, useEffect, Component} from 'react';
 import {FaSearch} from "react-icons/fa";
 import  "../Styles/searchbar.css";
 import {SearchResultsList} from "./SearchResultsList";
+import { APIUrl } from '../Files/APIUrl';
 
 export const SearchBar = () => {
+    
     const [searchInput, setSearchInput] = useState("");
     const [searchResult, setSearchResult] = useState("");
     
     useEffect(()=>{
         searchInput? 
-        fetch(`http://localhost:9000/api/Quiz/GetQuizzesContaining?searchTerm=${searchInput}`)
+        fetch(APIUrl + `Quiz/GetQuizzesContaining?searchTerm=${searchInput}`)
             .then((response)=> response.json())
             .then((json) => {
                 const results = json.map((quiz) => ({
@@ -38,7 +40,6 @@ export const SearchBar = () => {
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                 />
-            
             </div>
             <SearchResultsList results = {searchResult} setInput = {setSearchInput} searchInput = {searchInput}/>
         </div>

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import "../Styles/quizelement.css";
 import "../Styles/animated-background.css";
 import quizImage from "../Images/quiz-time.png";
 import EndQuizElement from "./EndQuizElement";
 import CountdownTimer from "./CountdownTimer.jsx";
+import {APIUrl} from "../Files/APIUrl.js";
 
 export default function QuizElement(props) {
   const [quizResult, setQuizResult] = useState([]);
@@ -34,7 +34,7 @@ export default function QuizElement(props) {
   async function FetchAnswers()
   {
     try{
-      const response = await fetch(`http://localhost:9000/api/Answer/GetByQuestionId/${quizQuestions[questionNumberTracker].id}`);
+      const response = await fetch(APIUrl + `Answer/GetByQuestionId/${quizQuestions[questionNumberTracker].id}`);
       const data = await response.json();
       if(response.ok)
       {
@@ -54,7 +54,7 @@ async function FetchQuestions()
 {
   try{
     console.log(quizResult.id);
-    const response = await fetch(`http://localhost:9000/api/Question/GetByQuizId/${quizResult.id}`)
+    const response = await fetch(`${APIUrl}Question/GetByQuizId/${quizResult.id}`)
     const data =  await response.json();
     if(response.ok)
     {
