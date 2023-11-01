@@ -2,12 +2,12 @@ version: '3.8'
 services:
 
   wquizz-db:
-    image: mcr.microsoft.com/mssql/server
+    image: postgres
     environment:
-      SA_PASSWORD: "P@ssword123"
-      ACCEPT_EULA: Y
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Password123"
     ports:
-      - "1433:1433"
+      - "1433:5432"
     
   wquizz-app:
     image: mcgerasz/wquizz-app:latest
