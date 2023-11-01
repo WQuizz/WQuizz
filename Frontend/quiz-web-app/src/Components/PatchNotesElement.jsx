@@ -26,7 +26,7 @@ export default function PatchNotesElement(){
         <>
           <div className="card text-white bg-dark mb-3 patch-notes">
             <div className="card-header d-flex align-items-center"></div>
-            <div className="card-body">
+            <div className="card-body-main">
               <h5 className="card-title">Recent Changes</h5>
             </div>
           </div>
@@ -36,7 +36,7 @@ export default function PatchNotesElement(){
               .slice(0, 4)
               .map((p) => (
                 <div className="card text-white bg-dark mb-3 patch-notes" key={p.id}>
-                  <div className="card-header d-flex align-items-center">
+                  <div className="card-header names d-flex align-items-center">
                     {p.assignees.map((a) => (
                       <>
                         <Link to={a.html_url} target="_blank">

@@ -13,7 +13,7 @@ import DisplayProfileImageElement from './DisplayProfileImageElement';
 
 function Sidebar({loggedIn, logOut, userName, cookies, setLoggedIn, navigate, setUserName}) {
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [userProfileTitle, setUserProfileTitle] = useState("User Profile");
   const [profilePicture, setProfilePicture] = useState(null);
 
