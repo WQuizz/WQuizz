@@ -46,7 +46,6 @@ return (
       ) : (
         <>
           {showLoader ? <div className="animated-background loader-container"><div className="loader"></div></div> :<QuizElement quizName={props.quizName} loader={showLoader}/>}
-          
         </>
       )}
     </>

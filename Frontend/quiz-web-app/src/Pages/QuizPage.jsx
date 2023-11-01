@@ -1,6 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
-import QuizElement from '../Components/QuizElement';
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import StartQuizElement from '../Components/StartQuizElement';
 export default function QuizPage(){
 

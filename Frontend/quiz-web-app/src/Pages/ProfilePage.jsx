@@ -10,7 +10,6 @@ export default function ProfilePage({userName}) {
     const [isYourProfile, setIsYourProfile] = useState(false);
 
     useEffect(() => {
-        // You can access the userName from the URL here
         async function getUserProfile() {
             const newUser = await fetchUserProfile(profileName);
             setIsYourProfile(userName === profileName);
@@ -18,7 +17,6 @@ export default function ProfilePage({userName}) {
                 setUserProfile(newUser);
             } else {
                 try {
-                    // const newUser = await fetchUserProfile(userName);
                     setUserProfile(newUser);
                 } catch (error) {
                     console.error('Error fetching user profile:', error);

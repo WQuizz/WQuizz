@@ -1,12 +1,9 @@
-import DummyText from "../Components/DummyText"
+import DummyText from "../Components/HomeElement"
 import {SearchBar} from "../Components/SearchBar"
 import "../Styles/homepage.css";
-import NavigationBar from "../Components/NavigationBar.jsx"
-import Sidebar from "../Components/Sidebar";
 import RecommendationElement from "../Components/RecommendationElement";
 import { QuizSlider } from "../Components/QuizSlider";
 import PatchNotesElement from "../Components/PatchNotesElement";
-import UploadProfilePictureElement from "../Components/UploadProfilePicElement";
 
 
 export default function DummyPage(){

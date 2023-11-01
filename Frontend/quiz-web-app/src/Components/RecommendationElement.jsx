@@ -1,21 +1,15 @@
-import { useState,useEffect } from "react";
-import PatchNotesElement from "./PatchNotesElement";
 import "../Styles/recommendationelement.css";
 import { useNavigate } from 'react-router-dom';
 
 
 export default function RecommendationElement(){
 
-    const [recommendation, setRecommendation] = useState(null)
     const navigate = useNavigate();
-   
-    const searchValues=["Capital Cities around the world", "Chemical Symbols"]
 
     const handleClick = () => {
 
         navigate(`/playQuiz/Chemical Symbols`);
     }
-
 
     return (
         
@@ -27,7 +21,4 @@ export default function RecommendationElement(){
             </div>
           </div>
       );
-
-
-
 }

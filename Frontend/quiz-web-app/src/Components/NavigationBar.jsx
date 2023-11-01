@@ -1,12 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import "bootstrap/dist/css/bootstrap.css";
-import { ReactDOM } from "react";
-import NavItem from "react-bootstrap/NavItem";
-// import NavLink from "react-bootstrap/NavLink";
-import {Link, NavLink} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import "../Styles/navbar.css";
 
 function NavigationBar() {
@@ -19,8 +14,8 @@ function NavigationBar() {
       className="me-auto my-2 my-lg-0 nav-bar"
       style={{
         width: "100vw",
-        position: "fixed", // Set position to fixed
-        top: 0, // Stick it to the top of the screen
+        position: "fixed", 
+        top: 0, 
         zIndex: "999",
       }}
     >

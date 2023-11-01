@@ -4,6 +4,7 @@ import "../Styles/login.css";
 import { useEffect, useState } from "react";
 import SuccessfullElement from "../Components/SuccessfullElement";
 import { useNavigate } from 'react-router-dom';
+import { AuthUrl } from "../Files/APIUrl";
 
 export default function LoginPage({setLoggedIn, loggedIn}){
     const [email, setEmail] = useState(null);
@@ -22,7 +23,7 @@ export default function LoginPage({setLoggedIn, loggedIn}){
             Password: password,
         }
         
-        fetch('http://localhost:9000/Auth/Login', {
+        fetch(AuthUrl + 'Login', {
         method: 'POST',
         mode: 'cors',
         headers: {

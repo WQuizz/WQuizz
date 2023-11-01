@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import categoryObjects from "../Files/CategoryObjects.js"
 import "../Styles/categorypage.css";
 import { useNavigate } from "react-router-dom"; 
+import { APIUrl } from "../Files/APIUrl.js";
 
 export default function CategoriesElement() {
 
@@ -10,7 +11,7 @@ export default function CategoriesElement() {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:9000/api/Category")
+        fetch(APIUrl + "Category")
             .then(res => res.json())
             .then(category => setCategories(category))
             .catch(error => console.log(error))

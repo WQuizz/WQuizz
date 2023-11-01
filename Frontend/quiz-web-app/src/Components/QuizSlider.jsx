@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef, Component, useCallback} from 'react';
 import { useNavigate } from 'react-router';
 import  "../Styles/quizslider.css";
+import { APIUrl } from '../Files/APIUrl';
 
 export const QuizSlider = () =>{
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ export const QuizSlider = () =>{
 
     useEffect(()=>{
         idToFetch.forEach(id => {
-            fetch(`http://localhost:9000/api/Quiz/GetQuizById?id=${id}`)
+            fetch(APIUrl + `Quiz/GetQuizById?id=${id}`)
                 .then((response)=> response.json())
                 .then((quiz) => {
                     const result = {
