@@ -20,8 +20,8 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(
-        Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING"));
+        var connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_CONNECTIONSTRING");
+        optionsBuilder.UseNpgsql(connectionString);
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -31,6 +31,7 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
             .WithOne(e => e.Quiz)
             .HasForeignKey(e => e.QuizId)
             .HasPrincipalKey(e => e.Id);
+        
         builder.Entity<Question>().HasMany(e => e.Answers)
             .WithOne(e => e.Question)
             .HasForeignKey(e => e.QuestionId)
