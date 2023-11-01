@@ -68,6 +68,13 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
                 QuizName = "Bionicle Lore", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
                 ThumbnailUrl = "https://biosector01.com/w/images/bs01/0/0e/Toa_Mata_Sets.jpg",
                 Difficulty = Difficulty.Hard, CategoryType = Category.Entertainment
+            },
+            new Quiz
+            {
+                Id = 5,
+                QuizName = "All about Animals!", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
+                ThumbnailUrl = "https://static.wikia.nocookie.net/mythology/images/f/f7/Animal_Collage.jpg/revision/latest/scale-to-width-down/600?cb=20210219055843",
+                Difficulty = Difficulty.Medium, CategoryType = Category.Animals
             }
         );
         builder.Entity<Question>().HasData(
@@ -133,8 +140,43 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
                 Id = 9,
                 QuestionContent = "What is the chemical symbol of Silver?", QuizId = 2,
                 QuestionImgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Silver_crystal.jpg/1200px-Silver_crystal.jpg"
-            }
+            },
             
+            #endregion
+
+            #region All about Animals! Questions
+
+            new Question
+            {
+                Id = 10,
+                QuestionContent = "Which of these animals is known for its ability to change color to camouflage itself?", QuizId = 5,
+                QuestionImgUrl = "https://static.spokanecity.org/photos/2019/09/30/leaf-colors/16x10/Full/leaf-colors.jpg"
+            },
+            new Question
+            {
+                Id = 11,
+                QuestionContent ="What is the largest species of shark?", QuizId = 5,
+                QuestionImgUrl = "https://upload.wikimedia.org/wikipedia/commons/5/59/Caribbean_reef_shark.jpg"
+            },
+            new Question
+            {
+                Id = 12,
+                QuestionContent = "What is the largest land animal on Earth?", QuizId = 5,
+                QuestionImgUrl = "https://i.ytimg.com/vi/KhfCgkJmg8M/maxresdefault.jpg"
+            },
+            new Question
+            {
+                Id = 13,
+                QuestionContent = "Which of the following animals is a marsupial?", QuizId = 5,
+                QuestionImgUrl = "https://cdn.britannica.com/07/154807-050-3226C065/species-Wombat-wombats-wombat-population-Tasmania-Australia.jpg"
+            },
+            new Question
+            {
+                Id = 14,
+                QuestionContent = "What is the national bird of the United States?", QuizId = 5,
+                QuestionImgUrl = "https://www.usnews.com/object/image/0000016f-8c62-d408-a9ef-9ffe94a60000/200115bcusaprofile-editorial.usa.profile.jpg?update-time=1578608368142&size=superhero-medium"
+            }
+
             #endregion
         );
         builder.Entity<Answer>().HasData(
@@ -356,9 +398,133 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
             {
                 Id = 36,
                 AnswerContent = "Ag", IsCorrect = true, QuestionId = 9
-            }
+            },
 
-                #endregion
+            #endregion
+
+            #region Animals: Color Cange Answers
+
+            new Answer
+            {
+                Id = 49,
+                AnswerContent = "Cheetah", IsCorrect = false, QuestionId = 10
+            },
+            new Answer
+            {
+                Id = 50,
+                AnswerContent = "Chameleon", IsCorrect = true, QuestionId = 10,
+            },
+            new Answer
+            {
+                Id = 51,
+                AnswerContent = "Gorilla", IsCorrect = false, QuestionId = 10
+            },
+            new Answer
+            {
+                Id  = 52,
+                AnswerContent = "Sloth", IsCorrect = false, QuestionId = 10
+            },
+
+        #endregion
+            
+            #region Animals: Largest Shark Answers
+
+            new Answer
+            {
+                Id = 41,
+                AnswerContent = "Hammerhead shark", IsCorrect = false, QuestionId = 11
+            },
+            new Answer
+            {
+                Id = 42,
+                AnswerContent = "Great White shark", IsCorrect = false, QuestionId = 11
+            },
+            new Answer
+            {
+                Id = 43,
+                AnswerContent = "Bull shark", IsCorrect = false, QuestionId = 11
+            },
+            new Answer
+            {
+                Id = 44,
+                AnswerContent = "Whale shark", IsCorrect = true, QuestionId = 11
+            },
+
+            #endregion
+
+            #region Animals: Largest Land Animal Answers
+
+            new Answer
+            {
+                Id = 45,
+                AnswerContent = "Giraffe", IsCorrect = false, QuestionId = 12
+            },
+            new Answer
+            {
+                Id = 46,
+                AnswerContent = "African Elephant", IsCorrect = true, QuestionId = 12
+            },
+            new Answer
+            {
+                Id = 47,
+                AnswerContent = "Polar Bear", IsCorrect = false, QuestionId = 12
+            },
+            new Answer
+            {
+                Id = 48,
+                AnswerContent = "Hippopotamus", IsCorrect = false, QuestionId = 12
+            },
+
+            #endregion
+            
+            #region Animals: Marsupial Answers
+
+            new Answer
+            {
+                Id = 37,
+                AnswerContent = "Lion", IsCorrect = false, QuestionId = 13
+            },
+            new Answer
+            {
+                Id = 38,
+                AnswerContent = "Kangaroo", IsCorrect = true, QuestionId = 13
+            },
+            new Answer
+            {
+                Id = 39,
+                AnswerContent = "Dolphin", IsCorrect = false, QuestionId = 13
+            },
+            new Answer
+            {
+                Id = 40,
+                AnswerContent = "Penguin", IsCorrect = false, QuestionId = 13
+            },
+
+            #endregion
+
+            #region Animals: National Bird of US Answers
+
+            new Answer
+            {
+                Id = 53,
+                AnswerContent = "Bald Eagle", IsCorrect = true, QuestionId = 14
+            },
+            new Answer
+            {
+                Id = 54,
+                AnswerContent = "American Robin", IsCorrect = false, QuestionId = 14
+            },
+            new Answer
+            {
+                Id = 55,
+                AnswerContent = "Peregrine Falcon", IsCorrect = false, QuestionId = 14
+            },
+            new Answer
+            {
+                Id = 56,
+                AnswerContent = "Wild Turkey", IsCorrect = false, QuestionId = 14
+            }
+            #endregion
         );
     }
 }
