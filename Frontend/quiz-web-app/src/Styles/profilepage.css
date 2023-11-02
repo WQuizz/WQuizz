@@ -26,7 +26,7 @@
     position: relative;
     max-height: 100%;
     max-width: 100%;
-    margin-top: 5%;
+    margin-top: 10%;
     justify-content: center;
     align-items: center;
     object-fit: contain;
@@ -42,6 +42,31 @@
     width: 100%;
     object-fit: contain;
 }
+
+@media(min-width:3000px){
+    .avatar-container{
+        position: absolute;
+        top: 17.5vh;
+        left:0.7vw;
+    }
+}
+
+@media(min-width:2000px){
+    .avatar-container{
+        position: absolute;
+        top: 10vh;
+        left:50vw;
+    }
+}
+
+@media(min-width:1500px){
+    .avatar-container{
+        position: absolute;
+        top: 35vh;
+        left:1.5vw;
+    }
+}
+
 
 .user-info{
     width: 100%;

@@ -53,7 +53,6 @@ export default function QuizElement(props) {
 async function FetchQuestions()
 {
   try{
-    console.log(quizResult.id);
     const response = await fetch(`${APIUrl}Question/GetByQuizId/${quizResult.id}`)
     const data =  await response.json();
     if(response.ok)
@@ -73,7 +72,7 @@ async function FetchQuestions()
   async function FetchSearchInput() {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/Quiz/GetQuizByName?name=${props.quizName}`
+        `${APIUrl}Quiz/GetQuizByName?name=${props.quizName}`
       );
       const data = await response.json();
       if(response.ok)
@@ -89,12 +88,11 @@ async function FetchQuestions()
 
   async function FetchCorrectAnswers(){
     try {
-      const response = await fetch(`http://localhost:9000/api/Answer/IsCorrect/${quizQuestions[questionNumberTracker].id}`);
+      const response = await fetch(`${APIUrl}Answer/IsCorrect/${quizQuestions[questionNumberTracker].id}`);
       const data = await response.json();
 
       if(response.ok){
         setCorrectAnswerIds(data);
-        console.log("CORRECT ANSWERS",data);
       } 
       
     } catch (error) {
@@ -163,20 +161,6 @@ async function FetchQuestions()
       setKey(key + 1);
     }
   };
-
- 
-useEffect(() => {
-console.log("QUIZ QUESTIONS:" , quizQuestions);
-console.log("ANSWERS FOR QUESTION:", quizAnswers)
-console.log("CLICK NUMBER TRACKER:", questionNumberTracker);
-console.log("CORRECT ASNWER FOR THE QUESTION:", correctAnswers);
-console.log("SELECTED ANSWERS:", selectedAnswers);
-console.log("POINTS", points);
-console.log("CORRECT ANSWER!!!!!!!!!!!!!!!!!!! ", correctAnswers[0]);
-
-}, [quizAnswers, quizQuestions, questionNumberTracker, correctAnswers, points])
-
-
 
   return (
     <>

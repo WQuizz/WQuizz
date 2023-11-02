@@ -6,7 +6,7 @@
 .category-page {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 5%;
     margin-left: 10vw;
     align-items: center;
   }
@@ -53,20 +53,21 @@
     
   }
 
-
-
   .category-title
   {
-   text-align: center;
+    position: relative;
+    text-align: center;
     font-size: 200px;
+    width: 200px;
+    left: 40%;
+    padding-top: 5%;
     font-family: categoryfont;
     letter-spacing: 3px;
     z-index: 1;
     color: white;
-    margin-top: 50px;
+   
   }
 
 body {
   background-image: url(../Images/categorypage.jpg);
-
 }
