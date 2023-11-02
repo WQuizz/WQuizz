@@ -5,6 +5,7 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+ 
 }
 
 .video-background {
@@ -25,9 +26,12 @@
 
 .content {
   position: relative;
-  padding: 10vh;
+  top: 15vh;
+  padding: 5vh;
   width: 50%;
   margin:auto;
-  z-index: 1; /* Place content above the video */
-  /* Additional styling for your content */
+  background-color: rgba(0, 0, 0, 0.6);
+  
+  z-index: 11;
+  
 }

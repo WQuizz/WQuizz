@@ -4,6 +4,19 @@
     height: 100vw;
     justify-content: center;
 }
+
+@keyframes slideBackground {
+    0% {
+      background-position: 0% 50%;
+    }
+    50%{
+      background-position: 50% 100%;
+    }
+    100% {
+      background-position: 100% 50% ;
+    }
+  }
+
 .profile-container{
     display:flex;
     justify-content:flex-start; 
@@ -13,7 +26,9 @@
     align-items: center;
     width: 550px;
     height: 650px;
-    background: rgba(130, 130, 130, 0.187);
+    background: linear-gradient(20deg, black, rgb(68, 162, 142), #9f6, #f06);
+    background-size: 400% 400%;
+    animation: slideBackground 10s linear infinite;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.5);
     border-radius: 30px;
