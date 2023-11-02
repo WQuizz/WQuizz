@@ -47,19 +47,19 @@
     .avatar-container{
         position: absolute;
         top: 17.5vh;
-        left:0.7vw;
+        left: 0.7vw;
     }
 }
 
-@media(min-width:2000px){
+@media (max-width: 2999px) and (min-width: 2000px){
     .avatar-container{
         position: absolute;
-        top: 10vh;
-        left:50vw;
+        top: 28.5vh;
+        left:1vw;
     }
 }
 
-@media(min-width:1500px){
+@media (max-width: 1999px) {
     .avatar-container{
         position: absolute;
         top: 35vh;
