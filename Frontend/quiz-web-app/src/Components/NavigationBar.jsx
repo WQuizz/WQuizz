@@ -15,8 +15,8 @@ function NavigationBar() {
       className="me-auto my-2 my-lg-0 nav-bar"
       style={{
         width: "100vw",
-        position: "fixed", 
-        top: 0, 
+        position: "fixed",
+        top: 0,
         zIndex: "999",
       }}
     >

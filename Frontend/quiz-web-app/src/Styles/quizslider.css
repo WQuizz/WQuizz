@@ -1,11 +1,10 @@
 .slidercontainer{
     height: 35%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 10; 
     position: relative;
     margin: auto;
     overflow: hidden;
 }
-
 
 .dotcontainer{
     display: flex;
@@ -93,4 +92,18 @@
 .gorightblock:hover{
     background-color: grey;
     opacity: 50%;
+}
+
+@media(min-width: 2000px){
+    .slidercontainer{
+        height: 35%;
+        aspect-ratio: 16 / 10; 
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+        top: 10vh;
+    }
+
+
+
 }
