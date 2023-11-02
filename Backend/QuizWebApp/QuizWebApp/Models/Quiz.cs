@@ -14,6 +14,7 @@ public class Quiz
     public Difficulty Difficulty { get; set; }
     public float Popularity { get; set; }
     public float Rating { get; set; }
+    [Column(TypeName = "boolean")]
     public bool IsApproved { get; set; }
     public string? ThumbnailUrl { get; set; }
     [JsonIgnore]
