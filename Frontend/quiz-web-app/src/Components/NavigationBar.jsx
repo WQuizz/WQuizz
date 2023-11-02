@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink} from 'react-router-dom';
 import "../Styles/navbar.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 function NavigationBar() {
   return (
