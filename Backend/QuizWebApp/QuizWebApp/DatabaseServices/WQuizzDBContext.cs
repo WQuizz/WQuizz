@@ -75,6 +75,17 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
                 QuizName = "All about Animals!", IsApproved = true, Popularity = new Random().Next(50,100), Rating = new Random().Next(50,100),
                 ThumbnailUrl = "https://static.wikia.nocookie.net/mythology/images/f/f7/Animal_Collage.jpg/revision/latest/scale-to-width-down/600?cb=20210219055843",
                 Difficulty = Difficulty.Medium, CategoryType = Category.Animals
+            },
+            new Quiz
+            {
+                Id = 6,
+                QuizName = "National Dishes Around the World",
+                IsApproved = true,
+                Popularity = new Random().Next(50, 100),
+                Rating = new Random().Next(50, 100),
+                ThumbnailUrl = "https://www.cactuslanguage.com/wp-content/uploads/2022/09/table-of-food.jpg",
+                Difficulty = Difficulty.Medium,
+                CategoryType = Category.Food
             }
         );
         builder.Entity<Question>().HasData(
@@ -175,9 +186,76 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
                 Id = 14,
                 QuestionContent = "What is the national bird of the United States?", QuizId = 5,
                 QuestionImgUrl = "https://www.usnews.com/object/image/0000016f-8c62-d408-a9ef-9ffe94a60000/200115bcusaprofile-editorial.usa.profile.jpg?update-time=1578608368142&size=superhero-medium"
-            }
+            },
 
             #endregion
+
+            #region Bionicle Lore Questions
+
+            new Question
+            {
+                Id = 15,
+                QuestionContent = "What are the three virtues of the Bionicle Universe?", QuizId = 4,
+                QuestionImgUrl = "https://biosector01.com/w/images/bs01/b/b6/BIONICLE_Logo.png"
+            },
+            
+            new Question
+            {
+                Id = 16,
+                QuestionContent = "When was Bionicle first released?", QuizId = 4,
+                QuestionImgUrl = "https://biosector01.com/w/images/bs01/0/0e/Toa_Mata_Sets.jpg"
+            },
+            
+            new Question
+            {
+                Id = 17,
+                QuestionContent = "What's the name of the island Bionicle first took place in?", QuizId = 4,
+                QuestionImgUrl = "https://biosector01.com/w/images/bs01/a/a2/CGI_Mata_Nui_%28Island%29.jpg"
+            },
+            
+            new Question
+            {
+                Id = 18,
+                QuestionContent = "What are wild animals in the Bionicle universe called?", QuizId = 4,
+                QuestionImgUrl = "https://biosector01.com/w/images/bs01/b/b2/Promo_Art_Rahi.png"
+            },
+
+            #endregion
+
+            #region National Dishes Questions
+
+            new Question
+            {
+                Id = 19,
+                QuestionContent = "What is the national dish of the United Kingdom?",
+                QuizId = 6,
+                QuestionImgUrl = "https://upload.wikimedia.org/wikipedia/commons/6/68/UK_Flag_in_Scotland.jpg"
+            },
+            
+            new Question
+            {
+                Id = 20,
+                QuestionContent = "Which dish is considered the national dish of the United States of America?",
+                QuizId = 6,
+                QuestionImgUrl = "https://upload.wikimedia.org/wikipedia/commons/e/ea/American_flag.jpg"
+            },
+            
+            new Question
+            {
+                Id = 21,
+                QuestionContent = "What is Japan's national dish?",
+                QuizId = 6,
+                QuestionImgUrl = "https://upload.wikimedia.org/wikipedia/commons/f/f6/Emperor_of_Japan_Birthday_Akihito_2017.png"
+            },
+            new Question
+            {
+                Id = 22,
+                QuestionContent = "Which dish is known as the national dish of Hungary?",
+                QuizId = 6,
+                QuestionImgUrl = "https://upload.wikimedia.org/wikipedia/commons/4/46/Flag_of_Hungary_with_arms_%28state%29.png"
+            }
+
+                #endregion
         );
         builder.Entity<Answer>().HasData(
 
@@ -523,7 +601,291 @@ public class WQuizzDBContext : IdentityDbContext<ApplicationUser, IdentityRole, 
             {
                 Id = 56,
                 AnswerContent = "Wild Turkey", IsCorrect = false, QuestionId = 14
+            },
+            #endregion
+
+            #region Bionicle: Three virtues Asnwers
+
+            new Answer
+            {
+                Id = 57,
+                AnswerContent = "Unity, Duty, Destiny",
+                QuestionId = 15,
+                IsCorrect = true
+            },
+
+            new Answer
+            {
+                Id = 58,
+                AnswerContent = "Power, Courage, Wisdom",
+                QuestionId = 15,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 59,
+                AnswerContent = "Love, Hope, Peace",
+                QuestionId = 15,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 60,
+                AnswerContent = "Imagination, Creativity, Innovation",
+                QuestionId = 15,
+                IsCorrect = false
+            },
+
+            #endregion
+
+            #region Bionicle: Release date Answers
+            new Answer
+            {
+                Id = 61,
+                AnswerContent = "2000",
+                QuestionId = 16,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 62,
+                AnswerContent = "2001",
+                QuestionId = 16,
+                IsCorrect = true
+            },
+
+            new Answer
+            {
+                Id = 63,
+                AnswerContent = "2003",
+                QuestionId = 16,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 64,
+                AnswerContent = "2005",
+                QuestionId = 16,
+                IsCorrect = false
+            },
+            
+            #endregion
+
+            #region Bionicle: Name of the island Answers
+
+            new Answer
+            {
+                Id = 65,
+                AnswerContent = "Metru Nui",
+                QuestionId = 17,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 66,
+                AnswerContent = "Voya Nui",
+                QuestionId = 17,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 67,
+                AnswerContent = "Mata Nui",
+                QuestionId = 17,
+                IsCorrect = true
+            },
+
+            new Answer { 
+                    Id = 68,
+                    AnswerContent = "Artakha",
+                    QuestionId = 17,
+                    IsCorrect = false
+                },
+
+                #endregion
+            
+            #region Bionicle: Wild animals Answers
+
+            new Answer
+            {
+                Id = 69,
+                AnswerContent = "Toa",
+                QuestionId = 18,
+                IsCorrect = false
+            },
+
+            new Answer
+            { 
+                Id = 70,
+                AnswerContent = "Matoran",
+                QuestionId = 18,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 71,
+                AnswerContent = "Rahi",
+                QuestionId = 18,
+                IsCorrect = true
+            },
+
+            new Answer
+            {
+                Id = 72,
+                AnswerContent = "Turaga",
+                QuestionId = 18,
+                IsCorrect = false
+            },
+
+            #endregion
+
+            #region National dishes: UK Answers
+            new Answer
+            {
+                Id = 73,
+                AnswerContent = "Fish and Chips",
+                QuestionId = 19,
+                IsCorrect = true
+            },
+
+            new Answer
+            {
+                Id = 74,
+                AnswerContent = "Bangers and Mash",
+                QuestionId = 19,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 75,
+                AnswerContent = "Shepherd's Pie",
+                QuestionId = 19,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 76,
+                AnswerContent = "Chicken Tikka Masala",
+                QuestionId = 19,
+                IsCorrect = false
+            },
+            
+            #endregion
+
+            #region National Dishes: US Answers
+            new Answer
+            {
+                Id = 77,
+                AnswerContent = "Hamburger",
+                QuestionId = 20,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 78,
+                AnswerContent = "Hot Dogs",
+                QuestionId = 20,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 79,
+                AnswerContent = "Apple Pie",
+                QuestionId = 20,
+                IsCorrect = true
+            },
+
+            new Answer
+            {
+                Id = 80,
+                AnswerContent = "Fried Chicken",
+                QuestionId = 20,
+                IsCorrect = false
+            },
+            
+            #endregion
+
+            #region National Dishes: Japan Answers
+
+            new Answer
+            {
+                Id = 81,
+                AnswerContent = "Sushi",
+                QuestionId = 21,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 82,
+                AnswerContent = "Ramen",
+                QuestionId = 21,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 83,
+                AnswerContent = "Tempura",
+                QuestionId = 21,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 84,
+                AnswerContent = "Sushi and Sashimi",
+                QuestionId = 21,
+                IsCorrect = true
+            },
+
+            #endregion
+
+            #region National Dishes: Ungary
+
+            new Answer
+            {
+                Id = 85,
+                AnswerContent = "Goulash",
+                QuestionId = 22,
+                IsCorrect = true
+            },
+
+            new Answer
+            {
+                Id = 86,
+                AnswerContent = "Wiener Schnitzel",
+                QuestionId = 22,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 87,
+                AnswerContent = "Kolbász",
+                QuestionId = 22,
+                IsCorrect = false
+            },
+
+            new Answer
+            {
+                Id = 88,
+                AnswerContent = "Lángos",
+                QuestionId = 22,
+                IsCorrect = false
             }
+
             #endregion
         );
     }
