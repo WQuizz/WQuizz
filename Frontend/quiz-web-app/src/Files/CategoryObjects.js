@@ -18,6 +18,10 @@ const categoryObjects = [
     {
         name: 'chemistry',
         url: 'https://i.imgur.com/pJRsSq7.jpg'
+    },
+    {
+        name: 'entertainment',
+        url: 'https://i.imgur.com/AfZUa9C.png'
     }
 ]
 
