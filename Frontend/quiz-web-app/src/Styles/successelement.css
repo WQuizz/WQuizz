@@ -5,8 +5,8 @@
     display: flex;
     justify-content:center;
     align-items: center;
-    width: 140%;
-    height: 30%;
+    width: 130%;
+    height: 25%;
 
     background: rgba(0, 0, 0, 0.758);
     backdrop-filter: blur(10px);
@@ -14,7 +14,7 @@
     border-radius: 10px;
 
     font-family: serif;
-    font-size: 3em;
+    font-size: 1.5em;
     font-weight: 600;
     color: #fff;
     z-index: 2;

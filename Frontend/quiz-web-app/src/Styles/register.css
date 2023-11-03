@@ -8,11 +8,25 @@
     width: 450px;
 }
 
+@keyframes slideBackground {
+    0% {
+      background-position: 0% 50%;
+    }
+    50%{
+      background-position: 50% 100%;
+    }
+    100% {
+      background-position: 100% 50% ;
+    }
+  }
+
 .register-form{
     font-family: serif;
     position: relative;
     display: flex;
-    background: transparent;
+    background: linear-gradient(20deg, black, rgb(68, 162, 142), #9f6, #f06);
+    background-size: 400% 400%;
+    animation: slideBackground 10s linear infinite;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.5);
     border-radius: 5%;
