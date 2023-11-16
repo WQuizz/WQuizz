@@ -41,11 +41,12 @@ export default function LoginPage({setLoggedIn, loggedIn}){
 
     useEffect(()=>{
         const cookies = new Cookies();
+        var inThirtyMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
         if (response && 'Bad credentials' in response) {
             setErrorMessage('Invalid email or password');
         }
         if (response && 'token' in response) {
-            cookies.set("jwt_authorization", response.token);
+            cookies.set("jwt_authorization", response.token, {expires: inThirtyMinutes});
             setShowSuccessMessage(true);
             setTimeout(() => {
                 setShowSuccessMessage(false);
@@ -69,7 +70,7 @@ export default function LoginPage({setLoggedIn, loggedIn}){
                     <div className="login-successoverlay" />
                 </>
                 )}
-                <LoginElement setEmail={setEmail} setPassword={setPassword} handleSubmit={handleSubmit} errorMessage={errorMessage}></LoginElement>
+                <LoginElement setEmail={setEmail} setPassword={setPassword} handleSubmit={handleSubmit} errorMessage={errorMessage} />
             </div>
         )
     }

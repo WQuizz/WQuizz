@@ -3,7 +3,7 @@ import "../Styles/countdowntimer.css";
 
 
 function CountdownTimer(props) {
-  const [time, setTime] = useState(30); // Initial time in seconds
+  const [time, setTime] = useState(30);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -12,13 +12,13 @@ function CountdownTimer(props) {
       } else {
         clearInterval(timer);
       }
-    }, 1000); // Update every second
+    }, 1000);
 
     props.setTimeLimit(time);
     return () => clearInterval(timer);
   }, [time]);
 
-  const progress = (time / 30) * 100; // Calculate progress percentage
+  const progress = (time / 30) * 100;
 
   return (
     <div>

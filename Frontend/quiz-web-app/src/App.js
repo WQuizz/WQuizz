@@ -32,7 +32,7 @@ function App() {
         setLoggedIn(true);
         fetchUserProfile(jwtToken, setUserName);
         setUserName(jwtDecode(jwtToken)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"])
-      }
+      } 
     }
 
     useEffect(() => {

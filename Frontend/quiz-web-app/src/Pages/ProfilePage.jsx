@@ -23,7 +23,6 @@ export default function ProfilePage({userName}) {
                 }
             }
         }
-
         getUserProfile();
     }, [profileName]);
 
@@ -32,7 +31,6 @@ export default function ProfilePage({userName}) {
     return (
         <div className="profilepage">
             {userProfile?.userName && <ProfileElement user={userProfile} canEdit={isYourProfile}/>}
-            {!userProfile && <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color:"white" }}>User Doesn't exist :3</div>}
         </div>
     )
 }

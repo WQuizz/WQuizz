@@ -6,22 +6,10 @@ import "../Styles/animated-background.css";
 export default function StartQuizElement(props)
 {
 
-    const [startGame, setStartGame] = useState(false);
-    const [showLoader, setShowLoader] = useState(false);
-
-
+const [startGame, setStartGame] = useState(false);
 
 const handleClick = () => {
-    setShowLoader(true);
-
-
     setStartGame(true);
-
-    setTimeout(() => {
-        setStartGame(true);
-        setShowLoader(false);
-      }, 800); // 1000 milliseconds = 1 second
-
 }
 
 
@@ -45,7 +33,7 @@ return (
         </div>
       ) : (
         <>
-          {showLoader ? <div className="animated-background loader-container"><div className="loader"></div></div> :<QuizElement quizName={props.quizName} loader={showLoader}/>}
+          <QuizElement quizName={props.quizName}/>
         </>
       )}
     </>

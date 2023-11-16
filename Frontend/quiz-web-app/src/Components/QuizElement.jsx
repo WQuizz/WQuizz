@@ -4,6 +4,7 @@ import "../Styles/animated-background.css";
 import quizImage from "../Images/quiz-time.png";
 import EndQuizElement from "./EndQuizElement";
 import CountdownTimer from "./CountdownTimer.jsx";
+import LoadingElement from "./LoadingElement.jsx";
 import {APIUrl} from "../Files/APIUrl.js";
 
 export default function QuizElement(props) {
@@ -30,14 +31,18 @@ export default function QuizElement(props) {
 
   const [key, setKey] = useState(0);
 
+  const [loading, setLoading] = useState(true);
+
 
   async function FetchAnswers()
   {
     try{
+      
       const response = await fetch(APIUrl + `Answer/GetByQuestionId/${quizQuestions[questionNumberTracker].id}`);
       const data = await response.json();
       if(response.ok)
       {
+        setLoading(false);
         setQuizAnswers(data);
         setCurrentQuestion(quizQuestions[questionNumberTracker].questionContent);
       }
@@ -47,26 +52,22 @@ export default function QuizElement(props) {
     {
       console.error(err);
     }
+  
   }
 
   
-async function FetchQuestions()
-{
-  try{
-    const response = await fetch(`${APIUrl}Question/GetByQuizId/${quizResult.id}`)
-    const data =  await response.json();
-    if(response.ok)
-    {
-      setQuizQuestions(data);
-      setCurrentQuestion(data[questionNumberTracker].questionContent)
-    }
-   
-
-  }catch(err){
-    console.error(err);
+  async function FetchQuestions() {
+    try {
+      const response = await fetch(`${APIUrl}Question/GetByQuizId/${quizResult.id}`);
+      const data = await response.json();
+      if (response.ok) {
+        setQuizQuestions(data);
+        setCurrentQuestion(data[questionNumberTracker].questionContent);
+      }
+    } catch (err) {
+      console.error(err);
+    } 
   }
-
-}
 
 
   async function FetchSearchInput() {
@@ -164,8 +165,8 @@ async function FetchQuestions()
 
   return (
     <>
-    
-      {quizQuestions && quizResult && quizAnswers && quizQuestions.length > 0 && quizAnswers.length > 0 && endofQuiz == false ? (
+
+      {loading ? <LoadingElement/> : quizQuestions && quizResult && quizAnswers && quizQuestions.length > 0 && quizAnswers.length > 0 && endofQuiz == false ? (
         <div className="maincontainer animated-background">
           <div className="quiz-time-image-container"><img className="quiz-time-image" src={quizImage}></img></div>
           <div className="">
@@ -189,7 +190,7 @@ async function FetchQuestions()
           </div>
 
       ) : (
-      !props.loader && endofQuiz && <EndQuizElement selectedAnswers = {selectedAnswers} wrongAnswers = {wrongAnswers} correctAnswers={correctAnswers}/>
+       endofQuiz && <EndQuizElement selectedAnswers = {selectedAnswers} wrongAnswers = {wrongAnswers} correctAnswers={correctAnswers}/>
       )}
 
     </>

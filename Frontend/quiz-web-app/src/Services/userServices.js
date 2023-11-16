@@ -1,13 +1,15 @@
 import jwtDecode from "jwt-decode";
 import { ProfileUrl } from "../Files/APIUrl";
 
-export function logOut(cookies, setLoggedIn, navigate, setUserName) {
+
+export function logOut(cookies, setLoggedIn, navigate, setUserName, location) {
     
-    return () => {
-      cookies.remove("jwt_authorization");
+  
+    return async () => {
+      await cookies.remove("jwt_authorization");
       setLoggedIn(false);
       setUserName(null);
-      navigate("/");
+      location.pathname === "/" ?  window.location.reload() : navigate("/");
     };
   }
 
