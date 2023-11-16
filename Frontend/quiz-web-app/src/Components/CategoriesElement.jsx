@@ -3,26 +3,33 @@ import categoryObjects from "../Files/CategoryObjects.js"
 import "../Styles/categorypage.css";
 import { useNavigate } from "react-router-dom"; 
 import { APIUrl } from "../Files/APIUrl.js";
+import LoadingElement from "./LoadingElement.jsx";
 
 export default function CategoriesElement() {
 
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(true);
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
         fetch(APIUrl + "Category")
-            .then(res => res.json())
-            .then(category => setCategories(category))
-            .catch(error => console.log(error))
-    }, [])
+    .then(res => res.json())
+    .then(category => {
+      setCategories(category);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.log(error);
+      setLoading(false);
+    });
+}, []);
 
     return (
         <>
         <h1 className="category-title">Categories</h1>
         <div className="category-page">
             <div className="flex-container">
-                {categories &&
+                {loading ? <LoadingElement /> : categories &&
                     categories.map((c, index) => {
                         const matchingCategory = categoryObjects.find(
                             (co) => c.toLowerCase() === co.name.toLowerCase()

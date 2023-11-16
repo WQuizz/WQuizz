@@ -26,7 +26,6 @@ export default function CategoryElement(props){
                             <img class="card-img-top card-image" src={quiz.thumbnailUrl ? quiz.thumbnailUrl : categoryObjects.find(x => x.name === props.quizName.ToLowerCase()).url} alt="Quiz image"></img>
                             <div class="card-body">
                             <div class="card-text-wrapper"><h2 class="card-title">{quiz.quizName}</h2></div>
-                            <div class="card-text-wrapper"><p class="card-text">Lorem Ipsum</p></div>
                             <div class="btn-wrapper"><button class="btn btn-dark" onClick={() => handlePlay(quiz.quizName)}>Play this Quiz</button></div>
                             </div>
                         </div>)
